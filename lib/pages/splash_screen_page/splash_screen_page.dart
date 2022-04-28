@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:usainua/resources/app_images.dart';
 
 class SplashScreenPage extends StatelessWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
@@ -7,6 +9,13 @@ class SplashScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Center(
+        child: SvgPicture.asset(
+          AppImages.logo,
+          semanticsLabel: 'USA in UA logo',
+        ),
+      ),
+    );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
+
 import 'package:usainua/pages/main_page.dart';
 import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
 
@@ -12,15 +14,18 @@ class AppRouter {
 
     switch (settings.name) {
       case SplashScreenPage.routeName:
-        builder = (_) => const MainPage();
+        builder = (_) => const SplashScreenPage();
         break;
 
       case MainPage.routeName:
         builder = (_) => const MainPage();
         break;
 
-      // [START] Auth pages
-      // [END] Auth pages
+      //? [START] Auth pages
+      case SignInPage.routeName:
+        builder = (_) => const SignInPage();
+        break;
+      //? [END] Auth pages
 
       default:
         throw Exception('Invalid route: ${settings.name}');

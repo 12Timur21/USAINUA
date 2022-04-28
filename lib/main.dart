@@ -4,7 +4,8 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
+import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
+
 import 'package:usainua/resources/app_themes.dart';
 import 'package:usainua/routes/app_router.dart';
 
@@ -38,11 +39,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'USA IN UA',
+      debugShowCheckedModeBanner: false,
       theme: AppThemes.light(),
-      initialRoute: SplashScreenPage.routeName,
       onGenerateRoute: AppRouter.generateRoute,
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: SignInPage.routeName,
     );
   }
 }
