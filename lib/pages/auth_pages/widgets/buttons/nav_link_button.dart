@@ -15,8 +15,13 @@ class NavLinkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
-      onPressed: () {},
+      onPressed: onTap,
       icon: icon,
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+        splashFactory: NoSplash.splashFactory,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
       label: Padding(
         padding: const EdgeInsets.only(
           left: 10,

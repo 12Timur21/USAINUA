@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
 
 class SplashScreenPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class SplashScreenPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SvgPicture.asset(
-          AppImages.logo,
+          AppIcons.logo,
           semanticsLabel: 'USA in UA logo',
         ),
       ),

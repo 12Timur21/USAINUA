@@ -6,6 +6,7 @@ class AppFonts {
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight bold = FontWeight.w700;
   static const FontWeight extraBold = FontWeight.w800;
+  static const FontWeight heavy = FontWeight.w900;
 
   static const double sizeXXSmall = 12;
   static const double sizeXSmall = 14;

@@ -21,9 +21,14 @@ dependencies:
   bloc: ^8.0.3
   hive: ^2.1.0
   flutter_svg: ^1.0.3
+  url_launcher: ^6.1.0
 
   flutter_multi_formatter: ^2.5.1
   form_field_validator: ^1.1.0
+
+  page_transition: ^2.0.5
+  flutter_markdown: ^0.6.10
+  pin_code_fields: ^7.4.0
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +41,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-  #   - images/a_dot_ham.jpeg
+    - assets/md/
 
 
   fonts:
@@ -48,6 +53,8 @@ flutter:
           weight: 700
         - asset: assets/fonts/lato/Lato-ExtraBold.ttf
           weight: 800
+        - asset: assets/fonts/lato/Lato-Heavy.ttf
+          weight: 900
          
   
          

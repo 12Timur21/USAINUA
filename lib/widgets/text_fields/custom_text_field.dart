@@ -17,6 +17,7 @@ class CustomTextField extends StatefulWidget {
     this.formatters,
     this.maxLength,
     this.obscureText = false,
+    required this.keyboardType,
     Key? key,
   }) : super(key: key);
 
@@ -29,6 +30,7 @@ class CustomTextField extends StatefulWidget {
   final List<TextInputFormatter>? formatters;
   final int? maxLength;
   final bool obscureText;
+  final TextInputType keyboardType;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -43,47 +45,48 @@ class _CustomTextFieldState extends State<CustomTextField> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
-      width: double.infinity,
-      child: TextFormField(
-        validator: widget.validator ?? MultiValidator([]),
+    return TextFormField(
+      validator: widget.validator ?? MultiValidator([]),
 
-        maxLength: widget.maxLength,
+      keyboardType: widget.keyboardType,
 
-        inputFormatters: widget.formatters,
+      inputFormatters: widget.formatters,
 
-        decoration: InputDecoration(
-          filled: true,
-          hintText: widget.hintText,
-          counterText: '',
-          suffixIcon: widget.obscureText
-              ? IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {
-                    setState(() {
-                      isVisiblyMode = !isVisiblyMode;
-                    });
-                  },
-                  icon: SvgPicture.asset(
-                    isVisiblyMode ? AppIcons.openEye : AppIcons.closedEye,
-                  ),
-                )
-              : null,
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 24,
         ),
-        obscureText: isVisiblyMode,
-
-        //TODO Пример
-        style: const TextStyle(
-          color: AppColors.textPrimary,
-        ),
-
-        onChanged: widget.onChanged,
-        onTap: widget.onFocus,
-        onFieldSubmitted: widget.onSubmitted,
+        filled: true,
+        hintText: widget.hintText,
+        counterText: '',
+        suffixIcon: widget.obscureText
+            ? IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: () {
+                  setState(() {
+                    isVisiblyMode = !isVisiblyMode;
+                  });
+                },
+                icon: SvgPicture.asset(
+                  isVisiblyMode ? AppIcons.openEye : AppIcons.closedEye,
+                ),
+              )
+            : null,
       ),
+      obscureText: isVisiblyMode,
+
+      //TODO Пример
+      style: const TextStyle(
+        color: AppColors.textPrimary,
+      ),
+
+      onChanged: widget.onChanged,
+      onTap: widget.onFocus,
+      onFieldSubmitted: widget.onSubmitted,
     );
   }
 }
