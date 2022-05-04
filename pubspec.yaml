@@ -29,6 +29,9 @@ dependencies:
   page_transition: ^2.0.5
   flutter_markdown: ^0.6.10
   pin_code_fields: ^7.4.0
+  smooth_page_indicator: ^1.0.0+2
+  auto_size_text: ^3.0.0
+  bubble_bottom_bar: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -40,10 +43,11 @@ flutter:
   uses-material-design: true  
   assets:
     - assets/images/
+    - assets/images/goods/
     - assets/icons/
+    - assets/icons/bottom_nav_bar_icons/
     - assets/md/
-
-
+    
   fonts:
     - family: Lato
       fonts:

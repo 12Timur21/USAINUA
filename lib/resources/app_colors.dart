@@ -20,4 +20,6 @@ class AppColors {
   //[Start] Button
 
   static const Color noActiveText = Color(0xFFA7B0C0);
+
+  static const Color boxShadow = Color(0xFF9aa7c6);
 }

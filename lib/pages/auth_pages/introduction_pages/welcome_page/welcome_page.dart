@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/intro_slider_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 
-class IntroductionPage extends StatelessWidget {
-  const IntroductionPage({Key? key}) : super(key: key);
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({Key? key}) : super(key: key);
 
-  static const routeName = '/introduction_page';
+  static const routeName = '/welcome_page';
 
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
 
-    void _alreadySignUp() {
-      Navigator.of(context).pop();
+    void _nextPage() {
+      Navigator.of(context).pushNamed(
+        IntroSliderPage.routeName,
+      );
     }
 
     return Scaffold(
@@ -75,7 +78,7 @@ class IntroductionPage extends StatelessWidget {
               ),
             ),
             SubmitButton(
-              onTap: () {},
+              onTap: _nextPage,
               text: 'Продолжить',
             ),
           ],

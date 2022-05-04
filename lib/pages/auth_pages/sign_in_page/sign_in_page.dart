@@ -1,10 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/phone_input_formatter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:usainua/pages/auth_pages/remind_password_page/remind_password_page.dart';
 import 'package:usainua/pages/auth_pages/sign_up_page/sign_up_page.dart';
+import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
 import 'package:usainua/pages/auth_pages/widgets/buttons/nav_link_button.dart';
 import 'package:usainua/pages/auth_pages/widgets/buttons/service_auth_button.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -34,11 +34,17 @@ class _SignInPageState extends State<SignInPage> {
 
   void _signIn() {
     bool isValid = _formKey.currentState?.validate() ?? false;
-
+    Navigator.of(context).pushNamed(
+      VerificationCodePage.routeName,
+    );
     print(isValid);
   }
 
-  void _remindPassword() {}
+  void _remindPassword() {
+    Navigator.of(context).pushNamed(
+      RemindPasswordPage.routeName,
+    );
+  }
 
   void _googleAuth() {}
 

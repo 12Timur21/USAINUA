@@ -4,13 +4,9 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:usainua/pages/auth_pages/Introduction_page/introduction_page.dart';
-import 'package:usainua/pages/auth_pages/remind_password_page/remind_password_page.dart';
-import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
-import 'package:usainua/pages/auth_pages/sign_up_page/sign_up_page.dart';
-import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
-import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
-
+import 'package:usainua/pages/auth_pages/introduction_pages/statistics_page/statistics_page.dart';
+import 'package:usainua/pages/main_pages/home_screen/home_page.dart';
+import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
 import 'package:usainua/resources/app_themes.dart';
 import 'package:usainua/routes/app_router.dart';
 
@@ -48,7 +44,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppThemes.light(),
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: IntroductionPage.routeName,
+      initialRoute: StatisticsPage.routeName,
     );
   }
 }

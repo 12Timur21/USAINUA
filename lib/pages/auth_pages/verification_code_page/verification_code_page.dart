@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome_page.dart';
 import 'package:usainua/pages/auth_pages/widgets/buttons/nav_link_button.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
@@ -25,6 +26,12 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
   void _alreadySignUp() {
     //TODO Продумать
     Navigator.of(context).pop();
+  }
+
+  void _checkPassword() {
+    Navigator.of(context).pushNamed(
+      WelcomePage.routeName,
+    );
   }
 
   @override
@@ -67,7 +74,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
               appContext: context,
               length: 4,
               onCompleted: (v) {
-                print("Completed");
+                _checkPassword();
               },
               onChanged: (value) {
                 print(value);
