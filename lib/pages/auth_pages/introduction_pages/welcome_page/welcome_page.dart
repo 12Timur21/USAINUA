@@ -40,7 +40,6 @@ class WelcomePage extends StatelessWidget {
               text: const TextSpan(
                 style: TextStyle(
                   color: AppColors.textPrimary,
-                  fontFamily: AppFonts.fontFamily,
                   fontWeight: AppFonts.heavy,
                   fontSize: AppFonts.sizeXXLarge,
                   letterSpacing: 0.5,
@@ -66,7 +65,6 @@ class WelcomePage extends StatelessWidget {
               'Логин и пароль был отправлен на Ваш e-mail. Если пароль не получен, проверьте папку “СПАМ”',
               style: TextStyle(
                 color: AppColors.textPrimary,
-                fontFamily: AppFonts.fontFamily,
                 fontWeight: AppFonts.regular,
                 fontSize: AppFonts.sizeXSmall,
                 letterSpacing: 1,

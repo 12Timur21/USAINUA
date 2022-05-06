@@ -89,7 +89,6 @@ class SecondSliderPage extends StatelessWidget {
                 text: const TextSpan(
                   style: TextStyle(
                     color: AppColors.textPrimary,
-                    fontFamily: AppFonts.fontFamily,
                     fontWeight: AppFonts.regular,
                     fontSize: AppFonts.sizeXSmall,
                     letterSpacing: 0.5,
@@ -248,7 +247,6 @@ Widget _slide({
                             text: TextSpan(
                               style: const TextStyle(
                                 color: AppColors.textPrimary,
-                                fontFamily: AppFonts.fontFamily,
                                 fontWeight: AppFonts.heavy,
                                 fontSize: AppFonts.sizeXXLarge,
                                 letterSpacing: 0.5,
@@ -294,7 +292,6 @@ Widget _costInCountries({
         title,
         style: const TextStyle(
           color: AppColors.textPrimary,
-          fontFamily: AppFonts.fontFamily,
           fontWeight: AppFonts.regular,
           fontSize: AppFonts.sizeXSmall,
           letterSpacing: 1,
@@ -304,7 +301,6 @@ Widget _costInCountries({
         '$cost\$',
         style: const TextStyle(
           color: AppColors.textPrimary,
-          fontFamily: AppFonts.fontFamily,
           fontWeight: AppFonts.bold,
           fontSize: AppFonts.sizeSmall,
           letterSpacing: 0.5,

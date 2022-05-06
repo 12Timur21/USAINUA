@@ -4,7 +4,11 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
+import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/statistics_page/statistics_page.dart';
+import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
 import 'package:usainua/pages/main_pages/home_screen/home_page.dart';
 import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
 import 'package:usainua/resources/app_themes.dart';
@@ -39,12 +43,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'USA IN UA',
-      debugShowCheckedModeBanner: false,
-      theme: AppThemes.light(),
-      onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: StatisticsPage.routeName,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthorizationBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AuthentificationBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'USA IN UA',
+        debugShowCheckedModeBanner: false,
+        theme: AppThemes.light(),
+        onGenerateRoute: AppRouter.generateRoute,
+        initialRoute: SplashScreenPage.routeName,
+      ),
     );
   }
 }

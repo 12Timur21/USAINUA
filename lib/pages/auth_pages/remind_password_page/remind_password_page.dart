@@ -16,6 +16,7 @@ class RemindPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
+    final _emailController = TextEditingController();
 
     void _alreadySignUp() {
       Navigator.of(context).pop();
@@ -42,7 +43,6 @@ class RemindPasswordPage extends StatelessWidget {
               'Введите эл. почту или телефон',
               style: TextStyle(
                 color: AppColors.textSecondary,
-                fontFamily: AppFonts.fontFamily,
                 fontWeight: AppFonts.bold,
                 fontSize: AppFonts.sizeSmall,
               ),
@@ -55,6 +55,7 @@ class RemindPasswordPage extends StatelessWidget {
               child: Column(
                 children: [
                   CustomTextField(
+                    controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     validator: MultiValidator([
                       EmailValidator(

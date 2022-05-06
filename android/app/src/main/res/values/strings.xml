@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">USA IN UA</string>
+    <string name="facebook_app_id">1098548370696555</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">34e7f8a6e4d6a34e06d91d1e85521303</string>
+</resources>

@@ -37,7 +37,6 @@ class StatisticsPage extends StatelessWidget {
                     const RichTextWidgets(
                       textStyle: TextStyle(
                         color: AppColors.textPrimary,
-                        fontFamily: AppFonts.fontFamily,
                         fontWeight: AppFonts.heavy,
                         letterSpacing: 1,
                       ),
@@ -136,7 +135,6 @@ class StatisticsPage extends StatelessWidget {
                           text: const TextSpan(
                             style: TextStyle(
                               color: AppColors.textPrimary,
-                              fontFamily: AppFonts.fontFamily,
                               fontWeight: AppFonts.bold,
                               fontSize: AppFonts.sizeXSmall,
                             ),
@@ -173,7 +171,6 @@ class StatisticsPage extends StatelessWidget {
                           text: const TextSpan(
                             style: TextStyle(
                               color: AppColors.textPrimary,
-                              fontFamily: AppFonts.fontFamily,
                               fontWeight: AppFonts.bold,
                               fontSize: AppFonts.sizeXSmall,
                             ),

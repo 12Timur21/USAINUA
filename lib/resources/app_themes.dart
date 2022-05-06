@@ -7,23 +7,22 @@ class AppThemes {
   const AppThemes._();
 
   static ThemeData light() {
-    return ThemeData.light().copyWith(
+    return ThemeData(
       // primaryColor: ,
-      
+      fontFamily: AppFonts.fontFamily,
       backgroundColor: AppColors.textSecondary,
       scaffoldBackgroundColor: AppColors.scaffold,
-      
+
       colorScheme: const ColorScheme.light().copyWith(
-        
+
           // primary: AppColors.primary,
           // secondary: AppColors.secondary,
           // tertiary: AppColors.tertiary,
           ),
       textTheme: const TextTheme(
-        
         //Покупка доставка
         // titleMedium: const TextStyle(
-        //   fontFamily: 'Lato',
+        //   : 'Lato',
         //   fontWeight: AppFonts.extraBold,
         //   fontSize: AppFonts.sizeLarge,
         //   color: AppColors.textPrimary,
@@ -34,7 +33,6 @@ class AppThemes {
 
         //ВХОД
         headlineLarge: TextStyle(
-          fontFamily: 'Lato',
           fontWeight: AppFonts.extraBold,
           fontSize: AppFonts.sizeXXXLarge,
           color: AppColors.textPrimary,
@@ -43,7 +41,6 @@ class AppThemes {
 
         //Текст о безопастност
         bodyText1: TextStyle(
-          fontFamily: 'Lato',
           fontWeight: AppFonts.regular,
           fontSize: AppFonts.sizeXSmall,
           color: AppColors.textPrimary,
@@ -51,7 +48,6 @@ class AppThemes {
         ),
 
         headline1: TextStyle(
-          fontFamily: 'Lato',
           fontWeight: FontWeight.w800,
           fontSize: 40,
         ),
@@ -70,7 +66,6 @@ class AppThemes {
           letterSpacing: 1,
           color: AppColors.noActiveText,
           fontWeight: AppFonts.regular,
-          fontFamily: AppFonts.fontFamily,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -90,7 +85,6 @@ class AppThemes {
         elevation: 0,
         titleTextStyle: TextStyle(
           color: AppColors.textPrimary,
-          fontFamily: AppFonts.fontFamily,
           fontWeight: AppFonts.heavy,
           fontSize: AppFonts.sizeLarge,
           letterSpacing: 0.5,
@@ -116,7 +110,7 @@ class AppThemes {
       //     alignment: Alignment.center,
       //     textStyle: const TextStyle(
       //       fontWeight: FontWeight.w800,
-      //       fontFamily: 'Lato',
+      //       : 'Lato',
       //       fontSize: 14,
       //     ),
       //     shadowColor: AppColors.buttonPrimary.withOpacity(0.16),

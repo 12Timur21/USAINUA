@@ -8,6 +8,7 @@ import 'package:usainua/resources/app_icons.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
+    required this.controller,
     this.hintText,
     this.height = 56,
     this.validator,
@@ -21,6 +22,7 @@ class CustomTextField extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  final TextEditingController controller;
   final String? hintText;
   final double height;
   final MultiValidator? validator;
@@ -48,12 +50,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       validator: widget.validator ?? MultiValidator([]),
-
       keyboardType: widget.keyboardType,
-
       inputFormatters: widget.formatters,
-
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
           vertical: 20,

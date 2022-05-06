@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/intro_slider_page.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/statistics_page/statistics_page.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome_page.dart';
@@ -48,7 +50,6 @@ class AppRouter {
       case RemindPasswordPage.routeName:
         builder = const RemindPasswordPage();
         break;
-
       //? [END] Auth pages
 
       //? [START] Intro page

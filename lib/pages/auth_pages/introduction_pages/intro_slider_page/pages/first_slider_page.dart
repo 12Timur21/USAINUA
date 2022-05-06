@@ -47,7 +47,6 @@ class FirstSliderPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.textPrimary,
-                      fontFamily: AppFonts.fontFamily,
                       fontWeight: AppFonts.heavy,
                       fontSize: AppFonts.sizeLarge,
                       letterSpacing: 0.5,
@@ -61,7 +60,6 @@ class FirstSliderPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.textPrimary,
-                      fontFamily: AppFonts.fontFamily,
                       fontWeight: AppFonts.bold,
                       fontSize: AppFonts.sizeXSmall,
                       letterSpacing: 0.5,
@@ -74,7 +72,6 @@ class FirstSliderPage extends StatelessWidget {
                     'USAIN.UA',
                     style: TextStyle(
                       color: AppColors.buttonPrimary,
-                      fontFamily: AppFonts.fontFamily,
                       fontWeight: AppFonts.bold,
                       fontSize: AppFonts.sizeXSmall,
                       letterSpacing: 0.5,
