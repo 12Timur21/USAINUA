@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:usainua/models/user_model.dart';
+import 'package:usainua/repositories/auth_repository.dart';
+import 'package:usainua/repositories/firestore_repository.dart';
 
 part 'authorization_event.dart';
 part 'authorization_state.dart';
@@ -8,39 +10,30 @@ part 'authorization_state.dart';
 class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
   AuthorizationBloc() : super(AuthorizationInitial()) {
     on<AppLoaded>((event, emit) async {
-      try {
-        await Future.delayed(
-          const Duration(
-            milliseconds: 500,
-          ),
-        ); // a simulated delay
-        UserModel? user = null;
+      String? uid = AuthRepository.instance.uid;
+      UserModel? userModel;
 
-        if (user != null) {
-          emit(
-            AuthorizationAuthenticated(
-              user: user,
-            ),
-          );
-        } else {
-          emit(
-            AuthorizationUnauthenticated(),
-          );
-        }
-      } catch (e) {
-        //TODO FIX
+      if (uid != null) {
+        userModel = await FirestoreRepository.instance.getUserByUid(uid);
+      }
+
+      if (userModel != null) {
         emit(
-          AuthorizationFailure(
-            message: 'errorore',
-            // message: e.toString() ?? 'An unknown error occurred',
+          AuthorizationAuthenticated(
+            user: userModel,
           ),
+        );
+      } else {
+        emit(
+          AuthorizationUnauthenticated(),
         );
       }
     });
     on<UserLoggedIn>((event, emit) {
       emit(
         AuthorizationAuthenticated(
-          user: event.user,
+          user: event.userModel,
+          isNewUser: event.isNewUser,
         ),
       );
     });

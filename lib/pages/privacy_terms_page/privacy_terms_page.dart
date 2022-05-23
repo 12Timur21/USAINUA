@@ -40,29 +40,37 @@ class _PrivacyTermsPageState extends State<PrivacyTermsPage> {
           ),
         ),
       ),
-      body: Container(
-        color: Colors.grey,
-        child: FutureBuilder(
-          future: rootBundle.loadString(
-            'assets/md/privacy_policy.md',
-          ),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return Markdown(
+      body: FutureBuilder(
+        future: rootBundle.loadString(
+          'assets/md/privacy_policy.md',
+        ),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 5,
+              ),
+              child: Markdown(
                 data: snapshot.data,
-                // styleSheet: MarkdownStyleSheet(),
+                styleSheet: _markdownStyleSheet(context),
                 styleSheetTheme: MarkdownStyleSheetBaseTheme.material,
                 onTapLink: (String text, String? href, String link) {
                   if (href != null) launchUrlString(href);
                 },
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
+              ),
             );
-          },
-        ),
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
+}
+
+MarkdownStyleSheet _markdownStyleSheet(context) {
+  return MarkdownStyleSheet(
+    p: Theme.of(context).textTheme.bodyText1,
+  );
 }

@@ -8,48 +8,25 @@ class AppThemes {
 
   static ThemeData light() {
     return ThemeData(
-      // primaryColor: ,
       fontFamily: AppFonts.fontFamily,
-      backgroundColor: AppColors.textSecondary,
+      backgroundColor: AppColors.lightBlue,
       scaffoldBackgroundColor: AppColors.scaffold,
-
       colorScheme: const ColorScheme.light().copyWith(
-
-          // primary: AppColors.primary,
-          // secondary: AppColors.secondary,
-          // tertiary: AppColors.tertiary,
-          ),
+        primary: AppColors.primary,
+        secondary: AppColors.secondary,
+      ),
       textTheme: const TextTheme(
-        //Покупка доставка
-        // titleMedium: const TextStyle(
-        //   : 'Lato',
-        //   fontWeight: AppFonts.extraBold,
-        //   fontSize: AppFonts.sizeLarge,
-        //   color: AppColors.textPrimary,
-        //   letterSpacing: 0.5,
-        // ),
-
-        // subtitle1: ,
-
-        //ВХОД
         headlineLarge: TextStyle(
-          fontWeight: AppFonts.extraBold,
           fontSize: AppFonts.sizeXXXLarge,
-          color: AppColors.textPrimary,
+          fontWeight: AppFonts.bold,
           letterSpacing: 0.5,
+          color: AppColors.darkBlue,
         ),
-
-        //Текст о безопастност
         bodyText1: TextStyle(
-          fontWeight: AppFonts.regular,
           fontSize: AppFonts.sizeXSmall,
-          color: AppColors.textPrimary,
-          letterSpacing: 0.5,
-        ),
-
-        headline1: TextStyle(
-          fontWeight: FontWeight.w800,
-          fontSize: 40,
+          fontWeight: AppFonts.regular,
+          letterSpacing: 1,
+          color: AppColors.darkBlue,
         ),
       ),
       inputDecorationTheme: const InputDecorationTheme(
@@ -71,12 +48,12 @@ class AppThemes {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           elevation: 15,
-          shadowColor: AppColors.buttonPrimary.withOpacity(0.5),
+          shadowColor: AppColors.lightGreen.withOpacity(0.5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          backgroundColor: AppColors.buttonPrimary,
-          primary: AppColors.textQuaternary,
+          backgroundColor: AppColors.lightGreen,
+          primary: AppColors.darkGreen,
           alignment: Alignment.center,
         ),
       ),
@@ -84,7 +61,7 @@ class AppThemes {
         backgroundColor: AppColors.scaffold,
         elevation: 0,
         titleTextStyle: TextStyle(
-          color: AppColors.textPrimary,
+          color: AppColors.darkBlue,
           fontWeight: AppFonts.heavy,
           fontSize: AppFonts.sizeLarge,
           letterSpacing: 0.5,
@@ -92,30 +69,12 @@ class AppThemes {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         unselectedLabelStyle: TextStyle(
-          color: AppColors.textPrimary,
+          color: AppColors.darkBlue,
         ),
       ),
       checkboxTheme: const CheckboxThemeData(
         shape: CircleBorder(side: BorderSide.none),
-
-        // fillColor: ,
       ),
-      // textButtonTheme: TextButtonThemeData(
-      //   style: TextButton.styleFrom(
-      //     shape: RoundedRectangleBorder(
-      //       borderRadius: BorderRadius.circular(16),
-      //     ),
-      //     backgroundColor: AppColors.buttonPrimary,
-      //     primary: AppColors.textQuaternary,
-      //     alignment: Alignment.center,
-      //     textStyle: const TextStyle(
-      //       fontWeight: FontWeight.w800,
-      //       : 'Lato',
-      //       fontSize: 14,
-      //     ),
-      //     shadowColor: AppColors.buttonPrimary.withOpacity(0.16),
-      //   ),
-      // ),
     );
   }
 }

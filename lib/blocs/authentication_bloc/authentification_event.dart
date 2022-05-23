@@ -7,30 +7,15 @@ abstract class AuthentificationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SigninInWithPhoneNumber extends AuthentificationEvent {
+class AuthentificationWithPhoneNumber extends AuthentificationEvent {
   final String phoneNumber;
 
-  const SigninInWithPhoneNumber({
+  const AuthentificationWithPhoneNumber({
     required this.phoneNumber,
   });
 
   @override
   List<Object> get props => [phoneNumber];
-}
-
-class SignUpWithPhoneNumber extends AuthentificationEvent {
-  final String name;
-  final String email;
-  final String phoneNumber;
-
-  const SignUpWithPhoneNumber({
-    required this.name,
-    required this.email,
-    required this.phoneNumber,
-  });
-
-  @override
-  List<Object> get props => [name, email, phoneNumber];
 }
 
 class ValidateOTPCode extends AuthentificationEvent {
@@ -43,17 +28,66 @@ class ValidateOTPCode extends AuthentificationEvent {
   });
 
   @override
-  List<Object> get props => [smsCode, verificationID];
+  List<Object> get props => [
+        smsCode,
+        verificationID,
+      ];
 }
 
 class AuthentificationWithGoogle extends AuthentificationEvent {}
 
 class AuthentificationWithFacebook extends AuthentificationEvent {}
 
-class AuthentificationErrorHandling extends AuthentificationEvent {
-  final Object error;
+class AuthentificationWithAuthCredential extends AuthentificationEvent {
+  final AuthCredential authCredential;
 
-  const AuthentificationErrorHandling({
+  const AuthentificationWithAuthCredential({
+    required this.authCredential,
+  });
+
+  @override
+  List<Object> get props => [authCredential];
+}
+
+class AuthentificationCreateNewUser extends AuthentificationEvent {
+  final UserModel userModel;
+  final AuthCredential authCredential;
+
+  const AuthentificationCreateNewUser({
+    required this.userModel,
+    required this.authCredential,
+  });
+
+  @override
+  List<Object> get props => [
+        userModel,
+        authCredential,
+      ];
+}
+
+class AuthentificationError extends AuthentificationEvent {
+  final FirebaseAuthException error;
+
+  const AuthentificationError({
     required this.error,
   });
+
+  @override
+  List<Object> get props => [error];
+}
+
+class AuthentificationLinking extends AuthentificationEvent {
+  final AuthCredential oldCredential;
+  final AuthCredential newCredential;
+
+  const AuthentificationLinking({
+    required this.newCredential,
+    required this.oldCredential,
+  });
+
+  @override
+  List<Object> get props => [
+        oldCredential,
+        newCredential,
+      ];
 }

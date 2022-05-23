@@ -12,11 +12,10 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-
     void _nextPage() {
-      Navigator.of(context).pushNamed(
+      Navigator.of(context).pushNamedAndRemoveUntil(
         IntroSliderPage.routeName,
+        (Route<dynamic> route) => false,
       );
     }
 
@@ -39,7 +38,7 @@ class WelcomePage extends StatelessWidget {
             RichText(
               text: const TextSpan(
                 style: TextStyle(
-                  color: AppColors.textPrimary,
+                  color: AppColors.darkBlue,
                   fontWeight: AppFonts.heavy,
                   fontSize: AppFonts.sizeXXLarge,
                   letterSpacing: 0.5,
@@ -49,7 +48,7 @@ class WelcomePage extends StatelessWidget {
                   TextSpan(
                     text: 'in',
                     style: TextStyle(
-                      color: AppColors.buttonPrimary,
+                      color: AppColors.lightGreen,
                     ),
                   ),
                   TextSpan(
@@ -64,7 +63,7 @@ class WelcomePage extends StatelessWidget {
             const Text(
               'Логин и пароль был отправлен на Ваш e-mail. Если пароль не получен, проверьте папку “СПАМ”',
               style: TextStyle(
-                color: AppColors.textPrimary,
+                color: AppColors.darkBlue,
                 fontWeight: AppFonts.regular,
                 fontSize: AppFonts.sizeXSmall,
                 letterSpacing: 1,

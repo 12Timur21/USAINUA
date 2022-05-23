@@ -15,9 +15,11 @@ class AuthorizationUnauthenticated extends AuthorizationState {}
 
 class AuthorizationAuthenticated extends AuthorizationState {
   final UserModel user;
+  final bool isNewUser;
 
   const AuthorizationAuthenticated({
     required this.user,
+    this.isNewUser = false,
   });
 
   @override

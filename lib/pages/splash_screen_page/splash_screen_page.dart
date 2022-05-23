@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome_page.dart';
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
-import 'package:usainua/pages/main_pages/home_screen/home_page.dart';
+import 'package:usainua/pages/main_pages/home_page/home_page.dart';
+import 'package:usainua/pages/main_pages/main_page.dart';
 import 'package:usainua/resources/app_icons.dart';
 
 class SplashScreenPage extends StatelessWidget {
@@ -19,29 +21,33 @@ class SplashScreenPage extends StatelessWidget {
       seconds: 1,
     );
 
-    Timer(splashScreenDuration, () {
-      print('NOOOOOOO');
-      context.read<AuthorizationBloc>().add(
-            AppLoaded(),
-          );
-    });
+    // Timer(splashScreenDuration, () {
+    context.read<AuthorizationBloc>().add(
+          AppLoaded(),
+        );
+    // });
 
     return BlocListener<AuthorizationBloc, AuthorizationState>(
       listener: (context, state) {
+        print(state);
         if (state is AuthorizationUnauthenticated) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
+          Navigator.of(context).pushNamed(
             SignInPage.routeName,
-            (Route<dynamic> route) => false,
+            // (Route<dynamic> route) => false,
           );
         }
         if (state is AuthorizationAuthenticated) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            HomePage.routeName,
-            (Route<dynamic> route) => false,
-          );
-        }
-        if (state is AuthorizationFailure) {
-          print('state error on splash screen');
+          if (state.isNewUser) {
+            Navigator.of(context).pushNamed(
+              WelcomePage.routeName,
+              // (Route<dynamic> route) => false,
+            );
+          } else {
+            Navigator.of(context).pushNamed(
+              MainPage.routeName,
+              // (Route<dynamic> route) => false,
+            );
+          }
         }
       },
       child: Scaffold(

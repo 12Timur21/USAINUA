@@ -46,7 +46,7 @@ class FirstSliderPage extends StatelessWidget {
                     'Покупка и доставка  товаров в США и Европе  с нами легко',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: AppColors.textPrimary,
+                      color: AppColors.darkBlue,
                       fontWeight: AppFonts.heavy,
                       fontSize: AppFonts.sizeLarge,
                       letterSpacing: 0.5,
@@ -59,7 +59,7 @@ class FirstSliderPage extends StatelessWidget {
                     'Нада сюди придумати пару строчок тексту просто привітального',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: AppColors.textPrimary,
+                      color: AppColors.darkBlue,
                       fontWeight: AppFonts.bold,
                       fontSize: AppFonts.sizeXSmall,
                       letterSpacing: 0.5,
@@ -71,7 +71,7 @@ class FirstSliderPage extends StatelessWidget {
                   Text(
                     'USAIN.UA',
                     style: TextStyle(
-                      color: AppColors.buttonPrimary,
+                      color: AppColors.lightGreen,
                       fontWeight: AppFonts.bold,
                       fontSize: AppFonts.sizeXSmall,
                       letterSpacing: 0.5,

@@ -3,16 +3,16 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class UserModel extends Equatable {
-  final String uid;
-  final String name;
-  final String email;
-  final String phoneNumber;
+  final String? uid;
+  final String? name;
+  final String? email;
+  final String? phoneNumber;
 
   const UserModel({
-    required this.uid,
-    required this.name,
-    required this.email,
-    required this.phoneNumber,
+    this.uid,
+    this.name,
+    this.email,
+    this.phoneNumber,
   });
 
   UserModel copyWith({
@@ -49,6 +49,7 @@ class UserModel extends Equatable {
 
   @override
   List<Object?> get props => [
+        uid,
         name,
         email,
         phoneNumber,

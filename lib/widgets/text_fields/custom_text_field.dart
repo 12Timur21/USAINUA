@@ -54,11 +54,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator ?? MultiValidator([]),
       keyboardType: widget.keyboardType,
       inputFormatters: widget.formatters,
+
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
           vertical: 20,
           horizontal: 24,
         ),
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        alignLabelWithHint: true,
         filled: true,
         hintText: widget.hintText,
         counterText: '',
@@ -81,7 +84,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
       //TODO Пример
       style: const TextStyle(
-        color: AppColors.textPrimary,
+        color: AppColors.darkBlue,
       ),
 
       onChanged: widget.onChanged,

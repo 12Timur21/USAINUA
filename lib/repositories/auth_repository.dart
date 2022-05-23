@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:usainua/models/user_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
@@ -9,6 +7,8 @@ class AuthRepository {
   static final AuthRepository instance = AuthRepository._();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  String? get uid => _auth.currentUser?.uid;
 
   Future<void> verifyPhoneNumberAndSendOTP({
     required String phoneNumber,
@@ -39,81 +39,75 @@ class AuthRepository {
       verificationId: verificationID,
       smsCode: smsCode,
     );
+
     return phoneAuthCredential;
   }
 
-  Future<void> signInWithPhoneAuthCredential(
-    PhoneAuthCredential phoneAuthCredential,
+  Future<UserCredential> signInWithAuthCredential(
+    AuthCredential authCredential,
   ) async {
-    try {
-      UserCredential result =
-          await _auth.signInWithCredential(phoneAuthCredential);
-
-      User? user = result.user;
-      await user?.updateEmail('timur.sholokh@gmail.com');
-      await user?.updateDisplayName('12312312312312eeee');
-      print(user);
-      print('123');
-
-      // if (user == null) throw Exception('1 1 1');
-
-      // String uid = user.uid;
-
-      // DatabaseService.instance.recordNewUser(userModel);
-
-    } on FirebaseAuthException catch (e) {
-      //TODO validate
-      return null;
-    }
+    return await _auth.signInWithCredential(authCredential);
   }
 
-  Future<void> signInWithGoogle() async {
-    GoogleSignInAccount? googleAccount = await GoogleSignIn().signIn();
-
+  Future<AuthCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleAccount = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication? googleSignInAuthentication =
         await googleAccount?.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.credential(
+    final AuthCredential googleCredential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication?.accessToken,
       idToken: googleSignInAuthentication?.idToken,
     );
 
-    final UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
-
-    User? user = userCredential.user;
-    print(user);
+    return googleCredential;
   }
 
-  Future<UserCredential> signInWithFacebook() async {
-    final facebook = FacebookLogin();
+  Future<AuthCredential> signInWithFacebook() async {
+    final FacebookLogin facebook = FacebookLogin();
+
     FacebookLoginResult loginResult = await facebook.logIn(permissions: [
       FacebookPermission.publicProfile,
       FacebookPermission.email,
     ]);
 
     if (loginResult.status == FacebookLoginStatus.success) {
-      try {
-        final AuthCredential facebookCredential =
-            FacebookAuthProvider.credential(loginResult.accessToken!.token);
-        final UserCredential userCredential =
-            await _auth.signInWithCredential(facebookCredential);
-        return userCredential;
-      } on FirebaseAuthException catch (e) {
-        throw FirebaseAuthException(
-          code: e.code,
-        );
-      }
+      final AuthCredential facebookCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+      return facebookCredential;
     }
 
     if (loginResult.status == FacebookLoginStatus.cancel) {
-      throw Exception('Authorization canceled');
+      throw FirebaseAuthException(
+        message: 'Authorization canceled',
+        code: 'auth-canseled',
+      );
     }
 
     throw Exception(loginResult.error?.developerMessage);
   }
 
+  Future<void> linkCredentials({
+    required User user,
+    required AuthCredential authCredential,
+  }) async {
+    user.linkWithCredential(authCredential);
+  }
+
+  bool isUserExists() {
+    return _auth.currentUser == null ? false : true;
+  }
+
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  Future<UserCredential> authWithPhone() async {
+    ConfirmationResult res = await _auth.signInWithPhoneNumber('380969596645');
+    return await res.confirm('111111');
+  }
+
+  Future<void> deleteUser() async {
+    await _auth.currentUser?.delete();
   }
 }

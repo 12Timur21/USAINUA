@@ -5,8 +5,8 @@ import 'package:usainua/resources/app_fonts.dart';
 class SubmitButton extends StatelessWidget {
   const SubmitButton({
     this.height = 56,
-    this.backgroundColor = AppColors.buttonPrimary,
-    this.textColor = AppColors.textQuaternary,
+    this.backgroundColor = AppColors.lightGreen,
+    this.textColor = AppColors.darkGreen,
     required this.text,
     required this.onTap,
     this.style,

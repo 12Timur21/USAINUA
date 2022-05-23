@@ -1,22 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_multi_formatter/formatters/phone_input_formatter.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
-import 'package:usainua/pages/auth_pages/remind_password_page/remind_password_page.dart';
+import 'package:usainua/pages/auth_pages/additional_data_collection_page/additional_data_collection_page.dart';
+import 'package:usainua/pages/auth_pages/credential_linking_page/credential_linking_page.dart';
 import 'package:usainua/pages/auth_pages/sign_up_page/sign_up_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
-import 'package:usainua/pages/auth_pages/widgets/buttons/nav_link_button.dart';
-import 'package:usainua/pages/auth_pages/widgets/buttons/service_auth_button.dart';
+import 'package:usainua/pages/main_pages/main_page.dart';
+import 'package:usainua/widgets/buttons/nav_link_button.dart';
+import 'package:usainua/widgets/buttons/service_auth_button.dart';
 import 'package:usainua/resources/app_colors.dart';
+import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_validators.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text/rich_text_widget.dart';
 
 import 'package:usainua/widgets/text_fields/custom_text_field.dart';
+import 'package:usainua/widgets/toasts/error_toast.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -30,9 +36,17 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
+  final FToast _fToast = FToast();
+
+  @override
+  void initState() {
+    _fToast.init(context);
+    super.initState();
+  }
+
+  bool _isPageLoading = false;
 
   void _signUp() {
-    print('text');
     Navigator.of(context).pushNamed(
       SignUpPage.routeName,
     );
@@ -40,16 +54,15 @@ class _SignInPageState extends State<SignInPage> {
 
   void _signIn() {
     bool isValid = _formKey.currentState?.validate() ?? false;
-    Navigator.of(context).pushNamed(
-      VerificationCodePage.routeName,
-    );
-    print(isValid);
-  }
-
-  void _remindPassword() {
-    Navigator.of(context).pushNamed(
-      RemindPasswordPage.routeName,
-    );
+    if (isValid) {
+      context.read<AuthentificationBloc>().add(
+            AuthentificationWithPhoneNumber(
+              phoneNumber: toNumericString(
+                _phoneController.text,
+              ),
+            ),
+          );
+    }
   }
 
   void _googleAuth() {
@@ -64,131 +77,206 @@ class _SignInPageState extends State<SignInPage> {
         );
   }
 
+  Future<void> _onCodeSend({
+    required String verificationID,
+  }) async {
+    AuthCredential? authCredential = await Navigator.of(context).pushNamed(
+      VerificationCodePage.routeName,
+      arguments: VerificationCodePageParameters(
+        phoneNumber: toNumericString(
+          _phoneController.text,
+        ),
+        verificationID: verificationID,
+      ),
+    ) as AuthCredential?;
+
+    if (authCredential != null) {
+      setState(() {
+        _isPageLoading = true;
+      });
+      context.read<AuthentificationBloc>().add(
+            AuthentificationWithAuthCredential(
+              authCredential: authCredential,
+            ),
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 25,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Вход',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.042,
-              ),
-            ),
-            // Padding(
-            //   padding: EdgeInsets.only(
-            //     top: 42 * MediaQuery.of(context).size.aspectRatio,
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 42,
-            // ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  CustomTextField(
-                    controller: _phoneController,
-                    hintText: 'Ваш номер телефона*',
-                    keyboardType: TextInputType.phone,
-                    formatters: [
-                      PhoneInputFormatter(),
-                    ],
-                    validator: MultiValidator([
-                      MinLengthValidator(
-                        1,
-                        errorText: 'Укажите номер телефона',
-                      ),
-                      PhoneValidator(
-                        errorText: 'Укажите корректный номер телефона',
-                      ),
-                    ]),
+    return BlocProvider(
+      create: (context) => context.read<AuthentificationBloc>(),
+      child: BlocListener<AuthentificationBloc, AuthentificationState>(
+        listener: (context, state) {
+          if (state is AuthentificationSuccess) {
+            context.read<AuthorizationBloc>().add(
+                  UserLoggedIn(
+                    userModel: state.userModel,
+                    isNewUser: state.isNewUser,
                   ),
-                ],
-              ),
-            ),
+                );
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              MainPage.routeName,
+              (route) => false,
+            );
+          }
 
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.050,
-              ),
-            ),
-            SubmitButton(
-              onTap: _signIn,
-              text: 'ВОЙТИ',
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.030,
-              ),
-            ),
+          if (state is AuthentificationFailure) {
+            ErrorToast.showErrorToast(
+              fToast: _fToast,
+              errorMessage: state.error,
+            );
+            setState(() {
+              _isPageLoading = false;
+            });
+          }
 
-            RichTextWidgets(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              textStyle: TextStyle(
-                  // color: AppColors
-                  ),
-              children: [
-                NavLinkButton(
-                  onTap: _remindPassword,
-                  text: 'Напоминить пароль',
-                  icon: SvgPicture.asset(
-                    AppIcons.lock,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                NavLinkButton(
-                  onTap: _signUp,
-                  text: 'Зарегистрироваться',
-                  icon: SvgPicture.asset(
-                    AppIcons.addUser,
-                  ),
-                ),
-              ],
-            ),
-            // const SizedBox(
-            //   height: 80,
-            // ),
-            // Padding(
-            //   padding: EdgeInsets.only(
-            //     top: 80 * MediaQuery.of(context).size.aspectRatio,
-            //   ),
-            // ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.080,
+          if (state is AuthentificationCodeSend) {
+            _onCodeSend(verificationID: state.verificationId);
+          }
+
+          if (state is SocialNetworksNeedMoreData) {
+            Navigator.of(context).pushNamed(
+              AdditionalDataCollectionPage.routeName,
+              arguments: AdditionalDataCollectionPageParameters(
+                authCredential: state.authCredential,
+                userModel: state.userModel,
               ),
-            ),
-            Column(
-              children: [
-                ServiceAuthButton(
-                  text: 'Войти как пользователь',
-                  icon: SvgPicture.asset(AppIcons.google),
-                  onTap: _googleAuth,
+            );
+          }
+
+          if (state is AuthentificationWithTheSameCredential) {
+            Navigator.of(context).pushNamed(
+              CredentialLinkingPage.routeName,
+              arguments: CredentialLinkingPageParameters(
+                authType: state.authType,
+                mainAuthCredential: state.authCredential,
+              ),
+            );
+          }
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
                 ),
-                const SizedBox(
-                  height: 10,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Вход',
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.042,
+                      ),
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            controller: _phoneController,
+                            hintText: 'Ваш номер телефона*',
+                            keyboardType: TextInputType.phone,
+                            formatters: [
+                              PhoneInputFormatter(),
+                            ],
+                            validator: MultiValidator([
+                              MinLengthValidator(
+                                1,
+                                errorText: 'Укажите номер телефона',
+                              ),
+                              PhoneValidator(
+                                errorText: 'Укажите корректный номер телефона',
+                              ),
+                            ]),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.050,
+                      ),
+                    ),
+                    SubmitButton(
+                      onTap: _signIn,
+                      text: 'ВОЙТИ',
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.030,
+                      ),
+                    ),
+                    RichTextWidgets(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      textStyle: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.bold,
+                        fontSize: AppFonts.sizeXSmall,
+                      ),
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        NavLinkButton(
+                          onTap: _signUp,
+                          text: 'Зарегистрироваться',
+                          icon: SvgPicture.asset(
+                            AppIcons.addUser,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.080,
+                      ),
+                    ),
+                    RichTextWidgets(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      textStyle: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.regular,
+                        fontSize: AppFonts.sizeXSmall,
+                        letterSpacing: 1,
+                      ),
+                      children: [
+                        ServiceAuthButton(
+                          text: 'Войти как пользователь',
+                          icon: SvgPicture.asset(AppIcons.google),
+                          onTap: _googleAuth,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ServiceAuthButton(
+                          text: 'Войти как пользователь',
+                          icon: SvgPicture.asset(AppIcons.facebook),
+                          onTap: _facebookAuth,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                ServiceAuthButton(
-                  text: 'Войти как пользователь',
-                  icon: SvgPicture.asset(AppIcons.facebook),
-                  onTap: _facebookAuth,
+              ),
+              if (_isPageLoading)
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: Colors.black.withOpacity(0.3),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

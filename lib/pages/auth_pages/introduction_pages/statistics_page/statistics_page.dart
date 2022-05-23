@@ -1,13 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:usainua/pages/main_pages/home_screen/home_page.dart';
+import 'package:usainua/repositories/firestore_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
-import 'package:usainua/widgets/text/icon_text.dart';
 import 'package:usainua/widgets/text/rich_text_widget.dart';
 
 class StatisticsPage extends StatelessWidget {
@@ -17,6 +17,24 @@ class StatisticsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _nextPage() {
+      // Navigator.of(context).pushNamedAndRemoveUntil(
+      //   HomePage.routeName,
+      //   (Route<dynamic> route) => false,
+      // );
+      log('he he he');
+      // FirestoreRepository.instance.createUser(
+      //   const UserModel(
+      //     uid: 'w7bYx6LyB1gvj8vrm6p3zeW3rs33',
+      //     name: 'Timur',
+      //     email: 'gmail.com',
+      //     phoneNumber: '380969596645',
+      //   ),
+      // );
+
+      FirestoreRepository.instance.getUserByUid('w7bYx6LyB1gvj8vrm6p3zeW3rs33');
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -36,7 +54,7 @@ class StatisticsPage extends StatelessWidget {
                   children: [
                     const RichTextWidgets(
                       textStyle: TextStyle(
-                        color: AppColors.textPrimary,
+                        color: AppColors.darkBlue,
                         fontWeight: AppFonts.heavy,
                         letterSpacing: 1,
                       ),
@@ -117,7 +135,7 @@ class StatisticsPage extends StatelessWidget {
                     const Text(
                       'Наша плантация деревьев ежегодно:',
                       style: TextStyle(
-                        color: AppColors.textPrimary,
+                        color: AppColors.darkBlue,
                       ),
                     ),
                     const SizedBox(
@@ -134,7 +152,7 @@ class StatisticsPage extends StatelessWidget {
                         RichText(
                           text: const TextSpan(
                             style: TextStyle(
-                              color: AppColors.textPrimary,
+                              color: AppColors.darkBlue,
                               fontWeight: AppFonts.bold,
                               fontSize: AppFonts.sizeXSmall,
                             ),
@@ -145,7 +163,7 @@ class StatisticsPage extends StatelessWidget {
                               TextSpan(
                                 text: '130 тон ',
                                 style: TextStyle(
-                                  color: AppColors.textSecondary,
+                                  color: AppColors.lightBlue,
                                 ),
                               ),
                               TextSpan(
@@ -170,7 +188,7 @@ class StatisticsPage extends StatelessWidget {
                         RichText(
                           text: const TextSpan(
                             style: TextStyle(
-                              color: AppColors.textPrimary,
+                              color: AppColors.darkBlue,
                               fontWeight: AppFonts.bold,
                               fontSize: AppFonts.sizeXSmall,
                             ),
@@ -181,7 +199,7 @@ class StatisticsPage extends StatelessWidget {
                               TextSpan(
                                 text: '36 тон ',
                                 style: TextStyle(
-                                  color: AppColors.textSecondary,
+                                  color: AppColors.lightBlue,
                                 ),
                               ),
                               TextSpan(
@@ -202,20 +220,13 @@ class StatisticsPage extends StatelessWidget {
             const Text(
               '10 грн с каждого кг идут на высадку деревьев',
               style: TextStyle(
-                color: AppColors.textPrimary,
+                color: AppColors.darkBlue,
               ),
             ),
             const SizedBox(
               height: 30,
             ),
-            SubmitButton(
-              text: 'Начать',
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                  HomePage.routeName,
-                );
-              },
-            ),
+            SubmitButton(text: 'Начать', onTap: _nextPage),
           ],
         ),
       ),

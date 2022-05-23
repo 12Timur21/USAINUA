@@ -1,7 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loop_page_view/loop_page_view.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -12,21 +11,51 @@ class SecondSliderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PageController _pageViewController = PageController();
+    final LoopPageController _pageViewController = LoopPageController();
 
     void _previewSlide() {
       _pageViewController.previousPage(
-        duration: Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 400),
         curve: Curves.easeIn,
       );
     }
 
     void _nextSlide() {
       _pageViewController.nextPage(
-        duration: Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 400),
         curve: Curves.easeIn,
       );
     }
+
+    List<Widget> _pages = [
+      _slide(
+        context: context,
+        title: 'Nike Pegasus Trail 2',
+        imageURL: AppImages.nikeShoes,
+        costInUSA: 130,
+        costInUkraine: 202,
+        onRightArrowTap: _nextSlide,
+        onLeftArrowTap: _previewSlide,
+      ),
+      _slide(
+        context: context,
+        title: 'Published',
+        imageURL: AppImages.book,
+        costInUSA: 10,
+        costInUkraine: 35,
+        onRightArrowTap: _nextSlide,
+        onLeftArrowTap: _previewSlide,
+      ),
+      _slide(
+        context: context,
+        title: 'Louis Vuitton',
+        imageURL: AppImages.handBag,
+        costInUSA: 250,
+        costInUkraine: 300,
+        onRightArrowTap: _nextSlide,
+        onLeftArrowTap: _previewSlide,
+      ),
+    ];
 
     return Container(
       height: double.infinity,
@@ -42,39 +71,12 @@ class SecondSliderPage extends StatelessWidget {
                 overScroll.disallowIndicator();
                 return true;
               },
-              //TODO Infinite slider
-              child: PageView(
-                padEnds: false,
+              child: LoopPageView.builder(
                 controller: _pageViewController,
-                children: [
-                  _slide(
-                    context: context,
-                    title: 'Nike Pegasus Trail 2',
-                    imageURL: AppImages.nikeShoes,
-                    costInUSA: 130,
-                    costInUkraine: 202,
-                    onRightArrowTap: _nextSlide,
-                    onLeftArrowTap: _previewSlide,
-                  ),
-                  _slide(
-                    context: context,
-                    title: 'Published',
-                    imageURL: AppImages.book,
-                    costInUSA: 10,
-                    costInUkraine: 35,
-                    onRightArrowTap: _nextSlide,
-                    onLeftArrowTap: _previewSlide,
-                  ),
-                  _slide(
-                    context: context,
-                    title: 'Louis Vuitton',
-                    imageURL: AppImages.handBag,
-                    costInUSA: 250,
-                    costInUkraine: 300,
-                    onRightArrowTap: _nextSlide,
-                    onLeftArrowTap: _previewSlide,
-                  ),
-                ],
+                itemCount: _pages.length,
+                itemBuilder: (context, index) {
+                  return _pages[index];
+                },
               ),
             ),
           ),
@@ -88,7 +90,7 @@ class SecondSliderPage extends StatelessWidget {
               child: RichText(
                 text: const TextSpan(
                   style: TextStyle(
-                    color: AppColors.textPrimary,
+                    color: AppColors.darkBlue,
                     fontWeight: AppFonts.regular,
                     fontSize: AppFonts.sizeXSmall,
                     letterSpacing: 0.5,
@@ -183,13 +185,16 @@ Widget _slide({
                       highlightColor: Colors.transparent,
                       icon: SvgPicture.asset(
                         AppIcons.leftArrow,
-                        color: AppColors.textPrimary,
+                        color: AppColors.darkBlue,
                       ),
                     ),
                     Text(
                       title,
                       style: const TextStyle(
-                        color: Colors.black,
+                        fontSize: AppFonts.sizeLarge,
+                        fontWeight: AppFonts.heavy,
+                        letterSpacing: 0.5,
+                        color: AppColors.darkBlue,
                       ),
                     ),
                     IconButton(
@@ -246,7 +251,7 @@ Widget _slide({
                           child: RichText(
                             text: TextSpan(
                               style: const TextStyle(
-                                color: AppColors.textPrimary,
+                                color: AppColors.darkBlue,
                                 fontWeight: AppFonts.heavy,
                                 fontSize: AppFonts.sizeXXLarge,
                                 letterSpacing: 0.5,
@@ -257,7 +262,7 @@ Widget _slide({
                                   text: '$_priceDifference\$',
                                   style: const TextStyle(
                                     fontWeight: AppFonts.heavy,
-                                    color: AppColors.buttonPrimary,
+                                    color: AppColors.lightGreen,
                                   ),
                                 ),
                               ],
@@ -291,7 +296,7 @@ Widget _costInCountries({
       Text(
         title,
         style: const TextStyle(
-          color: AppColors.textPrimary,
+          color: AppColors.darkBlue,
           fontWeight: AppFonts.regular,
           fontSize: AppFonts.sizeXSmall,
           letterSpacing: 1,
@@ -300,7 +305,7 @@ Widget _costInCountries({
       Text(
         '$cost\$',
         style: const TextStyle(
-          color: AppColors.textPrimary,
+          color: AppColors.darkBlue,
           fontWeight: AppFonts.bold,
           fontSize: AppFonts.sizeSmall,
           letterSpacing: 0.5,

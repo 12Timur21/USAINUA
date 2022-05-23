@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:usainua/pages/auth_pages/widgets/buttons/nav_link_button.dart';
+import 'package:usainua/widgets/buttons/nav_link_button.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -42,7 +42,7 @@ class RemindPasswordPage extends StatelessWidget {
             const Text(
               'Введите эл. почту или телефон',
               style: TextStyle(
-                color: AppColors.textSecondary,
+                color: AppColors.lightBlue,
                 fontWeight: AppFonts.bold,
                 fontSize: AppFonts.sizeSmall,
               ),
@@ -80,13 +80,13 @@ class RemindPasswordPage extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            NavLinkButton(
-              onTap: _alreadySignUp,
-              text: 'Я вспомнил свой пароль',
-              icon: SvgPicture.asset(
-                AppIcons.keyInBox,
-              ),
-            ),
+            // NavLinkButton(
+            //   onTap: _alreadySignUp,
+            //   text: 'Я вспомнил свой пароль',
+            //   icon: SvgPicture.asset(
+            //     AppIcons.keyInBox,
+            //   ),
+            // ),
             const SizedBox(
               height: 60,
             ),

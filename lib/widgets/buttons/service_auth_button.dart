@@ -33,9 +33,6 @@ class ServiceAuthButton extends StatelessWidget {
           children: [
             Text(
               text,
-              style: TextStyle(
-                color: Colors.black,
-              ),
             ),
             icon,
           ],

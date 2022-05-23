@@ -22,9 +22,36 @@ class AuthentificationCodeSend extends AuthentificationState {
   List<Object> get props => [verificationId];
 }
 
-class AuthentificationTimeOut extends AuthentificationState {}
+class SocialNetworksNeedMoreData extends AuthentificationState {
+  final UserModel userModel;
+  final AuthCredential authCredential;
+  const SocialNetworksNeedMoreData({
+    required this.userModel,
+    required this.authCredential,
+  });
 
-class AuthentificationSuccess extends AuthentificationState {}
+  @override
+  List<Object> get props => [
+        userModel,
+        authCredential,
+      ];
+}
+
+class AuthentificationSuccess extends AuthentificationState {
+  final UserModel userModel;
+  final bool isNewUser;
+
+  const AuthentificationSuccess({
+    required this.userModel,
+    this.isNewUser = false,
+  });
+
+  @override
+  List<Object> get props => [
+        userModel,
+        isNewUser,
+      ];
+}
 
 class AuthentificationFailure extends AuthentificationState {
   final String error;
@@ -35,4 +62,44 @@ class AuthentificationFailure extends AuthentificationState {
 
   @override
   List<Object> get props => [error];
+}
+
+class ValidationOTPSuccess extends AuthentificationState {
+  final AuthCredential authCredential;
+
+  const ValidationOTPSuccess({
+    required this.authCredential,
+  });
+
+  @override
+  List<Object> get props => [authCredential];
+}
+
+class ValidationOTPFailed extends AuthentificationState {
+  final String error;
+
+  const ValidationOTPFailed({
+    required this.error,
+  });
+
+  @override
+  List<Object> get props => [error];
+}
+
+class ValidationOTPTimeOut extends AuthentificationState {}
+
+class AuthentificationWithTheSameCredential extends AuthentificationState {
+  final AuthCredential authCredential;
+  final AuthType authType;
+
+  const AuthentificationWithTheSameCredential({
+    required this.authCredential,
+    required this.authType,
+  });
+
+  @override
+  List<Object> get props => [
+        authCredential,
+        authType,
+      ];
 }

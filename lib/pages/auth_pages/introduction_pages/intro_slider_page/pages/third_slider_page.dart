@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/resources/app_colors.dart';
+import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/widgets/text/icon_text.dart';
@@ -56,7 +57,9 @@ class ThirdSliderPage extends StatelessWidget {
             child: RichTextWidgets(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               textStyle: const TextStyle(
-                color: Colors.black,
+                color: AppColors.darkBlue,
+                fontSize: AppFonts.sizeXSmall,
+                fontWeight: AppFonts.bold,
               ),
               children: [
                 IconText(
