@@ -8,7 +8,7 @@ part 'authorization_event.dart';
 part 'authorization_state.dart';
 
 class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
-  AuthorizationBloc() : super(AuthorizationInitial()) {
+  AuthorizationBloc() : super(const AuthorizationState()) {
     on<AppLoaded>((event, emit) async {
       String? uid = AuthRepository.instance.uid;
       UserModel? userModel;
@@ -19,27 +19,33 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
 
       if (userModel != null) {
         emit(
-          AuthorizationAuthenticated(
-            user: userModel,
+          AuthorizationState(
+            userModel: userModel,
+            authorizationStatus: AuthorizationStatus.authenticated,
           ),
         );
       } else {
         emit(
-          AuthorizationUnauthenticated(),
+          const AuthorizationState(
+            authorizationStatus: AuthorizationStatus.unauthenticated,
+          ),
         );
       }
     });
     on<UserLoggedIn>((event, emit) {
       emit(
-        AuthorizationAuthenticated(
-          user: event.userModel,
+        AuthorizationState(
+          userModel: event.userModel,
           isNewUser: event.isNewUser,
+          authorizationStatus: AuthorizationStatus.authenticated,
         ),
       );
     });
     on<UserLoggedOut>((event, emit) {
       emit(
-        AuthorizationUnauthenticated(),
+        const AuthorizationState(
+          authorizationStatus: AuthorizationStatus.unauthenticated,
+        ),
       );
     });
   }

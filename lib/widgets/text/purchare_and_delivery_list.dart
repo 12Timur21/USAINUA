@@ -4,7 +4,7 @@ import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/widgets/text/icon_text.dart';
-import 'package:usainua/widgets/text/rich_text_widget.dart';
+import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
 class PurchareAndDeliveryList extends StatelessWidget {
   const PurchareAndDeliveryList({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class PurchareAndDeliveryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 400,
-      child: RichTextWidgets(
+      child: RichTextWrapper(
         textStyle: const TextStyle(
           color: AppColors.darkBlue,
           fontWeight: AppFonts.regular,

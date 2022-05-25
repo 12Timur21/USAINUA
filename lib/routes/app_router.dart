@@ -25,7 +25,7 @@ class AppRouter {
     final Object? arguments = settings.arguments;
 
     Widget builder;
-    print(settings.name);
+
     switch (settings.name) {
       case SplashScreenPage.routeName:
         builder = const SplashScreenPage();
@@ -71,9 +71,6 @@ class AppRouter {
         );
         break;
 
-      case RemindPasswordPage.routeName:
-        builder = const RemindPasswordPage();
-        break;
       //? [END] Auth pages
 
       //? [START] Intro page
@@ -106,7 +103,7 @@ class AppRouter {
         break;
 
       case PersonalDataPage.routeName:
-        builder = PersonalDataPage();
+        builder = const PersonalDataPage();
         break;
 
       //? [START] Account pages

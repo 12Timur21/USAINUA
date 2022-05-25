@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:usainua/pages/main_pages/main_page.dart';
 import 'package:usainua/repositories/firestore_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
-import 'package:usainua/widgets/text/rich_text_widget.dart';
+import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
 class StatisticsPage extends StatelessWidget {
   const StatisticsPage({Key? key}) : super(key: key);
@@ -18,21 +19,9 @@ class StatisticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void _nextPage() {
-      // Navigator.of(context).pushNamedAndRemoveUntil(
-      //   HomePage.routeName,
-      //   (Route<dynamic> route) => false,
-      // );
-      log('he he he');
-      // FirestoreRepository.instance.createUser(
-      //   const UserModel(
-      //     uid: 'w7bYx6LyB1gvj8vrm6p3zeW3rs33',
-      //     name: 'Timur',
-      //     email: 'gmail.com',
-      //     phoneNumber: '380969596645',
-      //   ),
-      // );
-
-      FirestoreRepository.instance.getUserByUid('w7bYx6LyB1gvj8vrm6p3zeW3rs33');
+      Navigator.of(context).pushReplacementNamed(
+        MainPage.routeName,
+      );
     }
 
     return Scaffold(
@@ -52,7 +41,7 @@ class StatisticsPage extends StatelessWidget {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    const RichTextWidgets(
+                    const RichTextWrapper(
                       textStyle: TextStyle(
                         color: AppColors.darkBlue,
                         fontWeight: AppFonts.heavy,

@@ -7,6 +7,7 @@ class AppIcons {
 
   static const String check = '$_path/check.svg';
   static const String tick = '$_path/tick.svg';
+  static const String logOut = '$_path/logout.svg';
 
   static const String lock = '$_path/lock.svg';
   static const String keyInBox = '$_path/key_in_box.svg';
@@ -31,6 +32,9 @@ class AppIcons {
 
   static const String co2 = '$_path/co2.svg';
   static const String o2 = '$_path/o2.svg';
+
+  static const String girl = '$_path/girl.svg';
+  static const String boy = '$_path/boy.svg';
 
   static const String basket = '$_path/basket.svg';
   static const String copy = '$_path/copy.svg';

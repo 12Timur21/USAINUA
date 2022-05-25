@@ -21,7 +21,7 @@ class ServiceAuthButton extends StatelessWidget {
       child: Container(
         height: height,
         decoration: BoxDecoration(
-          color: Color(0xFFF1FDF8),
+          color: const Color(0xFFF1FDF8),
           borderRadius: BorderRadius.circular(
             16,
           ),

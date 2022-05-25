@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:usainua/resources/app_colors.dart';
+import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -14,11 +15,13 @@ class CustomTextField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.onSubmitted,
-    this.onFocus,
+    this.onTap,
     this.formatters,
     this.maxLength,
     this.obscureText = false,
+    this.readOnly = false,
     required this.keyboardType,
+    required this.textInputAction,
     Key? key,
   }) : super(key: key);
 
@@ -28,11 +31,13 @@ class CustomTextField extends StatefulWidget {
   final MultiValidator? validator;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
-  final VoidCallback? onFocus;
+  final VoidCallback? onTap;
   final List<TextInputFormatter>? formatters;
   final int? maxLength;
   final bool obscureText;
   final TextInputType keyboardType;
+  final bool readOnly;
+  final TextInputAction textInputAction;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -40,56 +45,118 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late bool isVisiblyMode;
+  final _focusNode = FocusNode();
+  bool _hasFocus = false;
+  String? _currentText;
 
   @override
   void initState() {
     isVisiblyMode = widget.obscureText;
+    _currentText = widget.controller.text;
+
+    _focusNode.addListener(() {
+      setState(() {
+        _hasFocus = _focusNode.hasFocus;
+        _currentText = widget.controller.text;
+      });
+    });
     super.initState();
   }
 
   @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-      validator: widget.validator ?? MultiValidator([]),
-      keyboardType: widget.keyboardType,
-      inputFormatters: widget.formatters,
-
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 24,
+    return Container(
+      height: 60,
+      decoration: const BoxDecoration(
+        color: AppColors.primary,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
         ),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        alignLabelWithHint: true,
-        filled: true,
-        hintText: widget.hintText,
-        counterText: '',
-        suffixIcon: widget.obscureText
-            ? IconButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onPressed: () {
-                  setState(() {
-                    isVisiblyMode = !isVisiblyMode;
-                  });
-                },
-                icon: SvgPicture.asset(
-                  isVisiblyMode ? AppIcons.openEye : AppIcons.closedEye,
-                ),
-              )
-            : null,
       ),
-      obscureText: isVisiblyMode,
-
-      //TODO Пример
-      style: const TextStyle(
-        color: AppColors.darkBlue,
+      alignment: !_hasFocus && _currentText!.isEmpty
+          ? Alignment.center
+          : Alignment.bottomCenter,
+      child: Container(
+        margin: const EdgeInsets.only(
+          bottom: 10,
+        ),
+        child: TextFormField(
+          focusNode: _focusNode,
+          readOnly: widget.readOnly,
+          controller: widget.controller,
+          validator: widget.validator ?? MultiValidator([]),
+          keyboardType: widget.keyboardType,
+          inputFormatters: widget.formatters,
+          cursorColor: AppColors.darkBlue,
+          textInputAction: widget.textInputAction,
+          decoration: InputDecoration(
+            isDense: true,
+            contentPadding: const EdgeInsets.only(
+              left: 20,
+              top: 10,
+              bottom: 0,
+            ),
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            alignLabelWithHint: true,
+            filled: true,
+            hintText: _currentText == null ? widget.hintText : null,
+            counterText: '',
+            label: _currentText != null
+                ? Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      widget.hintText!,
+                      style: const TextStyle(
+                        color: AppColors.noActiveText,
+                        fontWeight: AppFonts.regular,
+                        letterSpacing: 1,
+                        fontSize: AppFonts.sizeXSmall,
+                      ),
+                    ),
+                  )
+                : null,
+            suffixIcon: widget.obscureText
+                ? IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onPressed: () {
+                      setState(() {
+                        isVisiblyMode = !isVisiblyMode;
+                      });
+                    },
+                    icon: SvgPicture.asset(
+                      isVisiblyMode ? AppIcons.openEye : AppIcons.closedEye,
+                    ),
+                  )
+                : null,
+          ),
+          obscureText: isVisiblyMode,
+          style: const TextStyle(
+            color: AppColors.darkBlue,
+          ),
+          onChanged: (value) {
+            setState(() {
+              _currentText = value;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(value);
+            }
+          },
+          onTap: () {
+            if (widget.onTap != null) {
+              widget.onTap!();
+              _focusNode.requestFocus();
+            }
+          },
+          onFieldSubmitted: widget.onSubmitted,
+        ),
       ),
-
-      onChanged: widget.onChanged,
-      onTap: widget.onFocus,
-      onFieldSubmitted: widget.onSubmitted,
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/widgets/text/icon_text.dart';
-import 'package:usainua/widgets/text/rich_text_widget.dart';
+import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
 class ThirdSliderPage extends StatelessWidget {
   const ThirdSliderPage({Key? key}) : super(key: key);
@@ -54,7 +54,7 @@ class ThirdSliderPage extends StatelessWidget {
           ),
           SizedBox(
             height: 180,
-            child: RichTextWidgets(
+            child: RichTextWrapper(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               textStyle: const TextStyle(
                 color: AppColors.darkBlue,

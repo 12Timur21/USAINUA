@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:usainua/widgets/text/icon_text.dart';
 
-class RichTextWidgets extends StatelessWidget {
-  const RichTextWidgets({
+class RichTextWrapper extends StatelessWidget {
+  const RichTextWrapper({
     required this.children,
+    this.axis = Axis.vertical,
     this.textStyle,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -12,6 +12,7 @@ class RichTextWidgets extends StatelessWidget {
 
   final List<Widget> children;
   final TextStyle? textStyle;
+  final Axis axis;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
 
@@ -19,11 +20,17 @@ class RichTextWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTextStyle.merge(
       style: textStyle,
-      child: Column(
-        crossAxisAlignment: crossAxisAlignment,
-        mainAxisAlignment: mainAxisAlignment,
-        children: children,
-      ),
+      child: axis == Axis.vertical
+          ? Column(
+              crossAxisAlignment: crossAxisAlignment,
+              mainAxisAlignment: mainAxisAlignment,
+              children: children,
+            )
+          : Row(
+              crossAxisAlignment: crossAxisAlignment,
+              mainAxisAlignment: mainAxisAlignment,
+              children: children,
+            ),
     );
   }
 }

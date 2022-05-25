@@ -117,6 +117,7 @@ class _AdditionalDataCollectionPageState
                 children: [
                   CustomTextField(
                     controller: _nameController,
+                    textInputAction: TextInputAction.next,
                     maxLength: 35,
                     keyboardType: TextInputType.name,
                     validator: MultiValidator([
@@ -133,6 +134,7 @@ class _AdditionalDataCollectionPageState
                   ),
                   CustomTextField(
                     controller: _emailController,
+                    textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
                     validator: MultiValidator(
                       [
@@ -152,6 +154,7 @@ class _AdditionalDataCollectionPageState
                   ),
                   CustomTextField(
                     controller: _phoneController,
+                    textInputAction: TextInputAction.next,
                     hintText: 'Ваш номер телефона*',
                     keyboardType: TextInputType.phone,
                     formatters: [

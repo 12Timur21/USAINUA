@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
+import 'package:usainua/pages/main_pages/main_page.dart';
 import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
 import 'package:usainua/resources/app_themes.dart';
 import 'package:usainua/routes/app_router.dart';

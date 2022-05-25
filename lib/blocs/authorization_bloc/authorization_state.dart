@@ -1,38 +1,24 @@
 part of 'authorization_bloc.dart';
 
-abstract class AuthorizationState extends Equatable {
-  const AuthorizationState();
-
-  @override
-  List<Object> get props => [];
+enum AuthorizationStatus {
+  unauthenticated,
+  authenticated,
 }
 
-class AuthorizationInitial extends AuthorizationState {}
-
-class AuthorizationLoading extends AuthorizationState {}
-
-class AuthorizationUnauthenticated extends AuthorizationState {}
-
-class AuthorizationAuthenticated extends AuthorizationState {
-  final UserModel user;
+class AuthorizationState extends Equatable {
+  final UserModel? userModel;
+  final AuthorizationStatus authorizationStatus;
   final bool isNewUser;
 
-  const AuthorizationAuthenticated({
-    required this.user,
+  const AuthorizationState({
+    this.userModel,
+    this.authorizationStatus = AuthorizationStatus.unauthenticated,
     this.isNewUser = false,
   });
 
   @override
-  List<Object> get props => [user];
-}
-
-class AuthorizationFailure extends AuthorizationState {
-  final String message;
-
-  const AuthorizationFailure({
-    required this.message,
-  });
-
-  @override
-  List<Object> get props => [message];
+  List<Object> get props => [
+        authorizationStatus,
+        isNewUser,
+      ];
 }

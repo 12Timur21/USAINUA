@@ -7,7 +7,6 @@ import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/pa
 import 'package:usainua/pages/auth_pages/introduction_pages/statistics_page/statistics_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
-import 'package:usainua/widgets/text/rich_text_widget.dart';
 
 class IntroSliderPage extends StatefulWidget {
   const IntroSliderPage({Key? key}) : super(key: key);
@@ -77,9 +76,7 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
           Expanded(
             child: PageView(
               allowImplicitScrolling: true,
-              onPageChanged: (index) {
-                print(index);
-              },
+              onPageChanged: (index) {},
               controller: _pageViewController,
               children: const [
                 FirstSliderPage(),

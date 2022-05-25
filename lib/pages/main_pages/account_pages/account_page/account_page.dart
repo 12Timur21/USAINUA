@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
+import 'package:usainua/models/user_model.dart';
+import 'package:usainua/pages/main_pages/account_pages/personal_data_page/personal_data_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/widgets/buttons/nav_link_button.dart';
-import 'package:usainua/widgets/text/rich_text_widget.dart';
+import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -17,6 +21,20 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  late final UserModel _userModel;
+
+  @override
+  void initState() {
+    _userModel = context.read<AuthorizationBloc>().state.userModel!;
+    super.initState();
+  }
+
+  void _navigateToPersonalDataPage() {
+    Navigator.of(context).pushNamed(
+      PersonalDataPage.routeName,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +66,9 @@ class _AccountPageState extends State<AccountPage> {
                 avatar: const AssetImage(
                   AppImages.userAvatar,
                 ),
-                userName: 'Веленчук Сергій',
-                email: 'velenchuk18@gmail.com',
-                onClick: () {},
+                userName: _userModel.name!,
+                email: _userModel.email!,
+                onClick: _navigateToPersonalDataPage,
               ),
               const SizedBox(
                 height: 20,
@@ -71,7 +89,7 @@ class _AccountPageState extends State<AccountPage> {
               const SizedBox(
                 height: 70,
               ),
-              const RichTextWidgets(
+              const RichTextWrapper(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 textStyle: TextStyle(
                   color: AppColors.darkBlue,
@@ -164,7 +182,7 @@ Widget _orderLater() {
 }
 
 Widget _links() {
-  return RichTextWidgets(
+  return RichTextWrapper(
     textStyle: const TextStyle(
       color: AppColors.darkBlue,
       fontWeight: AppFonts.bold,

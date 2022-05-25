@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loop_page_view/loop_page_view.dart';
-import 'package:usainua/repositories/auth_repository.dart';
+
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_images.dart';
-import 'package:usainua/widgets/button_navigation_bar/custom_bottom_navigation_bar.dart';
+
 import 'package:usainua/resources/app_icons.dart';
-import 'dart:math' as math;
 
 import 'package:usainua/widgets/sliders/goods_slider.dart';
 

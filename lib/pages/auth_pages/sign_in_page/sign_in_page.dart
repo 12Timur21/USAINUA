@@ -19,7 +19,7 @@ import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_validators.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
-import 'package:usainua/widgets/text/rich_text_widget.dart';
+import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
 import 'package:usainua/widgets/text_fields/custom_text_field.dart';
 import 'package:usainua/widgets/toasts/error_toast.dart';
@@ -47,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
   bool _isPageLoading = false;
 
   void _signUp() {
-    Navigator.of(context).pushNamed(
+    Navigator.of(context).pushReplacementNamed(
       SignUpPage.routeName,
     );
   }
@@ -104,179 +104,180 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => context.read<AuthentificationBloc>(),
-      child: BlocListener<AuthentificationBloc, AuthentificationState>(
-        listener: (context, state) {
-          if (state is AuthentificationSuccess) {
-            context.read<AuthorizationBloc>().add(
-                  UserLoggedIn(
-                    userModel: state.userModel,
-                    isNewUser: state.isNewUser,
-                  ),
-                );
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              MainPage.routeName,
-              (route) => false,
-            );
-          }
-
-          if (state is AuthentificationFailure) {
-            ErrorToast.showErrorToast(
-              fToast: _fToast,
-              errorMessage: state.error,
-            );
-            setState(() {
-              _isPageLoading = false;
-            });
-          }
-
-          if (state is AuthentificationCodeSend) {
-            _onCodeSend(verificationID: state.verificationId);
-          }
-
-          if (state is SocialNetworksNeedMoreData) {
-            Navigator.of(context).pushNamed(
-              AdditionalDataCollectionPage.routeName,
-              arguments: AdditionalDataCollectionPageParameters(
-                authCredential: state.authCredential,
-                userModel: state.userModel,
-              ),
-            );
-          }
-
-          if (state is AuthentificationWithTheSameCredential) {
-            Navigator.of(context).pushNamed(
-              CredentialLinkingPage.routeName,
-              arguments: CredentialLinkingPageParameters(
-                authType: state.authType,
-                mainAuthCredential: state.authCredential,
-              ),
-            );
-          }
-        },
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
+    return BlocListener<AuthentificationBloc, AuthentificationState>(
+      listener: (context, state) {
+        if (state is AuthentificationSuccess) {
+          context.read<AuthorizationBloc>().add(
+                UserLoggedIn(
+                  userModel: state.userModel,
+                  isNewUser: state.isNewUser,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Вход',
-                      style: Theme.of(context).textTheme.headlineLarge,
+              );
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            MainPage.routeName,
+            (route) => false,
+          );
+        }
+
+        if (state is AuthentificationFailure) {
+          ErrorToast.showErrorToast(
+            fToast: _fToast,
+            errorMessage: state.error,
+          );
+          setState(() {
+            _isPageLoading = false;
+          });
+        }
+
+        if (state is AuthentificationCodeSend) {
+          _onCodeSend(verificationID: state.verificationId);
+        }
+
+        if (state is SocialNetworksNeedMoreData) {
+          Navigator.of(context).pushNamed(
+            AdditionalDataCollectionPage.routeName,
+            arguments: AdditionalDataCollectionPageParameters(
+              authCredential: state.authCredential,
+              userModel: state.userModel,
+            ),
+          );
+        }
+
+        if (state is AuthentificationWithTheSameCredential) {
+          Navigator.of(context).pushNamed(
+            CredentialLinkingPage.routeName,
+            arguments: CredentialLinkingPageParameters(
+              authType: state.authType,
+              mainAuthCredential: state.authCredential,
+            ),
+          );
+        }
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Вход',
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.042,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.042,
-                      ),
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            controller: _phoneController,
-                            hintText: 'Ваш номер телефона*',
-                            keyboardType: TextInputType.phone,
-                            formatters: [
-                              PhoneInputFormatter(),
-                            ],
-                            validator: MultiValidator([
-                              MinLengthValidator(
-                                1,
-                                errorText: 'Укажите номер телефона',
-                              ),
-                              PhoneValidator(
-                                errorText: 'Укажите корректный номер телефона',
-                              ),
-                            ]),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.050,
-                      ),
-                    ),
-                    SubmitButton(
-                      onTap: _signIn,
-                      text: 'ВОЙТИ',
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.030,
-                      ),
-                    ),
-                    RichTextWidgets(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      textStyle: const TextStyle(
-                        color: AppColors.darkBlue,
-                        fontWeight: AppFonts.bold,
-                        fontSize: AppFonts.sizeXSmall,
-                      ),
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
                       children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        NavLinkButton(
-                          onTap: _signUp,
-                          text: 'Зарегистрироваться',
-                          icon: SvgPicture.asset(
-                            AppIcons.addUser,
-                          ),
+                        CustomTextField(
+                          controller: _phoneController,
+                          textInputAction: TextInputAction.done,
+                          hintText: 'Ваш номер телефона*',
+                          keyboardType: TextInputType.phone,
+                          onSubmitted: (_) {
+                            _signIn();
+                          },
+                          formatters: [
+                            PhoneInputFormatter(),
+                          ],
+                          validator: MultiValidator([
+                            MinLengthValidator(
+                              1,
+                              errorText: 'Укажите номер телефона',
+                            ),
+                            PhoneValidator(
+                              errorText: 'Укажите корректный номер телефона',
+                            ),
+                          ]),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.080,
-                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.050,
                     ),
-                    RichTextWidgets(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      textStyle: const TextStyle(
-                        color: AppColors.darkBlue,
-                        fontWeight: AppFonts.regular,
-                        fontSize: AppFonts.sizeXSmall,
-                        letterSpacing: 1,
-                      ),
-                      children: [
-                        ServiceAuthButton(
-                          text: 'Войти как пользователь',
-                          icon: SvgPicture.asset(AppIcons.google),
-                          onTap: _googleAuth,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        ServiceAuthButton(
-                          text: 'Войти как пользователь',
-                          icon: SvgPicture.asset(AppIcons.facebook),
-                          onTap: _facebookAuth,
-                        ),
-                      ],
+                  ),
+                  SubmitButton(
+                    onTap: _signIn,
+                    text: 'ВОЙТИ',
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.030,
                     ),
-                  ],
+                  ),
+                  RichTextWrapper(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    textStyle: const TextStyle(
+                      color: AppColors.darkBlue,
+                      fontWeight: AppFonts.bold,
+                      fontSize: AppFonts.sizeXSmall,
+                    ),
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      NavLinkButton(
+                        onTap: _signUp,
+                        text: 'Зарегистрироваться',
+                        icon: SvgPicture.asset(
+                          AppIcons.addUser,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.080,
+                    ),
+                  ),
+                  RichTextWrapper(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    textStyle: const TextStyle(
+                      color: AppColors.darkBlue,
+                      fontWeight: AppFonts.regular,
+                      fontSize: AppFonts.sizeXSmall,
+                      letterSpacing: 1,
+                    ),
+                    children: [
+                      ServiceAuthButton(
+                        text: 'Войти как пользователь',
+                        icon: SvgPicture.asset(AppIcons.google),
+                        onTap: _googleAuth,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ServiceAuthButton(
+                        text: 'Войти как пользователь',
+                        icon: SvgPicture.asset(AppIcons.facebook),
+                        onTap: _facebookAuth,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            if (_isPageLoading)
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                color: Colors.black.withOpacity(0.3),
+                child: const Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
-              if (_isPageLoading)
-                Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Colors.black.withOpacity(0.3),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-            ],
-          ),
+          ],
         ),
       ),
     );

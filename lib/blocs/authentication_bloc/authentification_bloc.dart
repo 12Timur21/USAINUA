@@ -24,11 +24,11 @@ class AuthentificationBloc
       await _auth.verifyPhoneNumberAndSendOTP(
         phoneNumber: event.phoneNumber,
         verificationCompleted: (PhoneAuthCredential authCredential) async {
-          add(
-            AuthentificationWithAuthCredential(
-              authCredential: authCredential,
-            ),
-          );
+          // add(
+          //   AuthentificationWithAuthCredential(
+          //     authCredential: authCredential,
+          //   ),
+          // );
         },
         codeSent: (String verificationId, int? token) async {
           emit(
@@ -127,6 +127,7 @@ class AuthentificationBloc
               await FirestoreRepository.instance.getUserByUid(
             user.uid,
           );
+          print(userModel);
           if (userModel != null) {
             emit(
               AuthentificationSuccess(
@@ -242,17 +243,17 @@ class AuthentificationBloc
     on<AuthentificationError>((event, emit) async {
       log(event.error.code);
       log(event.error.message.toString());
-      // final String response = await rootBundle.loadString(
-      //   'assets/jsons/firebase_errors.json',
-      // );
-      // Map<String, dynamic> data = await json.decode(response);
+      final String response = await rootBundle.loadString(
+        'assets/jsons/firebase_errors.json',
+      );
+      Map<String, dynamic> data = await json.decode(response);
 
-      // String? errorMessage = data[event.error.code];
-      // emit(
-      //   AuthentificationFailure(
-      //     error: errorMessage ?? 'Неизвестная ошибка',
-      //   ),
-      // );
+      String? errorMessage = data[event.error.code];
+      emit(
+        AuthentificationFailure(
+          error: errorMessage ?? 'Неизвестная ошибка',
+        ),
+      );
     });
 
     on<AuthentificationLinking>((event, emit) async {

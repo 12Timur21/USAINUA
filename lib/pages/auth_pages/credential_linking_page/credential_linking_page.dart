@@ -17,7 +17,7 @@ import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_validators.dart';
 import 'package:usainua/widgets/buttons/service_auth_button.dart';
-import 'package:usainua/widgets/text/rich_text_widget.dart';
+import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 import 'package:usainua/widgets/text_fields/custom_text_field.dart';
 import 'package:usainua/widgets/toasts/error_toast.dart';
 
@@ -151,7 +151,6 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
             fToast: _fToast,
             errorMessage: 'Время вышло',
           );
-          print('AuthentificationFailure');
         }
 
         if (state is AuthentificationCodeSend) {
@@ -225,8 +224,12 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
                               key: _formKey,
                               child: CustomTextField(
                                 controller: _phoneController,
+                                textInputAction: TextInputAction.done,
                                 hintText: 'Ваш номер телефона*',
                                 keyboardType: TextInputType.phone,
+                                onSubmitted: (_) {
+                                  _phoneLinking();
+                                },
                                 formatters: [
                                   PhoneInputFormatter(),
                                 ],
@@ -279,7 +282,7 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
                             ),
                           ],
                         ),
-                        RichTextWidgets(
+                        RichTextWrapper(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           textStyle: const TextStyle(
                             color: AppColors.darkBlue,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:usainua/pages/main_pages/account_pages/account_page/account_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/personal_data_page/personal_data_page.dart';
+
 import 'package:usainua/pages/main_pages/home_page/home_page.dart';
 import 'package:usainua/repositories/auth_repository.dart';
 import 'package:usainua/routes/app_router.dart';
@@ -8,6 +9,7 @@ import 'package:usainua/widgets/button_navigation_bar/custom_bottom_navigation_b
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
+
   static final GlobalKey<NavigatorState> navigationKey =
       GlobalKey<NavigatorState>();
 
@@ -19,7 +21,7 @@ class MainPage extends StatelessWidget {
       body: Navigator(
         key: navigationKey,
         onGenerateRoute: AppRouter.generateRoute,
-        initialRoute: HomePage.routeName,
+        initialRoute: PersonalDataPage.routeName,
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(
@@ -35,9 +37,9 @@ class MainPage extends StatelessWidget {
               );
             }
             if (index == 1) {
-              // navigationKey.currentState?.pushReplacementNamed(
-              //   HomePage.routeName,
-              // );
+              navigationKey.currentState?.pushReplacementNamed(
+                PersonalDataPage.routeName,
+              );
             }
             if (index == 2) {
               // navigationKey.currentState?.pushReplacementNamed(

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
-import 'package:usainua/resources/app_icons.dart';
+
 import 'package:usainua/widgets/buttons/circle_checkbox.dart';
 import 'package:usainua/widgets/text/delivery_only_list.dart';
-import 'package:usainua/widgets/text/icon_text.dart';
+
 import 'package:usainua/widgets/text/purchare_and_delivery_list.dart';
-import 'package:usainua/widgets/text/rich_text_widget.dart';
 
 class FourthSliderPage extends StatefulWidget {
   const FourthSliderPage({Key? key}) : super(key: key);
