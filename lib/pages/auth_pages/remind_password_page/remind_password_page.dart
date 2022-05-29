@@ -52,7 +52,7 @@
 //               key: _formKey,
 //               child: Column(
 //                 children: [
-//                   CustomTextField(
+//                   TextFieldWithCustomLabel(
 //                     controller: _emailController,
 //                     keyboardType: TextInputType.emailAddress,
 //                     validator: MultiValidator([

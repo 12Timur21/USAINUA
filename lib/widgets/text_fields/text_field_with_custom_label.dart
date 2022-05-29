@@ -7,11 +7,11 @@ import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 
-class CustomTextField extends StatefulWidget {
-  const CustomTextField({
+class TextFieldWithCustomLabel extends StatefulWidget {
+  const TextFieldWithCustomLabel({
     required this.controller,
-    this.hintText,
-    this.height = 56,
+    required this.hintText,
+    this.height = 60,
     this.validator,
     this.onChanged,
     this.onSubmitted,
@@ -26,7 +26,7 @@ class CustomTextField extends StatefulWidget {
   }) : super(key: key);
 
   final TextEditingController controller;
-  final String? hintText;
+  final String hintText;
   final double height;
   final MultiValidator? validator;
   final Function(String)? onChanged;
@@ -40,10 +40,11 @@ class CustomTextField extends StatefulWidget {
   final TextInputAction textInputAction;
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<TextFieldWithCustomLabel> createState() =>
+      _TextFieldWithCustomLabelState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _TextFieldWithCustomLabelState extends State<TextFieldWithCustomLabel> {
   late bool isVisiblyMode;
   final _focusNode = FocusNode();
   bool _hasFocus = false;
@@ -72,7 +73,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: widget.height,
       decoration: const BoxDecoration(
         color: AppColors.primary,
         borderRadius: BorderRadius.all(
@@ -111,7 +112,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ? Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      widget.hintText!,
+                      widget.hintText,
                       style: const TextStyle(
                         color: AppColors.noActiveText,
                         fontWeight: AppFonts.regular,

@@ -10,9 +10,9 @@ import 'package:usainua/models/user_model.dart';
 import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
-import 'package:usainua/resources/app_validators.dart';
+import 'package:usainua/utils/validators/phone_validator.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
-import 'package:usainua/widgets/text_fields/custom_text_field.dart';
+import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
 class AdditionalDataCollectionPageParameters {
   final UserModel userModel;
@@ -115,7 +115,7 @@ class _AdditionalDataCollectionPageState
               key: _formKey,
               child: Column(
                 children: [
-                  CustomTextField(
+                  TextFieldWithCustomLabel(
                     controller: _nameController,
                     textInputAction: TextInputAction.next,
                     maxLength: 35,
@@ -132,7 +132,7 @@ class _AdditionalDataCollectionPageState
                   const SizedBox(
                     height: 10,
                   ),
-                  CustomTextField(
+                  TextFieldWithCustomLabel(
                     controller: _emailController,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
@@ -152,7 +152,7 @@ class _AdditionalDataCollectionPageState
                   const SizedBox(
                     height: 10,
                   ),
-                  CustomTextField(
+                  TextFieldWithCustomLabel(
                     controller: _phoneController,
                     textInputAction: TextInputAction.next,
                     hintText: 'Ваш номер телефона*',

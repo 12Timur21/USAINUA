@@ -120,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  country_list_pick:
+    dependency: "direct main"
+    description:
+      name: country_list_pick
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1+5"
   crypto:
     dependency: transitive
     description:
@@ -222,7 +229,7 @@ packages:
       name: flutter_markdown
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.10"
+    version: "0.6.10+1"
   flutter_multi_formatter:
     dependency: "direct main"
     description:
@@ -236,7 +243,14 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.1.0"
+  flutter_switch:
+    dependency: "direct main"
+    description:
+      name: flutter_switch
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -267,7 +281,7 @@ packages:
       name: google_sign_in
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.3.1"
+    version: "5.3.2"
   google_sign_in_android:
     dependency: transitive
     description:
@@ -573,7 +587,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.1"
+    version: "6.1.0"
 sdks:
-  dart: ">=2.17.0-0 <3.0.0"
-  flutter: ">=2.10.0"
+  dart: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"

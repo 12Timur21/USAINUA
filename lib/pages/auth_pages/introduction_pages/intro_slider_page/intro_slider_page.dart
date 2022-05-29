@@ -76,7 +76,7 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
           Expanded(
             child: PageView(
               allowImplicitScrolling: true,
-              onPageChanged: (index) {},
+              onPageChanged: (_) {},
               controller: _pageViewController,
               children: const [
                 FirstSliderPage(),
@@ -87,7 +87,9 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

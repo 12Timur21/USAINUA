@@ -77,6 +77,7 @@ class FirstSliderPage extends StatelessWidget {
                       letterSpacing: 0.5,
                     ),
                   ),
+                  Spacer(),
                 ],
               ),
             ),

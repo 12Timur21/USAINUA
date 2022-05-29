@@ -12,16 +12,16 @@ import 'package:usainua/pages/auth_pages/credential_linking_page/credential_link
 import 'package:usainua/pages/auth_pages/sign_up_page/sign_up_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
 import 'package:usainua/pages/main_pages/main_page.dart';
-import 'package:usainua/widgets/buttons/nav_link_button.dart';
+import 'package:usainua/utils/validators/phone_validator.dart';
+import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/widgets/buttons/service_auth_button.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
-import 'package:usainua/resources/app_validators.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
-import 'package:usainua/widgets/text_fields/custom_text_field.dart';
+import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 import 'package:usainua/widgets/toasts/error_toast.dart';
 
 class SignInPage extends StatefulWidget {
@@ -178,7 +178,7 @@ class _SignInPageState extends State<SignInPage> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        CustomTextField(
+                        TextFieldWithCustomLabel(
                           controller: _phoneController,
                           textInputAction: TextInputAction.done,
                           hintText: 'Ваш номер телефона*',
@@ -227,7 +227,7 @@ class _SignInPageState extends State<SignInPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      NavLinkButton(
+                      IconTextButton(
                         onTap: _signUp,
                         text: 'Зарегистрироваться',
                         icon: SvgPicture.asset(

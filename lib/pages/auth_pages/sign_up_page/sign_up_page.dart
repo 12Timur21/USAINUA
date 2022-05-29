@@ -13,17 +13,17 @@ import 'package:usainua/pages/auth_pages/credential_linking_page/credential_link
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
 import 'package:usainua/pages/main_pages/main_page.dart';
-import 'package:usainua/widgets/buttons/nav_link_button.dart';
+import 'package:usainua/utils/validators/phone_validator.dart';
+import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/widgets/buttons/service_auth_button.dart';
 import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
-import 'package:usainua/resources/app_validators.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
-import 'package:usainua/widgets/text_fields/custom_text_field.dart';
+import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 import 'package:usainua/widgets/toasts/error_toast.dart';
 
 import '../additional_data_collection_page/additional_data_collection_page.dart';
@@ -208,7 +208,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        CustomTextField(
+                        TextFieldWithCustomLabel(
                           controller: _nameController,
                           textInputAction: TextInputAction.next,
                           maxLength: 35,
@@ -225,7 +225,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SizedBox(
                           height: 10,
                         ),
-                        CustomTextField(
+                        TextFieldWithCustomLabel(
                           controller: _emailController,
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.emailAddress,
@@ -245,7 +245,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SizedBox(
                           height: 10,
                         ),
-                        CustomTextField(
+                        TextFieldWithCustomLabel(
                           controller: _phoneController,
                           textInputAction: TextInputAction.done,
                           hintText: 'Ваш номер телефона*',
@@ -322,7 +322,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       top: MediaQuery.of(context).size.height * 0.030,
                     ),
                   ),
-                  NavLinkButton(
+                  IconTextButton(
                     onTap: _alreadySignUp,
                     text: 'Я уже зарегестрирован',
                     textStyle: const TextStyle(

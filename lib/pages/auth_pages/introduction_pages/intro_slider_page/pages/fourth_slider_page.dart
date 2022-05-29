@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
+import 'package:usainua/widgets/designs/delivery_only_list.dart';
+import 'package:usainua/widgets/designs/purchare_and_delivery_list.dart';
+import 'package:usainua/widgets/radio_buttons/custom_radio_button.dart';
 
-import 'package:usainua/widgets/buttons/circle_checkbox.dart';
-import 'package:usainua/widgets/text/delivery_only_list.dart';
-
-import 'package:usainua/widgets/text/purchare_and_delivery_list.dart';
+enum DispatchType { purchaseAndDelivery, deliveryOnly }
 
 class FourthSliderPage extends StatefulWidget {
   const FourthSliderPage({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class FourthSliderPage extends StatefulWidget {
 }
 
 class _FourthSliderPageState extends State<FourthSliderPage> {
-  bool isOnlyDelivery = false;
+  DispatchType _dispatchType = DispatchType.purchaseAndDelivery;
 
   @override
   Widget build(BuildContext context) {
@@ -31,57 +30,68 @@ class _FourthSliderPageState extends State<FourthSliderPage> {
         children: [
           Column(
             children: [
-              CircleCheckbox(
-                isActive: !isOnlyDelivery,
-                onTap: () {
-                  setState(() {
-                    isOnlyDelivery = false;
-                  });
-                },
-                circleColor: AppColors.lightGreen,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
+              Row(
+                children: [
+                  CustomRadioOption<DispatchType>(
+                    value: DispatchType.purchaseAndDelivery,
+                    groupValue: _dispatchType,
+                    onChanged: (DispatchType dispatchType) {
+                      setState(() {
+                        _dispatchType = dispatchType;
+                      });
+                    },
+                    backgroundColor: AppColors.primary,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
                     'Покупка и доставка',
                     style: _checkBoxTextStyle.copyWith(
-                      color: !isOnlyDelivery
+                      color: _dispatchType == DispatchType.purchaseAndDelivery
                           ? AppColors.darkBlue
                           : AppColors.primary,
                     ),
                   ),
-                ),
+                ],
               ),
               const SizedBox(
                 height: 20,
               ),
-              CircleCheckbox(
-                isActive: isOnlyDelivery,
-                onTap: () {
-                  setState(() {
-                    isOnlyDelivery = true;
-                  });
-                },
-                circleColor: AppColors.lightBlue,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
+              Row(
+                children: [
+                  CustomRadioOption<DispatchType>(
+                    value: DispatchType.deliveryOnly,
+                    groupValue: _dispatchType,
+                    onChanged: (DispatchType dispatchType) {
+                      setState(() {
+                        _dispatchType = dispatchType;
+                      });
+                    },
+                    backgroundColor: AppColors.primary,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
                     'Только доставка',
                     style: _checkBoxTextStyle.copyWith(
-                      color: isOnlyDelivery
+                      color: _dispatchType == DispatchType.deliveryOnly
                           ? AppColors.darkBlue
                           : AppColors.primary,
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
           const SizedBox(
-            height: 75,
+            height: 60,
           ),
-          isOnlyDelivery
-              ? const DeliveryOnlyList()
-              : const PurchareAndDeliveryList(),
+          if (_dispatchType == DispatchType.deliveryOnly)
+            const DeliveryOnlyList(),
+          if (_dispatchType == DispatchType.purchaseAndDelivery)
+            const PurchareAndDeliveryList(),
         ],
       ),
     );

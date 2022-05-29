@@ -11,9 +11,10 @@ import 'package:usainua/repositories/auth_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
-import 'package:usainua/widgets/buttons/nav_link_button.dart';
+import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
+import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
-import 'package:usainua/widgets/text_fields/custom_text_field.dart';
+import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
 class PersonalDataPage extends StatefulWidget {
   const PersonalDataPage({Key? key}) : super(key: key);
@@ -26,14 +27,9 @@ class PersonalDataPage extends StatefulWidget {
 
 class _PersonalDataPageState extends State<PersonalDataPage> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _surnameController = TextEditingController();
-
   final TextEditingController _birthdayController = TextEditingController();
-
   GenderType _genderType = GenderType.man;
-
   final TextEditingController _phoneNumberController = TextEditingController();
-
   final TextEditingController _emailController = TextEditingController();
 
   @override
@@ -41,13 +37,13 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
     UserModel userModel = context.read<AuthorizationBloc>().state.userModel!;
 
     _nameController.text = userModel.name.toString();
-    // if (userModel.birthday != null) {
-    //   _birthdayController.text = DateFormat('dd.MM.yy').format(
-    //     userModel.birthday!,
-    //   );
-    // }
-    // _phoneNumberController.text = userModel.phoneNumber.toString();
-    // _emailController.text = userModel.email.toString();
+    if (userModel.birthday != null) {
+      _birthdayController.text = DateFormat('dd.MM.yy').format(
+        userModel.birthday!,
+      );
+    }
+    _phoneNumberController.text = userModel.phoneNumber.toString();
+    _emailController.text = userModel.email.toString();
 
     super.initState();
   }
@@ -101,8 +97,10 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: _appBar(
-        onPop: _pop,
+      appBar: CustomAppBar(
+        onLeading: () {},
+        onAction: () {},
+        text: 'Личные данные',
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -115,7 +113,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               const SizedBox(
                 height: 30,
               ),
-              CustomTextField(
+              TextFieldWithCustomLabel(
                 controller: _nameController,
                 textInputAction: TextInputAction.send,
                 maxLength: 35,
@@ -132,7 +130,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               const SizedBox(
                 height: 10,
               ),
-              CustomTextField(
+              TextFieldWithCustomLabel(
                 controller: _birthdayController,
                 textInputAction: TextInputAction.send,
                 maxLength: 35,
@@ -188,7 +186,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               const SizedBox(
                 height: 20,
               ),
-              CustomTextField(
+              TextFieldWithCustomLabel(
                 controller: _phoneNumberController,
                 textInputAction: TextInputAction.next,
                 maxLength: 35,
@@ -205,7 +203,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               const SizedBox(
                 height: 10,
               ),
-              CustomTextField(
+              TextFieldWithCustomLabel(
                 controller: _emailController,
                 textInputAction: TextInputAction.done,
                 maxLength: 35,
@@ -222,7 +220,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               const SizedBox(
                 height: 30,
               ),
-              NavLinkButton(
+              IconTextButton(
                 onTap: _signOut,
                 textStyle: const TextStyle(
                   color: AppColors.darkBlue,
@@ -296,39 +294,6 @@ Widget _genderSwitch({
             const Text('Женщина'),
           ],
         ),
-      ),
-    ],
-  );
-}
-
-PreferredSizeWidget _appBar({
-  required VoidCallback onPop,
-}) {
-  return AppBar(
-    leading: IconButton(
-      icon: SvgPicture.asset(
-        AppIcons.leftArrow,
-        color: AppColors.lightBlue,
-      ),
-      onPressed: onPop,
-    ),
-    centerTitle: true,
-    title: const Text(
-      'Личные данные',
-      style: TextStyle(
-        color: AppColors.darkBlue,
-        fontWeight: AppFonts.bold,
-        letterSpacing: 0.5,
-        fontSize: AppFonts.sizeLarge,
-      ),
-    ),
-    actions: [
-      IconButton(
-        icon: SvgPicture.asset(
-          AppIcons.dialog,
-          color: AppColors.lightBlue,
-        ),
-        onPressed: () {},
       ),
     ],
   );

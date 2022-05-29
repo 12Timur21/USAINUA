@@ -8,7 +8,9 @@ import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
-import 'package:usainua/widgets/buttons/nav_link_button.dart';
+import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
+import 'package:usainua/widgets/buttons/icon_text_button.dart';
+import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
 class AccountPage extends StatefulWidget {
@@ -38,21 +40,16 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              AppIcons.bell,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              AppIcons.settings,
-            ),
-          )
-        ],
+      appBar: CustomAppBar(
+        onLeading: () {},
+        onAction: () {},
+        leadingIcon: SvgPicture.asset(
+          AppIcons.bell,
+        ),
+        actionIcon: SvgPicture.asset(
+          AppIcons.settings,
+        ),
+        text: 'Банковские карты',
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -191,7 +188,7 @@ Widget _links() {
     ),
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      NavLinkButton(
+      IconTextButton(
         onTap: () {},
         text: 'Финансы',
         icon: SvgPicture.asset(
@@ -201,7 +198,7 @@ Widget _links() {
       const SizedBox(
         height: 15,
       ),
-      NavLinkButton(
+      IconTextButton(
         onTap: () {},
         text: 'Банковские карты',
         icon: SvgPicture.asset(
@@ -211,7 +208,7 @@ Widget _links() {
       const SizedBox(
         height: 15,
       ),
-      NavLinkButton(
+      IconTextButton(
         onTap: () {},
         text: 'Адреса получателей',
         icon: SvgPicture.asset(
@@ -221,7 +218,7 @@ Widget _links() {
       const SizedBox(
         height: 15,
       ),
-      NavLinkButton(
+      IconTextButton(
         onTap: () {},
         text: 'Адреса складов',
         icon: SvgPicture.asset(
@@ -231,7 +228,7 @@ Widget _links() {
       const SizedBox(
         height: 15,
       ),
-      NavLinkButton(
+      IconTextButton(
         onTap: () {},
         text: 'Зарабатывайте c нами',
         icon: SvgPicture.asset(
@@ -241,7 +238,7 @@ Widget _links() {
       const SizedBox(
         height: 15,
       ),
-      NavLinkButton(
+      IconTextButton(
         onTap: () {},
         text: 'Новости',
         icon: SvgPicture.asset(
@@ -424,21 +421,11 @@ Widget _balanceCard({
             child: Container(
               height: 40,
               margin: const EdgeInsets.only(left: 20),
-              child: TextButton(
-                onPressed: onTap,
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.lightGreen,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: const Text(
-                  'Пополнить',
-                  style: TextStyle(
-                    color: AppColors.darkGreen,
-                    fontWeight: AppFonts.bold,
-                    fontSize: AppFonts.sizeXSmall,
-                  ),
+              child: SubmitButton(
+                onTap: onTap,
+                text: 'Пополнить',
+                borderRadius: BorderRadius.circular(
+                  10,
                 ),
               ),
             ),

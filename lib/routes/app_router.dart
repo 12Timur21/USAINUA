@@ -5,16 +5,20 @@ import 'package:usainua/pages/auth_pages/credential_linking_page/credential_link
 import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/intro_slider_page.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/statistics_page/statistics_page.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome_page.dart';
-import 'package:usainua/pages/auth_pages/remind_password_page/remind_password_page.dart';
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:usainua/pages/auth_pages/sign_up_page/sign_up_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/account_page/account_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/add_new_card_page/add_new_card_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/add_recipient_addresses_page/add_recipient_addresses_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/all_credit_cards_page/all_credit_cards_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/finance_page/finance_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/personal_data_page/personal_data_page.dart';
-
-import 'package:usainua/pages/main_pages/home_page/home_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/recipient_addresses_page/recipient_addresses_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/warhouse_adresses_page/warhouse_adresses_page.dart';
+import 'package:usainua/pages/main_pages/home_page/home_page/home_page.dart';
+import 'package:usainua/pages/main_pages/home_page/purchase_and_delivery_page/purchase_and_delivery_page.dart';
 import 'package:usainua/pages/main_pages/main_page.dart';
-
 import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
 import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
 
@@ -95,6 +99,10 @@ class AppRouter {
       case HomePage.routeName:
         builder = const HomePage();
         break;
+
+      case PurchaseAndDeliveryPage.routeName:
+        builder = const PurchaseAndDeliveryPage();
+        break;
       //? [START] Main pages
 
       //? [START] Account pages
@@ -104,6 +112,30 @@ class AppRouter {
 
       case PersonalDataPage.routeName:
         builder = const PersonalDataPage();
+        break;
+
+      case FinancePage.routeName:
+        builder = const FinancePage();
+        break;
+
+      case AllCreditCardsPage.routeName:
+        builder = const AllCreditCardsPage();
+        break;
+
+      case AddNewCardPage.routeName:
+        builder = const AddNewCardPage();
+        break;
+
+      case AddRecipientAddressesPage.routeName:
+        builder = const AddRecipientAddressesPage();
+        break;
+
+      case RecipientAddressesPage.routeName:
+        builder = const RecipientAddressesPage();
+        break;
+
+      case WarhouseAdressesPage.routeName:
+        builder = const WarhouseAdressesPage();
         break;
 
       //? [START] Account pages

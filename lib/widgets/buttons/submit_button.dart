@@ -9,7 +9,7 @@ class SubmitButton extends StatelessWidget {
     this.textColor = AppColors.darkGreen,
     required this.text,
     required this.onTap,
-    this.style,
+    this.borderRadius,
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +18,7 @@ class SubmitButton extends StatelessWidget {
   final Color textColor;
   final String text;
   final VoidCallback onTap;
-  final ButtonStyle? style;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,14 @@ class SubmitButton extends StatelessWidget {
           text,
           style: _textStyle,
         ),
-        style: style,
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: borderRadius ??
+                BorderRadius.circular(
+                  16,
+                ),
+          ),
+        ),
       ),
     );
   }

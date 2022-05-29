@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
-import 'package:usainua/widgets/buttons/nav_link_button.dart';
+import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -207,7 +207,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
               const SizedBox(
                 height: 25,
               ),
-              NavLinkButton(
+              IconTextButton(
                 onTap: _screenBelow,
                 text: 'Вернутся назад',
                 textStyle: const TextStyle(

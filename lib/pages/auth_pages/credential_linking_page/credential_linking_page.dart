@@ -15,10 +15,10 @@ import 'package:usainua/repositories/auth_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
-import 'package:usainua/resources/app_validators.dart';
+import 'package:usainua/utils/validators/phone_validator.dart';
 import 'package:usainua/widgets/buttons/service_auth_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
-import 'package:usainua/widgets/text_fields/custom_text_field.dart';
+import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 import 'package:usainua/widgets/toasts/error_toast.dart';
 
 enum AuthType {
@@ -222,7 +222,7 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
                             ),
                             Form(
                               key: _formKey,
-                              child: CustomTextField(
+                              child: TextFieldWithCustomLabel(
                                 controller: _phoneController,
                                 textInputAction: TextInputAction.done,
                                 hintText: 'Ваш номер телефона*',
