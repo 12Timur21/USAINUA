@@ -5,10 +5,10 @@ import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/designs/purchare_and_delivery_list.dart';
 import 'package:usainua/widgets/text/text_in_box.dart';
 
-class PurchaseAndDeliveryPage extends StatelessWidget {
-  const PurchaseAndDeliveryPage({Key? key}) : super(key: key);
+class PurchaseAndDeliveryInfromationPage extends StatelessWidget {
+  const PurchaseAndDeliveryInfromationPage({Key? key}) : super(key: key);
 
-  static const routeName = '/purchase_and_delivery_page';
+  static const routeName = '/purchase_and_delivery_information_page';
 
   @override
   Widget build(BuildContext context) {

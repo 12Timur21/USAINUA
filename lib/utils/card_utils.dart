@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:usainua/models/payment_card.dart';
+import 'package:usainua/models/payment_card_model.dart';
 import 'package:usainua/resources/app_icons.dart';
+import 'package:usainua/utils/constants.dart';
 
 class CardUtils {
   static String? validateCVV(String? value) {
@@ -111,7 +112,7 @@ class CardUtils {
 
     switch (paymentCardType) {
       case PaymentCardType.masterCard:
-        iconUrl = AppIcons.master_card;
+        iconUrl = AppIcons.masterCard;
         break;
       case PaymentCardType.visa:
         iconUrl = AppIcons.visa;

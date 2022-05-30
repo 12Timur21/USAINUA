@@ -14,4 +14,10 @@ class AppColors {
   static const Color spreadLightGreen = Color(0xFFF1FDF8);
   static const Color noActiveText = Color(0xFFA7B0C0);
   static const Color boxShadow = Color(0xFF9aa7c6);
+
+  static const Color error = Colors.red;
+  static const Color warning = Colors.yellow;
+  static const Color information = Colors.yellow;
+  static const Color cancel = Colors.redAccent;
+  static const Color checked = Colors.green;
 }

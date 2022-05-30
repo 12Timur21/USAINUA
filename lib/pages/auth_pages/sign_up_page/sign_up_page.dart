@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
@@ -13,6 +12,7 @@ import 'package:usainua/pages/auth_pages/credential_linking_page/credential_link
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
 import 'package:usainua/pages/main_pages/main_page.dart';
+import 'package:usainua/utils/helpers/in_app_notification.dart';
 import 'package:usainua/utils/validators/phone_validator.dart';
 import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/widgets/buttons/service_auth_button.dart';
@@ -24,8 +24,6 @@ import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
-import 'package:usainua/widgets/toasts/error_toast.dart';
-
 import '../additional_data_collection_page/additional_data_collection_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -41,14 +39,6 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
-  final FToast _fToast = FToast();
-
-  @override
-  void initState() {
-    _fToast.init(context);
-    super.initState();
-  }
-
   bool _isPageLoading = false;
 
   final _nameController = TextEditingController();
@@ -65,7 +55,6 @@ class _SignUpPageState extends State<SignUpPage> {
   void _alreadySignUp() {
     Navigator.of(context).pushReplacementNamed(
       SignInPage.routeName,
-      // (route) => false,
     );
   }
 
@@ -147,9 +136,9 @@ class _SignUpPageState extends State<SignUpPage> {
         }
 
         if (state is AuthentificationFailure) {
-          ErrorToast.showErrorToast(
-            fToast: _fToast,
-            errorMessage: state.error,
+          InAppNotification.show(
+            title: state.error,
+            type: InAppNotificationType.error,
           );
           setState(() {
             _isPageLoading = false;
@@ -163,7 +152,6 @@ class _SignUpPageState extends State<SignUpPage> {
         }
 
         if (state is SocialNetworksNeedMoreData) {
-          print('123');
           Navigator.of(context).pushNamed(
             AdditionalDataCollectionPage.routeName,
             arguments: AdditionalDataCollectionPageParameters(

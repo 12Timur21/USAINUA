@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,6 +53,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'USA IN UA',
+        builder: BotToastInit(),
+        navigatorObservers: [
+          BotToastNavigatorObserver(),
+        ],
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light(),
         onGenerateRoute: AppRouter.generateRoute,

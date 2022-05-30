@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
@@ -15,11 +13,11 @@ import 'package:usainua/repositories/auth_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
+import 'package:usainua/utils/helpers/in_app_notification.dart';
 import 'package:usainua/utils/validators/phone_validator.dart';
 import 'package:usainua/widgets/buttons/service_auth_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
-import 'package:usainua/widgets/toasts/error_toast.dart';
 
 enum AuthType {
   phone,
@@ -57,13 +55,6 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
   final _phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isPageLoading = false;
-  final FToast _fToast = FToast();
-
-  @override
-  void initState() {
-    _fToast.init(context);
-    super.initState();
-  }
 
   Future<void> _phoneLinking() async {
     bool isValid = _formKey.currentState?.validate() ?? false;
@@ -147,9 +138,9 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
         }
 
         if (state is AuthentificationFailure) {
-          ErrorToast.showErrorToast(
-            fToast: _fToast,
-            errorMessage: 'Время вышло',
+          InAppNotification.show(
+            title: state.error,
+            type: InAppNotificationType.error,
           );
         }
 

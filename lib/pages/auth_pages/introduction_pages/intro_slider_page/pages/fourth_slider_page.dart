@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
+import 'package:usainua/utils/constants.dart';
 import 'package:usainua/widgets/designs/delivery_only_list.dart';
 import 'package:usainua/widgets/designs/purchare_and_delivery_list.dart';
 import 'package:usainua/widgets/radio_buttons/custom_radio_button.dart';
-
-enum DispatchType { purchaseAndDelivery, deliveryOnly }
 
 class FourthSliderPage extends StatefulWidget {
   const FourthSliderPage({Key? key}) : super(key: key);

@@ -7,6 +7,7 @@ class IconText extends StatelessWidget {
     this.textStyle,
     this.textAlign,
     this.iconPadding = const EdgeInsets.only(),
+    this.mainAxisAlignment = MainAxisAlignment.center,
     Key? key,
   }) : super(key: key);
 
@@ -15,13 +16,14 @@ class IconText extends StatelessWidget {
   final TextStyle? textStyle;
   final TextAlign? textAlign;
   final EdgeInsets iconPadding;
+  final MainAxisAlignment mainAxisAlignment;
 
   //TODO !ПЕРЕДЕЛАТЬ
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: mainAxisAlignment,
       children: [
         Padding(
           padding: iconPadding,

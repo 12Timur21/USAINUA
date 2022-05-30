@@ -29,9 +29,15 @@ class SubmitButton extends StatelessWidget {
         onPressed: onTap,
         child: Text(
           text,
-          style: _textStyle,
+          style: TextStyle(
+            fontWeight: AppFonts.extraBold,
+            fontSize: AppFonts.sizeXSmall,
+            color: textColor,
+            letterSpacing: 1,
+          ),
         ),
         style: TextButton.styleFrom(
+          backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius ??
                 BorderRadius.circular(
@@ -43,8 +49,3 @@ class SubmitButton extends StatelessWidget {
     );
   }
 }
-
-TextStyle _textStyle = const TextStyle(
-  fontWeight: AppFonts.bold,
-  fontSize: AppFonts.sizeXSmall,
-);

@@ -6,11 +6,20 @@ class TextInBox extends StatelessWidget {
   const TextInBox({
     required this.backgroundColor,
     required this.text,
+    this.textStyle = const TextStyle(
+      color: AppColors.darkBlue,
+      fontWeight: AppFonts.regular,
+      fontSize: AppFonts.sizeXSmall,
+      letterSpacing: 1,
+    ),
+    this.alignment = Alignment.center,
     Key? key,
   }) : super(key: key);
 
   final Color backgroundColor;
   final String text;
+  final TextStyle textStyle;
+  final Alignment alignment;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +34,12 @@ class TextInBox extends StatelessWidget {
         vertical: 14,
         horizontal: 30,
       ),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: AppColors.darkBlue,
-          fontWeight: AppFonts.regular,
-          fontSize: AppFonts.sizeXSmall,
-          letterSpacing: 1,
+      child: Align(
+        alignment: alignment,
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: textStyle,
         ),
       ),
     );

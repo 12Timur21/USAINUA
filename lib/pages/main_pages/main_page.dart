@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:usainua/pages/main_pages/account_pages/account_page/account_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/personal_data_page/personal_data_page.dart';
-import 'package:usainua/pages/main_pages/home_page/home_page/home_page.dart';
-import 'package:usainua/pages/main_pages/home_page/purchase_and_delivery_page/purchase_and_delivery_page.dart';
+import 'package:usainua/pages/main_pages/home_pages/home_page/home_page.dart';
+import 'package:usainua/pages/main_pages/my_order_page/my_order_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/our_choise_page/out_choice_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/purchase_and_delivery_page.dart';
+
 import 'package:usainua/repositories/auth_repository.dart';
 import 'package:usainua/routes/app_router.dart';
 import 'package:usainua/widgets/button_navigation_bar/custom_bottom_navigation_bar.dart';
@@ -21,7 +24,7 @@ class MainPage extends StatelessWidget {
       body: Navigator(
         key: navigationKey,
         onGenerateRoute: AppRouter.generateRoute,
-        initialRoute: PurchaseAndDeliveryPage.routeName,
+        initialRoute: MyOrderPage.routeName,
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(

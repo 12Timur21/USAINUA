@@ -13,6 +13,7 @@ class PrivacyTermsPage extends StatefulWidget {
   }) : super(key: key);
 
   static const routeName = '/privacy_terms_page';
+
   final String mdFileName;
 
   @override

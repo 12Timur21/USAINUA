@@ -28,6 +28,11 @@ class CustomRadioOption<T> extends StatelessWidget {
       onTap: () {
         onChanged(value);
       },
+      borderRadius: BorderRadius.circular(
+        15,
+      ),
+      splashColor: activeColor,
+      radius: 20,
       child: Container(
         width: 32,
         height: 32,

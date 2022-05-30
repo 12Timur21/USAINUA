@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:usainua/models/payment_card.dart';
+import 'package:usainua/models/payment_card_model.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/utils/card_utils.dart';
+import 'package:usainua/utils/constants.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 
 import 'package:usainua/widgets/buttons/icon_text_button.dart';
@@ -21,15 +22,15 @@ class AllCreditCardsPage extends StatefulWidget {
 }
 
 class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
-  final List<PaymentCard> _paymentCard = const [
-    PaymentCard(
+  final List<PaymentCardModel> _paymentCard = const [
+    PaymentCardModel(
       type: PaymentCardType.masterCard,
       number: 123456781234,
       month: 12,
       year: 13,
       cvv: 123,
     ),
-    PaymentCard(
+    PaymentCardModel(
       type: PaymentCardType.visa,
       number: 124444671234,
       month: 04,
@@ -38,7 +39,7 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
     ),
   ];
 
-  late PaymentCard _selectedCard;
+  late PaymentCardModel _selectedCard;
 
   @override
   void initState() {
@@ -148,9 +149,9 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
 }
 
 Widget _creditCard({
-  required PaymentCard value,
-  required PaymentCard groupValue,
-  required Function(PaymentCard) onChanged,
+  required PaymentCardModel value,
+  required PaymentCardModel groupValue,
+  required Function(PaymentCardModel) onChanged,
 }) {
   String updatedCardNumber0 = value.number.toString().replaceAllMapped(
         RegExp(r".{4}"),
@@ -191,7 +192,7 @@ Widget _creditCard({
       children: [
         Row(
           children: [
-            CustomRadioOption<PaymentCard>(
+            CustomRadioOption<PaymentCardModel>(
               value: value,
               groupValue: groupValue,
               onChanged: onChanged,

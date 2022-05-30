@@ -13,25 +13,45 @@ class AppIcons {
   static const String keyInBox = '$_path/key_in_box.svg';
   static const String addUser = '$_path/add_user.svg';
 
-  static const String arrow_down = '$_path/arrow_down.svg';
+  static const String arrowDown = '$_path/arrow_down.svg';
   static const String calendar = '$_path/calendar.svg';
   static const String id = '$_path/id.svg';
-  static const String master_card = '$_path/master_card.svg';
+  static const String masterCard = '$_path/master_card.svg';
   static const String question = '$_path/question.svg';
   static const String upload = '$_path/upload.svg';
   static const String visa = '$_path/visa.svg';
+  static const String video = '$_path/video.svg';
+  static const String kettlebell = '$_path/kettlebell.svg';
+  static const String dollarCoin = '$_path/dollar_coin.svg';
+
+  static const String threeDollars = '$_path/three_dollars.svg';
+  static const String camera = '$_path/camera.svg';
+  static const String cube = '$_path/cube.svg';
+  static const String cart = '$_path/cart.svg';
+  static const String drag = '$_path/drag.svg';
+  static const String boat = '$_path/boat.svg';
+  static const String plane = '$_path/plane.svg';
+  static const String receipt = '$_path/receipt.svg';
+  static const String like = '$_path/like.svg';
+  static const String target = '$_path/target.svg';
+  static const String likeInBox = '$_path/like_in_box.svg';
 
   static const String verve = '$_path/verve.svg';
   static const String americanExpress = '$_path/american_express.svg';
   static const String discoverCard = '$_path/discover_card.svg';
   static const String dinersClub = '$_path/diners_club_card.svg';
   static const String jcb = '$_path/jcb.svg';
-
   static const String google = '$_path/google.svg';
   static const String facebook = '$_path/facebook.svg';
 
   static const String openEye = '$_path/open_eye.svg';
   static const String closedEye = '$_path/closed_eye.svg';
+
+  static const String warning = '$_path/warning.svg';
+  static const String information = '$_path/information.svg';
+  static const String error = '$_path/error.svg';
+  static const String cancel = '$_path/cancel.svg';
+  static const String checked = '$_path/checked.svg';
 
   static const String leftArrow = '$_path/left_arrow.svg';
   static const String rightArrow = '$_path/right_arrow.svg';
@@ -56,6 +76,9 @@ class AppIcons {
   static const String copy_3 = '$_path/copy_3.svg';
   static const String moneyBag = '$_path/money_bag.svg';
   static const String location = '$_path/location.svg';
+
+  static const String dollar = '$_path/dollar.svg';
+  static const String kilogram = '$_path/kilogram.svg';
 
   static const String edit = '$_path/edit.svg';
   static const String editBox = '$_path/edit_box.svg';

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:usainua/models/payment_card.dart';
+import 'package:usainua/models/payment_card_model.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/utils/card_utils.dart';
+import 'package:usainua/utils/constants.dart';
 import 'package:usainua/utils/formatters/card_month_input_formatter.dart';
 import 'package:usainua/utils/formatters/card_number_input_formatter.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';

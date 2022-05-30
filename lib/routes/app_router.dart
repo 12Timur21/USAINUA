@@ -16,9 +16,15 @@ import 'package:usainua/pages/main_pages/account_pages/finance_page/finance_page
 import 'package:usainua/pages/main_pages/account_pages/personal_data_page/personal_data_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/recipient_addresses_page/recipient_addresses_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/warhouse_adresses_page/warhouse_adresses_page.dart';
-import 'package:usainua/pages/main_pages/home_page/home_page/home_page.dart';
-import 'package:usainua/pages/main_pages/home_page/purchase_and_delivery_page/purchase_and_delivery_page.dart';
+import 'package:usainua/pages/main_pages/home_pages/home_page/home_page.dart';
+import 'package:usainua/pages/main_pages/home_pages/only_delivery_infromation_page/only_delivery_infromation_page.dart';
+import 'package:usainua/pages/main_pages/home_pages/purchase_and_delivery_infromation_page/purchase_and_delivery_infromation_page.dart';
+import 'package:usainua/pages/main_pages/home_pages/tariff_page/tariff_page.dart';
 import 'package:usainua/pages/main_pages/main_page.dart';
+import 'package:usainua/pages/main_pages/my_order_page/my_order_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/our_choise_page/out_choice_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/purchase_and_delivery_page.dart';
+
 import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
 import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
 
@@ -100,10 +106,18 @@ class AppRouter {
         builder = const HomePage();
         break;
 
-      case PurchaseAndDeliveryPage.routeName:
-        builder = const PurchaseAndDeliveryPage();
+      case PurchaseAndDeliveryInfromationPage.routeName:
+        builder = const PurchaseAndDeliveryInfromationPage();
         break;
-      //? [START] Main pages
+
+      case OnlyDeliveryInfromationPage.routeName:
+        builder = const OnlyDeliveryInfromationPage();
+        break;
+
+      case TariffPage.routeName:
+        builder = const TariffPage();
+        break;
+      //? [END] Main pages
 
       //? [START] Account pages
       case AccountPage.routeName:
@@ -138,7 +152,23 @@ class AppRouter {
         builder = const WarhouseAdressesPage();
         break;
 
-      //? [START] Account pages
+      //? [END] Account pages
+
+      //? [START] Our choise pages
+      case OurChoisePage.routeName:
+        builder = const OurChoisePage();
+        break;
+
+      case PurchaseAndDeliveryPage.routeName:
+        builder = const PurchaseAndDeliveryPage();
+        break;
+      //? [END] Account pages
+
+      //? [START] My order pages
+      case MyOrderPage.routeName:
+        builder = const MyOrderPage();
+        break;
+      //? [END] My order pages
 
       default:
         throw Exception('Invalid route: ${settings.name}');

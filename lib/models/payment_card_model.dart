@@ -1,25 +1,15 @@
+import 'dart:core';
 import 'package:equatable/equatable.dart';
+import 'package:usainua/utils/constants.dart';
 
-enum PaymentCardType {
-  masterCard,
-  visa,
-  verve,
-  americanExpress,
-  discover,
-  dinersClub,
-  jcb,
-  others,
-  invalid,
-}
-
-class PaymentCard extends Equatable {
+class PaymentCardModel extends Equatable {
   final PaymentCardType type;
   final int number;
   final int month;
   final int year;
   final int cvv;
 
-  const PaymentCard({
+  const PaymentCardModel({
     required this.type,
     required this.number,
     required this.month,

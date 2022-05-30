@@ -2,16 +2,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
+import 'package:usainua/utils/helpers/in_app_notification.dart';
 import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
-import 'package:usainua/widgets/toasts/error_toast.dart';
 
 class VerificationCodePageParameters {
   final String phoneNumber;
@@ -41,7 +40,6 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
   int _remainingTime = 30;
   final TextEditingController _otpController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final FToast _fToast = FToast();
 
   late Timer _timer;
   void _screenBelow() {
@@ -50,7 +48,6 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
 
   @override
   void initState() {
-    _fToast.init(context);
     _timer = Timer.periodic(
       const Duration(
         seconds: 1,
@@ -95,16 +92,17 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
           );
         }
         if (state is ValidationOTPTimeOut) {
-          ErrorToast.showErrorToast(
-            fToast: _fToast,
-            errorMessage: 'Время вышло',
+          InAppNotification.show(
+            title: 'Время регистрации вышло',
+            type: InAppNotificationType.error,
           );
+
           Navigator.pop(context);
         }
         if (state is ValidationOTPFailed) {
-          ErrorToast.showErrorToast(
-            fToast: _fToast,
-            errorMessage: state.error,
+          InAppNotification.show(
+            title: state.error,
+            type: InAppNotificationType.error,
           );
           Navigator.pop(context);
         }
