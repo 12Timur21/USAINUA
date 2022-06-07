@@ -33,7 +33,9 @@ class _AddRecipientAddressesPageState extends State<AddRecipientAddressesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Адреса получателей',
       ),

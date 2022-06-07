@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:usainua/pages/main_pages/home_pages/tariff_page/tariff_page.dart';
 import 'package:usainua/resources/app_colors.dart';
+import 'package:usainua/utils/constants.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/designs/delivery_only_list.dart';
@@ -14,7 +16,9 @@ class OnlyDeliveryInfromationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Только доставка',
       ),
@@ -44,7 +48,10 @@ class OnlyDeliveryInfromationPage extends StatelessWidget {
               text: 'Рассчитать только доставку',
               backgroundColor: AppColors.lightBlue,
               textColor: Colors.white,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(TariffPage.routeName,
+                    arguments: DispatchType.deliveryOnly);
+              },
             ),
           ],
         ),

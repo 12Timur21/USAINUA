@@ -12,10 +12,11 @@ import 'package:usainua/pages/main_pages/account_pages/account_page/account_page
 import 'package:usainua/pages/main_pages/account_pages/add_new_card_page/add_new_card_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/add_recipient_addresses_page/add_recipient_addresses_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/all_credit_cards_page/all_credit_cards_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/earn_with_us_page/earn_with_us_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/finance_page/finance_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/personal_data_page/personal_data_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/recipient_addresses_page/recipient_addresses_page.dart';
-import 'package:usainua/pages/main_pages/account_pages/warhouse_adresses_page/warhouse_adresses_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/warehouse_adresses_page/warehouse_adresses_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/home_page/home_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/only_delivery_infromation_page/only_delivery_infromation_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/purchase_and_delivery_infromation_page/purchase_and_delivery_infromation_page.dart';
@@ -27,6 +28,7 @@ import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/
 
 import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
 import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
+import 'package:usainua/utils/constants.dart';
 
 class AppRouter {
   const AppRouter._();
@@ -115,7 +117,10 @@ class AppRouter {
         break;
 
       case TariffPage.routeName:
-        builder = const TariffPage();
+        DispatchType? dispatchType = arguments as DispatchType?;
+        builder = TariffPage(
+          initDispatchType: dispatchType,
+        );
         break;
       //? [END] Main pages
 
@@ -148,8 +153,12 @@ class AppRouter {
         builder = const RecipientAddressesPage();
         break;
 
-      case WarhouseAdressesPage.routeName:
-        builder = const WarhouseAdressesPage();
+      case WarehouseAdressesPage.routeName:
+        builder = const WarehouseAdressesPage();
+        break;
+
+      case EarnWithUsPage.routeName:
+        builder = const EarnWithUsPage();
         break;
 
       //? [END] Account pages

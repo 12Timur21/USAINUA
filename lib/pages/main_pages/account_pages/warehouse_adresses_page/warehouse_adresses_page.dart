@@ -5,11 +5,11 @@ import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
-import 'package:usainua/widgets/buttons/icon_text_button.dart';
+
 import 'package:usainua/widgets/buttons/icon_text_button_with_label.dart';
 
-class WarhouseAdressesPage extends StatelessWidget {
-  const WarhouseAdressesPage({Key? key}) : super(key: key);
+class WarehouseAdressesPage extends StatelessWidget {
+  const WarehouseAdressesPage({Key? key}) : super(key: key);
 
   static const routeName = '/warhouse_adresses_page';
 
@@ -17,7 +17,9 @@ class WarhouseAdressesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Адреса складов',
       ),

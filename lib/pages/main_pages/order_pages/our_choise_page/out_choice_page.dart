@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/pages/main_pages/order_pages/our_choise_page/widget/category_slider.dart';
 import 'package:usainua/pages/main_pages/order_pages/our_choise_page/widget/company_choise_slider.dart';
+import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/purchase_and_delivery_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -25,7 +26,11 @@ class _OurChoisePageState extends State<OurChoisePage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                PurchaseAndDeliveryPage.routeName,
+              );
+            },
             icon: SvgPicture.asset(
               AppIcons.dialog,
               color: AppColors.lightBlue,

@@ -5,7 +5,7 @@ import 'package:usainua/models/payment_card_model.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
-import 'package:usainua/utils/card_utils.dart';
+import 'package:usainua/utils/credit_card_utils.dart';
 import 'package:usainua/utils/constants.dart';
 import 'package:usainua/utils/formatters/card_month_input_formatter.dart';
 import 'package:usainua/utils/formatters/card_number_input_formatter.dart';
@@ -37,9 +37,10 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
   PaymentCardType? _cardType;
 
   void _getCardTypeFrmNumber() {
-    String input = CardUtils.getCleanedNumber(_creditCardNameController.text);
+    String input =
+        CreditCardUtils.getCleanedNumber(_creditCardNameController.text);
     setState(() {
-      _cardType = CardUtils.getPaymentCardTypeFromNumber(input);
+      _cardType = CreditCardUtils.getPaymentCardTypeFromNumber(input);
     });
   }
 
@@ -54,7 +55,9 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Банковские карты',
       ),
@@ -99,7 +102,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                       controller: _creditCardNameController,
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      suffixIcon: CardUtils.getCardIcon(
+                      suffixIcon: CreditCardUtils.getCardIcon(
                         paymentCardType: _cardType,
                         boxFit: BoxFit.scaleDown,
                       ),
@@ -108,13 +111,14 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                         LengthLimitingTextInputFormatter(19),
                         CardNumberInputFormatter(),
                       ],
-                      validator: CardUtils.validateCardNumWithLuhnAlgorithm,
+                      validator:
+                          CreditCardUtils.validateCardNumWithLuhnAlgorithm,
                       onChanged: (_) {
                         _getCardTypeFrmNumber();
                       },
                       onSubmitted: (value) {
                         print(
-                          CardUtils.getCleanedNumber(
+                          CreditCardUtils.getCleanedNumber(
                             value,
                           ),
                         );
@@ -151,10 +155,10 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                                   LengthLimitingTextInputFormatter(4),
                                   CardMonthInputFormatter(),
                                 ],
-                                validator: CardUtils.validateDate,
+                                validator: CreditCardUtils.validateDate,
                                 onSubmitted: (value) {
                                   List<int> expiryDate =
-                                      CardUtils.getExpiryDate(value);
+                                      CreditCardUtils.getExpiryDate(value);
                                   print(expiryDate);
                                 }),
                           ],
@@ -182,7 +186,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.next,
                               hintText: 'XXX',
-                              validator: CardUtils.validateCVV,
+                              validator: CreditCardUtils.validateCVV,
                             ),
                           ],
                         ),

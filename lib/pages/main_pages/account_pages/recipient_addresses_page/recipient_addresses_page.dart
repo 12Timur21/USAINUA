@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:usainua/pages/main_pages/account_pages/add_recipient_addresses_page/add_recipient_addresses_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -39,7 +40,9 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Адреса получателей',
       ),
@@ -104,7 +107,12 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
                 height: 20,
               ),
               IconTextButton(
-                onTap: () {},
+                onTap: () {
+                  print('eqweqw');
+                  Navigator.of(context).pushNamed(
+                    AddRecipientAddressesPage.routeName,
+                  );
+                },
                 text: 'Добавить еще адрес',
                 textStyle: const TextStyle(
                   color: AppColors.darkBlue,

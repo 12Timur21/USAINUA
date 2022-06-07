@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:usainua/pages/main_pages/home_pages/only_delivery_infromation_page/only_delivery_infromation_page.dart';
+import 'package:usainua/pages/main_pages/home_pages/purchase_and_delivery_infromation_page/purchase_and_delivery_infromation_page.dart';
+import 'package:usainua/pages/main_pages/home_pages/tariff_page/tariff_page.dart';
 
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
@@ -43,27 +46,45 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Column(
                   children: [
-                    _signboard(
-                      text: 'Покупка и доставка',
-                      backgroundColor: AppColors.spreadLightGreen,
-                      foregroundColor: AppColors.lightGreen,
-                      image: Image.asset(AppImages.car),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          PurchaseAndDeliveryInfromationPage.routeName,
+                        );
+                      },
+                      child: _signboard(
+                        text: 'Покупка и доставка',
+                        backgroundColor: AppColors.spreadLightGreen,
+                        foregroundColor: AppColors.lightGreen,
+                        image: Image.asset(AppImages.car),
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    _signboard(
-                      text: 'Только доставка',
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.darkBlue,
-                      image: Image.asset(AppImages.plane),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          OnlyDeliveryInfromationPage.routeName,
+                        );
+                      },
+                      child: _signboard(
+                        text: 'Только доставка',
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: AppColors.darkBlue,
+                        image: Image.asset(AppImages.plane),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                _tariffButton(),
+                _tariffButton(onTap: () {
+                  Navigator.of(context).pushNamed(
+                    TariffPage.routeName,
+                  );
+                }),
                 const SizedBox(
                   height: 45,
                 ),
@@ -137,11 +158,13 @@ Widget _userBalance() {
   );
 }
 
-Widget _tariffButton() {
+Widget _tariffButton({
+  required VoidCallback onTap,
+}) {
   return Align(
     alignment: Alignment.centerLeft,
     child: TextButton.icon(
-      onPressed: () {},
+      onPressed: onTap,
       icon: SvgPicture.asset(
         AppIcons.calculator,
       ),

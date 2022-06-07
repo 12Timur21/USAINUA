@@ -12,7 +12,12 @@ import 'package:usainua/widgets/text/text_in_box.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
 class TariffPage extends StatefulWidget {
-  const TariffPage({Key? key}) : super(key: key);
+  final DispatchType? initDispatchType;
+
+  const TariffPage({
+    this.initDispatchType,
+    Key? key,
+  }) : super(key: key);
 
   static const routeName = '/tariff_page';
 
@@ -21,15 +26,23 @@ class TariffPage extends StatefulWidget {
 }
 
 class _TariffPageState extends State<TariffPage> {
-  DispatchType _dispatchType = DispatchType.purchaseAndDelivery;
+  DispatchType? _dispatchType;
   final _formKey = GlobalKey<FormState>();
   final _packageWeightController = TextEditingController();
+
+  @override
+  void initState() {
+    _dispatchType = widget.initDispatchType ?? DispatchType.purchaseAndDelivery;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Тарифы',
       ),

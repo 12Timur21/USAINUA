@@ -8,24 +8,22 @@ abstract class AuthentificationEvent extends Equatable {
 }
 
 class AuthentificationWithPhoneNumber extends AuthentificationEvent {
-  final String phoneNumber;
-
   const AuthentificationWithPhoneNumber({
     required this.phoneNumber,
   });
+  final String phoneNumber;
 
   @override
   List<Object> get props => [phoneNumber];
 }
 
 class ValidateOTPCode extends AuthentificationEvent {
-  final String smsCode;
-  final String verificationID;
-
   const ValidateOTPCode({
     required this.smsCode,
     required this.verificationID,
   });
+  final String smsCode;
+  final String verificationID;
 
   @override
   List<Object> get props => [
@@ -39,24 +37,22 @@ class AuthentificationWithGoogle extends AuthentificationEvent {}
 class AuthentificationWithFacebook extends AuthentificationEvent {}
 
 class AuthentificationWithAuthCredential extends AuthentificationEvent {
-  final AuthCredential authCredential;
-
   const AuthentificationWithAuthCredential({
     required this.authCredential,
   });
+  final AuthCredential authCredential;
 
   @override
   List<Object> get props => [authCredential];
 }
 
 class AuthentificationCreateNewUser extends AuthentificationEvent {
-  final UserModel userModel;
-  final AuthCredential authCredential;
-
   const AuthentificationCreateNewUser({
     required this.userModel,
     required this.authCredential,
   });
+  final UserModel userModel;
+  final AuthCredential authCredential;
 
   @override
   List<Object> get props => [
@@ -66,24 +62,22 @@ class AuthentificationCreateNewUser extends AuthentificationEvent {
 }
 
 class AuthentificationError extends AuthentificationEvent {
-  final FirebaseAuthException error;
-
   const AuthentificationError({
     required this.error,
   });
+  final FirebaseAuthException error;
 
   @override
   List<Object> get props => [error];
 }
 
 class AuthentificationLinking extends AuthentificationEvent {
-  final AuthCredential oldCredential;
-  final AuthCredential newCredential;
-
   const AuthentificationLinking({
     required this.newCredential,
     required this.oldCredential,
   });
+  final AuthCredential oldCredential;
+  final AuthCredential newCredential;
 
   @override
   List<Object> get props => [

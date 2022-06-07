@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:usainua/resources/app_colors.dart';
+import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
+import 'package:usainua/widgets/animated_widgets/animated_dot_hint.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/text/icon_text.dart';
+import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 import 'package:usainua/widgets/text_fields/resizable_text_field.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
@@ -29,84 +32,126 @@ class _PurchaseAndDeliveryPageState extends State<PurchaseAndDeliveryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        onLeading: () {},
-        onAction: () {},
-        leadingIcon: SvgPicture.asset(
-          AppIcons.leftArrow,
-        ),
-        actionIcon: SvgPicture.asset(
-          AppIcons.video,
-        ),
-        text: 'Покупка и доставка',
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 24,
-        ),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                width: 100,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: AppColors.lightGreen,
-                  borderRadius: BorderRadius.circular(4),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: CustomAppBar(
+            onLeading: () {
+              Navigator.of(context).pop();
+            },
+            onAction: () {},
+            leadingIcon: SvgPicture.asset(
+              AppIcons.leftArrow,
+            ),
+            actionIcon: SvgPicture.asset(
+              AppIcons.video,
+            ),
+            text: 'Покупка и доставка',
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+            ),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 100,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: AppColors.lightGreen,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFieldWithCustomLabel(
-                    controller: _linkController,
-                    textInputAction: TextInputAction.send,
-                    maxLength: 35,
-                    keyboardType: TextInputType.name,
-                    validator: MultiValidator(
-                      [
-                        LengthRangeValidator(
-                          min: 1,
-                          max: 35,
-                          errorText: 'Укажите ссылку на свой товар',
-                        )
-                      ],
-                    ),
-                    hintText: 'Укажите ссылку на товар*',
-                    sufixIcon: GestureDetector(
-                      onTap: () {},
-                      child: SvgPicture.asset(
-                        AppIcons.question,
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
+                      TextFieldWithCustomLabel(
+                        controller: _linkController,
+                        textInputAction: TextInputAction.send,
+                        maxLength: 35,
+                        keyboardType: TextInputType.name,
+                        validator: MultiValidator(
+                          [
+                            LengthRangeValidator(
+                              min: 1,
+                              max: 35,
+                              errorText: 'Укажите ссылку на свой товар',
+                            )
+                          ],
+                        ),
+                        hintText: 'Укажите ссылку на товар*',
+                        sufixIcon: GestureDetector(
+                          onTap: () {},
+                          child: SvgPicture.asset(
+                            AppIcons.question,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ResiazableTextField(
+                        height: 130,
+                        minHeight: 130,
+                        controller: _descriptionController,
+                      ),
+                      Column(
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              AppIcons.plus,
+                              color: AppColors.lightBlue,
+                            ),
+                            label: const Text(
+                              'Добавить еще один товар в просчет',
+                              style: TextStyle(
+                                color: AppColors.darkBlue,
+                                fontWeight: AppFonts.bold,
+                                fontSize: AppFonts.sizeXSmall,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextButton.icon(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              AppIcons.calculator,
+                              color: AppColors.lightBlue,
+                            ),
+                            label: const Text(
+                              'Добавить еще один товар в просчет',
+                              style: TextStyle(
+                                color: AppColors.darkBlue,
+                                fontWeight: AppFonts.bold,
+                                fontSize: AppFonts.sizeXSmall,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ResiazableTextField(
-                    height: 130,
-                    controller: _descriptionController,
-                  ),
-                  IconText(
-                    icon: SvgPicture.asset(
-                      AppIcons.plus,
-                    ),
-                    label: 'Добавить еще один товар в просчет',
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        Align(
+          alignment: Alignment.topRight,
+          child: AnimatedDotHint(),
+        ),
+      ],
     );
   }
 }

@@ -24,15 +24,13 @@ class _FinancePageState extends State<FinancePage> {
   final TextEditingController _balanceController = TextEditingController();
   bool _isAutomaticallyWriteOffDebts = false;
 
-  void _pop() {
-    Navigator.of(context).pop();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Финансы',
       ),
@@ -43,6 +41,7 @@ class _FinancePageState extends State<FinancePage> {
           top: 24,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Ваш баланс',
@@ -52,6 +51,9 @@ class _FinancePageState extends State<FinancePage> {
                 letterSpacing: 0.5,
                 fontSize: AppFonts.sizeXLarge,
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             TextFormField(
               controller: _balanceController,
@@ -77,11 +79,13 @@ class _FinancePageState extends State<FinancePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconTextButton(
-                  onTap: () {},
-                  text: 'Вывести с баланса',
-                  icon: SvgPicture.asset(
-                    AppIcons.upload,
+                Expanded(
+                  child: IconTextButton(
+                    onTap: () {},
+                    text: 'Вывести с баланса',
+                    icon: SvgPicture.asset(
+                      AppIcons.upload,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -167,6 +171,9 @@ class _FinancePageState extends State<FinancePage> {
                       price: 123.23,
                       operationType: OperationType.orderPayment,
                       paymentMethod: PaymentMethod.balance,
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     paymentCard(
                       id: '312312312',
@@ -266,26 +273,32 @@ Widget paymentCard({
             letterSpacing: 1,
           ),
           children: [
-            IconTextButton(
-              onTap: () {},
-              text: id,
-              icon: SvgPicture.asset(
-                AppIcons.id,
+            Expanded(
+              child: IconTextButton(
+                onTap: () {},
+                text: id,
+                icon: SvgPicture.asset(
+                  AppIcons.id,
+                ),
               ),
             ),
-            IconTextButton(
-              onTap: () {},
-              text: DateFormat('dd/MM/yy').format(dateTime),
-              icon: SvgPicture.asset(
-                AppIcons.calendar,
+            Expanded(
+              child: IconTextButton(
+                onTap: () {},
+                text: DateFormat('dd/MM/yy').format(dateTime),
+                icon: SvgPicture.asset(
+                  AppIcons.calendar,
+                ),
               ),
             ),
-            IconTextButton(
-              onTap: () {},
-              text: price.toString(),
-              icon: SvgPicture.asset(
-                AppIcons.moneyBag,
-                color: AppColors.lightBlue,
+            Expanded(
+              child: IconTextButton(
+                onTap: () {},
+                text: price.toString(),
+                icon: SvgPicture.asset(
+                  AppIcons.moneyBag,
+                  color: AppColors.lightBlue,
+                ),
               ),
             ),
           ],
@@ -340,6 +353,5 @@ Widget paymentCard({
         ),
       ],
     ),
-    // child: ,
   );
 }

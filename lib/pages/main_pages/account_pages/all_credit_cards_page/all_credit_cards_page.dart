@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:usainua/models/payment_card_model.dart';
+import 'package:usainua/pages/main_pages/account_pages/add_new_card_page/add_new_card_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
-import 'package:usainua/utils/card_utils.dart';
+import 'package:usainua/utils/credit_card_utils.dart';
 import 'package:usainua/utils/constants.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 
@@ -54,7 +55,9 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Банковские карты',
       ),
@@ -90,7 +93,12 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
               height: 20,
             ),
             IconTextButton(
-              onTap: () {},
+              onTap: () {
+                print('eqweq');
+                Navigator.of(context).pushNamed(
+                  AddNewCardPage.routeName,
+                );
+              },
               textStyle: const TextStyle(
                 color: AppColors.darkBlue,
                 fontWeight: AppFonts.bold,
@@ -108,36 +116,41 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconTextButton(
-                  onTap: () {},
-                  textStyle: const TextStyle(
-                    color: AppColors.darkBlue,
-                    fontWeight: AppFonts.bold,
-                    fontSize: AppFonts.sizeSmall,
-                  ),
-                  text: 'Автосписывание по умолчанию',
-                  icon: SvgPicture.asset(
-                    AppIcons.question,
-                    color: AppColors.lightBlue,
+                Expanded(
+                  child: IconTextButton(
+                    onTap: () {},
+                    textStyle: const TextStyle(
+                      color: AppColors.darkBlue,
+                      fontWeight: AppFonts.bold,
+                      fontSize: AppFonts.sizeSmall,
+                    ),
+                    text: 'Автосписывание по умолчанию',
+                    icon: SvgPicture.asset(
+                      AppIcons.question,
+                      color: AppColors.lightBlue,
+                    ),
                   ),
                 ),
-                FlutterSwitch(
+                SizedBox(
                   width: 60,
-                  height: 30,
-                  toggleSize: 25,
-                  valueFontSize: 25.0,
-                  activeText: '',
-                  inactiveText: '',
-                  activeColor: AppColors.antiFlashWhite,
-                  inactiveColor: AppColors.antiFlashWhite,
-                  value: isAutomaticWriteOff,
-                  borderRadius: 30.0,
-                  showOnOff: true,
-                  onToggle: (val) {
-                    setState(() {
-                      isAutomaticWriteOff = val;
-                    });
-                  },
+                  child: FlutterSwitch(
+                    width: 60,
+                    height: 30,
+                    toggleSize: 25,
+                    valueFontSize: 25.0,
+                    activeText: '',
+                    inactiveText: '',
+                    activeColor: AppColors.antiFlashWhite,
+                    inactiveColor: AppColors.antiFlashWhite,
+                    value: isAutomaticWriteOff,
+                    borderRadius: 30.0,
+                    showOnOff: true,
+                    onToggle: (val) {
+                      setState(() {
+                        isAutomaticWriteOff = val;
+                      });
+                    },
+                  ),
                 ),
               ],
             ),
@@ -168,7 +181,7 @@ Widget _creditCard({
     updatedCardNumber0.length - 5,
   );
 
-  SvgPicture cardIcon = CardUtils.getCardIcon(
+  SvgPicture cardIcon = CreditCardUtils.getCardIcon(
     paymentCardType: value.type,
   );
 

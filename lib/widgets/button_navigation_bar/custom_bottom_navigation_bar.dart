@@ -30,7 +30,7 @@ class _CustomButtonNavigationBarState extends State<CustomButtonNavigationBar> {
     super.initState();
   }
 
-  _setBottomBarIndex(index) {
+  void _setBottomBarIndex(index) {
     setState(() {
       _currentIndex = index;
       widget.onChange(index);

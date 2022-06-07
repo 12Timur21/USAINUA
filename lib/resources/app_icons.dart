@@ -12,6 +12,7 @@ class AppIcons {
   static const String lock = '$_path/lock.svg';
   static const String keyInBox = '$_path/key_in_box.svg';
   static const String addUser = '$_path/add_user.svg';
+  static const String filledStar = '$_path/filled_star.svg';
 
   static const String arrowDown = '$_path/arrow_down.svg';
   static const String calendar = '$_path/calendar.svg';

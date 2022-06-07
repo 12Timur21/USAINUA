@@ -98,7 +98,9 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
-        onLeading: () {},
+        onLeading: () {
+          Navigator.of(context).pop();
+        },
         onAction: () {},
         text: 'Личные данные',
       ),

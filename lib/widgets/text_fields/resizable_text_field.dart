@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/resources/app_colors.dart';
+import 'package:usainua/resources/app_icons.dart';
 
 class ResiazableTextField extends StatefulWidget {
   final double height;
   final double maxHeight;
-  final double dividerHeight;
+  final double minHeight;
 
   final TextEditingController controller;
   final String? hintText;
@@ -13,7 +15,7 @@ class ResiazableTextField extends StatefulWidget {
     required this.controller,
     this.height = 44,
     this.maxHeight = 200,
-    this.dividerHeight = 40,
+    this.minHeight = 120,
     this.hintText,
     Key? key,
   }) : super(key: key);
@@ -24,8 +26,6 @@ class ResiazableTextField extends StatefulWidget {
 
 class _ResiazableTextFieldState extends State<ResiazableTextField> {
   late double _height;
-  late double _maxHeight;
-  late double _dividerHeight;
 
   UniqueKey uniqueKey = UniqueKey();
 
@@ -33,72 +33,63 @@ class _ResiazableTextFieldState extends State<ResiazableTextField> {
   void initState() {
     super.initState();
     _height = widget.height;
-    _maxHeight = widget.maxHeight;
-    _dividerHeight = widget.dividerHeight;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: _maxHeight,
+      height: _height,
       decoration: BoxDecoration(
         color: AppColors.primary,
         borderRadius: BorderRadius.circular(
           16,
         ),
       ),
-      child: Column(
+      child: Stack(
+        alignment: Alignment.bottomRight,
         children: [
-          SizedBox(
-            height: _height,
-            child: TextField(
-              controller: widget.controller,
-              decoration: InputDecoration(
-                hintText: widget.hintText,
+          TextField(
+            controller: widget.controller,
+            decoration: InputDecoration(
+              hintText: widget.hintText,
+              contentPadding: const EdgeInsets.only(
+                left: 24,
+                right: 24,
+                top: 20,
               ),
-              maxLines: 100,
             ),
+            maxLines: 100,
           ),
-          Container(
-            color: Colors.red,
-            height: _dividerHeight,
-            width: 60,
-            child: Draggable(
-              key: uniqueKey,
-              child: const FittedBox(
-                child: Text(
-                  "----",
+          SizedBox(
+            width: 32,
+            height: 32,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(7),
+                    child: SvgPicture.asset(
+                      AppIcons.drag,
+                    ),
+                  ),
                 ),
-              ),
-              feedback: Container(),
+                GestureDetector(
+                  key: uniqueKey,
+                
+                  onVerticalDragUpdate: (DragUpdateDetails value) {
+                    setState(() {
+                      _height += value.delta.dy;
 
-              onDragUpdate: (DragUpdateDetails value) {
-                setState(() {
-                  // var maxLimit = _maxHeight - _dividerHeight;
-                  var minLimit = 44.0;
-                  print(value.localPosition.dy);
-                  _height = value.localPosition.dy;
-                  if (_height > _maxHeight) {
-                    _height = _maxHeight;
-                  } else if (_height < minLimit) {
-                    _height = minLimit;
-                  }
-                });
-              },
-              // onPanUpdate: (details) {
-              //   setState(() {
-              //     _height += details.delta.dy;
-
-              //     var maxLimit = _maxHeight - _dividerHeight - _dividerSpace;
-              //     var minLimit = 44.0;
-
-              //     if (_height > maxLimit) {
-              //       _height = maxLimit;
-              //     } else if (_height < minLimit) {
-              //       _height = minLimit;
-              //     }
-              //   });
-              // },
+                      if (_height > widget.maxHeight) {
+                        _height = widget.maxHeight;
+                      } else if (_height < widget.minHeight) {
+                        _height = widget.minHeight;
+                      }
+                    });
+                  },
+                ),
+              ],
             ),
           )
         ],

@@ -24,4 +24,10 @@ class AppImages {
   static const String ebay = '$_path/companies/ebay.png';
   static const String macys = '$_path/companies/macys.png';
   static const String walmart = '$_path/companies/walmart.png';
+
+  static const String boxSurprise = '$_path/box_surprise.png';
+  static const String girlWithWallet = '$_path/girl_with_wallet.png';
+  static const String peopleWithMoney = '$_path/people_with_money.png';
+  static const String thinkingMan = '$_path/thinking_man.png';
+  static const String warehouseWithMan = '$_path/warehouse_with_man.png';
 }

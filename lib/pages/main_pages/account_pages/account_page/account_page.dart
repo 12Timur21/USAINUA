@@ -3,7 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
 import 'package:usainua/models/user_model.dart';
+import 'package:usainua/pages/main_pages/account_pages/all_credit_cards_page/all_credit_cards_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/earn_with_us_page/earn_with_us_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/finance_page/finance_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/personal_data_page/personal_data_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/recipient_addresses_page/recipient_addresses_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/warehouse_adresses_page/warehouse_adresses_page.dart';
+import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -29,12 +35,6 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     _userModel = context.read<AuthorizationBloc>().state.userModel!;
     super.initState();
-  }
-
-  void _navigateToPersonalDataPage() {
-    Navigator.of(context).pushNamed(
-      PersonalDataPage.routeName,
-    );
   }
 
   @override
@@ -65,7 +65,11 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 userName: _userModel.name!,
                 email: _userModel.email!,
-                onClick: _navigateToPersonalDataPage,
+                onClick: () {
+                  Navigator.of(context).pushNamed(
+                    PersonalDataPage.routeName,
+                  );
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -82,30 +86,70 @@ class _AccountPageState extends State<AccountPage> {
               const SizedBox(
                 height: 32,
               ),
-              _links(),
+              _links(
+                context: context,
+              ),
               const SizedBox(
-                height: 70,
+                height: 30,
               ),
-              const RichTextWrapper(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                textStyle: TextStyle(
-                  color: AppColors.darkBlue,
-                  fontWeight: AppFonts.regular,
-                  fontSize: AppFonts.sizeXSmall,
-                  letterSpacing: 1,
-                ),
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Справочник'),
-                  SizedBox(
-                    height: 15,
+                  TextButton(
+                    onPressed: () {
+                      //TODO уточнить
+                      Navigator.of(context).pushNamed(
+                        PrivacyTermsPage.routeName,
+                        arguments: 'privacy_policy.md',
+                      );
+                    },
+                    child: const Text(
+                      'Справочник',
+                      style: TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.regular,
+                        fontSize: AppFonts.sizeXSmall,
+                        letterSpacing: 1,
+                      ),
+                    ),
                   ),
-                  Text('Правила и условия'),
-                  SizedBox(
-                    height: 15,
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        PrivacyTermsPage.routeName,
+                        arguments: 'terms_and_conditions.md',
+                      );
+                    },
+                    child: const Text(
+                      'Правила и условия',
+                      style: TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.regular,
+                        fontSize: AppFonts.sizeXSmall,
+                        letterSpacing: 1,
+                      ),
+                    ),
                   ),
-                  Text('Политика конфиденциальности'),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        PrivacyTermsPage.routeName,
+                        arguments: 'privacy_policy.md',
+                      );
+                    },
+                    child: const Text(
+                      'Политика конфиденциальности',
+                      style: TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.regular,
+                        fontSize: AppFonts.sizeXSmall,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
                 ],
-              ),
+              )
             ],
           ),
         ),
@@ -178,7 +222,9 @@ Widget _orderLater() {
   );
 }
 
-Widget _links() {
+Widget _links({
+  required BuildContext context,
+}) {
   return RichTextWrapper(
     textStyle: const TextStyle(
       color: AppColors.darkBlue,
@@ -189,7 +235,11 @@ Widget _links() {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       IconTextButton(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            FinancePage.routeName,
+          );
+        },
         text: 'Финансы',
         icon: SvgPicture.asset(
           AppIcons.wallet,
@@ -199,7 +249,11 @@ Widget _links() {
         height: 15,
       ),
       IconTextButton(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            AllCreditCardsPage.routeName,
+          );
+        },
         text: 'Банковские карты',
         icon: SvgPicture.asset(
           AppIcons.wallet,
@@ -209,7 +263,11 @@ Widget _links() {
         height: 15,
       ),
       IconTextButton(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            RecipientAddressesPage.routeName,
+          );
+        },
         text: 'Адреса получателей',
         icon: SvgPicture.asset(
           AppIcons.adress,
@@ -219,7 +277,11 @@ Widget _links() {
         height: 15,
       ),
       IconTextButton(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            WarehouseAdressesPage.routeName,
+          );
+        },
         text: 'Адреса складов',
         icon: SvgPicture.asset(
           AppIcons.adressHouse,
@@ -229,20 +291,14 @@ Widget _links() {
         height: 15,
       ),
       IconTextButton(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            EarnWithUsPage.routeName,
+          );
+        },
         text: 'Зарабатывайте c нами',
         icon: SvgPicture.asset(
           AppIcons.graph,
-        ),
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      IconTextButton(
-        onTap: () {},
-        text: 'Новости',
-        icon: SvgPicture.asset(
-          AppIcons.news,
         ),
       ),
     ],

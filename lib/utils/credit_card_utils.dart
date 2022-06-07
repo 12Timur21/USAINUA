@@ -4,7 +4,7 @@ import 'package:usainua/models/payment_card_model.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/utils/constants.dart';
 
-class CardUtils {
+class CreditCardUtils {
   static String? validateCVV(String? value) {
     if (value == null || value.isEmpty) {
       return 'Это обязательное поле';
