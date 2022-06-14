@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:usainua/models/user_model.dart';
 
 class FirestoreRepository {
@@ -25,7 +24,7 @@ class FirestoreRepository {
     return null;
   }
 
-  void updateUser({
+  Future<void> updateUser({
     String? name,
     String? email,
     String? phoneNumber,
@@ -47,8 +46,8 @@ class FirestoreRepository {
     await _userCollection.doc().update(updatedData);
   }
 
-  void deleteUser() async {
-    await _userCollection.doc().delete();
+  void deleteUser() {
+    _userCollection.doc().delete();
   }
   //? [End] User management
 }

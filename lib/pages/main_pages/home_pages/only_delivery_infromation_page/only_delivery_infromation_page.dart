@@ -49,8 +49,10 @@ class OnlyDeliveryInfromationPage extends StatelessWidget {
               backgroundColor: AppColors.lightBlue,
               textColor: Colors.white,
               onTap: () {
-                Navigator.of(context).pushNamed(TariffPage.routeName,
-                    arguments: DispatchType.deliveryOnly);
+                Navigator.of(context).pushNamed(
+                  TariffPage.routeName,
+                  arguments: DispatchType.deliveryOnly,
+                );
               },
             ),
           ],

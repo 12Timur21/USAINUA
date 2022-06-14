@@ -10,13 +10,12 @@ abstract class AuthorizationEvent extends Equatable {
 class AppLoaded extends AuthorizationEvent {}
 
 class UserLoggedIn extends AuthorizationEvent {
-  final UserModel userModel;
-  final bool isNewUser;
-
   const UserLoggedIn({
     required this.userModel,
     this.isNewUser = false,
   });
+  final UserModel userModel;
+  final bool isNewUser;
 
   @override
   List<Object> get props => [userModel];

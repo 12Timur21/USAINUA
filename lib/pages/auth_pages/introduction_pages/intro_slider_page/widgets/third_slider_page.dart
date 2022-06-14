@@ -12,8 +12,6 @@ class ThirdSliderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _width = MediaQuery.of(context).size.width - 48;
-
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 24,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl/intl.dart';
@@ -87,10 +86,6 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
       SignInPage.routeName,
       (Route<dynamic> route) => false,
     );
-  }
-
-  void _pop() {
-    Navigator.of(context).pop();
   }
 
   @override

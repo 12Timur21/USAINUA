@@ -10,19 +10,17 @@ import 'package:usainua/pages/auth_pages/additional_data_collection_page/additio
 import 'package:usainua/pages/auth_pages/credential_linking_page/credential_linking_page.dart';
 import 'package:usainua/pages/auth_pages/sign_up_page/sign_up_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
-import 'package:usainua/pages/main_pages/main_page.dart';
+import 'package:usainua/pages/main_page.dart';
+import 'package:usainua/resources/app_colors.dart';
+import 'package:usainua/resources/app_fonts.dart';
+import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/utils/helpers/in_app_notification.dart';
 import 'package:usainua/utils/validators/phone_validator.dart';
 import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/widgets/buttons/service_auth_button.dart';
-import 'package:usainua/resources/app_colors.dart';
-import 'package:usainua/resources/app_fonts.dart';
-import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
-
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
-import 'package:usainua/widgets/toasts/error_toast.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);

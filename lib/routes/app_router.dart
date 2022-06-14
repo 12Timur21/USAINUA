@@ -8,6 +8,7 @@ import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:usainua/pages/auth_pages/sign_up_page/sign_up_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
+import 'package:usainua/pages/main_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/account_page/account_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/add_new_card_page/add_new_card_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/add_recipient_addresses_page/add_recipient_addresses_page.dart';
@@ -21,8 +22,10 @@ import 'package:usainua/pages/main_pages/home_pages/home_page/home_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/only_delivery_infromation_page/only_delivery_infromation_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/purchase_and_delivery_infromation_page/purchase_and_delivery_infromation_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/tariff_page/tariff_page.dart';
-import 'package:usainua/pages/main_pages/main_page.dart';
-import 'package:usainua/pages/main_pages/my_order_page/my_order_page.dart';
+import 'package:usainua/pages/main_pages/my_order_pages/my_order_page/my_order_page.dart';
+import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/order_view_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/approximate_cost_purchase_and_delivery_page/approximate_cost_purchase_and_delivery_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/only_delivery_page/only_delivery_page.dart';
 import 'package:usainua/pages/main_pages/order_pages/our_choise_page/out_choice_page.dart';
 import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/purchase_and_delivery_page.dart';
 
@@ -156,11 +159,9 @@ class AppRouter {
       case WarehouseAdressesPage.routeName:
         builder = const WarehouseAdressesPage();
         break;
-
       case EarnWithUsPage.routeName:
         builder = const EarnWithUsPage();
         break;
-
       //? [END] Account pages
 
       //? [START] Our choise pages
@@ -171,11 +172,23 @@ class AppRouter {
       case PurchaseAndDeliveryPage.routeName:
         builder = const PurchaseAndDeliveryPage();
         break;
+
+      case ApproximateCostPurchaseAndDeliveryPage.routeName:
+        builder = const ApproximateCostPurchaseAndDeliveryPage();
+        break;
+
+      case OnlyDeliveryPage.routeName:
+        builder = const OnlyDeliveryPage();
+        break;
       //? [END] Account pages
 
       //? [START] My order pages
       case MyOrderPage.routeName:
         builder = const MyOrderPage();
+        break;
+
+      case OrderViewPage.routeName:
+        builder = const OrderViewPage();
         break;
       //? [END] My order pages
 

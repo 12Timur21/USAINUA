@@ -18,8 +18,6 @@ class IconText extends StatelessWidget {
   final EdgeInsets iconPadding;
   final MainAxisAlignment mainAxisAlignment;
 
-  //TODO !ПЕРЕДЕЛАТЬ
-
   @override
   Widget build(BuildContext context) {
     return Row(

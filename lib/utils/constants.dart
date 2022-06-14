@@ -1,3 +1,5 @@
+const double bottomNavBarHeight = 80;
+
 enum DispatchType {
   purchaseAndDelivery,
   deliveryOnly,
@@ -25,7 +27,6 @@ enum ShoppingMalls {
 enum DeliveryMethod {
   air,
   sea,
-  overland,
 }
 
 enum DeliveryStatus {
@@ -34,4 +35,10 @@ enum DeliveryStatus {
   sentToYou,
   successfullyRecived,
   leaveFeedback,
+}
+
+enum AdditionalServices {
+  productPhoto,
+  additionalPackaging,
+  inclusionCheck,
 }

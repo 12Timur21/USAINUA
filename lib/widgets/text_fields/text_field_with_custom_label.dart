@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
@@ -19,8 +18,9 @@ class TextFieldWithCustomLabel extends StatefulWidget {
     this.obscureText = false,
     this.readOnly = false,
     this.sufixIcon,
-    required this.keyboardType,
-    required this.textInputAction,
+    this.keyboardType,
+    this.textInputAction,
+    this.focusNode,
     Key? key,
   }) : super(key: key);
 
@@ -34,10 +34,11 @@ class TextFieldWithCustomLabel extends StatefulWidget {
   final List<TextInputFormatter>? formatters;
   final int? maxLength;
   final bool obscureText;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final bool readOnly;
   final Widget? sufixIcon;
-  final TextInputAction textInputAction;
+  final TextInputAction? textInputAction;
+  final FocusNode? focusNode;
 
   @override
   State<TextFieldWithCustomLabel> createState() =>
@@ -45,12 +46,13 @@ class TextFieldWithCustomLabel extends StatefulWidget {
 }
 
 class _TextFieldWithCustomLabelState extends State<TextFieldWithCustomLabel> {
-  final _focusNode = FocusNode();
+  late final FocusNode _focusNode;
   bool _hasFocus = false;
   late String _currentText;
 
   @override
   void initState() {
+    _focusNode = widget.focusNode ?? FocusNode();
     _currentText = widget.controller.text;
 
     _focusNode.addListener(() {

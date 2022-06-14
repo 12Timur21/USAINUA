@@ -6,8 +6,6 @@ import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
-import 'package:usainua/utils/helpers/in_app_notification.dart';
-import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/sliders/goods_slider.dart';
 
 class OurChoisePage extends StatefulWidget {
@@ -116,7 +114,7 @@ class _OurChoisePageState extends State<OurChoisePage> {
             const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               'Онлайн площадка для проведения аукционов и торговый сайт, на котором частные и юридические лица осуществляют продажу и покупку различных товаров и услуг.',
             ),
           ],

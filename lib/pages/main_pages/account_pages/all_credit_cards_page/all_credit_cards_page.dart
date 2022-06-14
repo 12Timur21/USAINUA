@@ -6,10 +6,9 @@ import 'package:usainua/pages/main_pages/account_pages/add_new_card_page/add_new
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
-import 'package:usainua/utils/credit_card_utils.dart';
 import 'package:usainua/utils/constants.dart';
+import 'package:usainua/utils/credit_card_utils.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
-
 import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/widgets/radio_buttons/custom_radio_button.dart';
 
@@ -94,7 +93,6 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
             ),
             IconTextButton(
               onTap: () {
-                print('eqweq');
                 Navigator.of(context).pushNamed(
                   AddNewCardPage.routeName,
                 );
@@ -167,8 +165,8 @@ Widget _creditCard({
   required Function(PaymentCardModel) onChanged,
 }) {
   String updatedCardNumber0 = value.number.toString().replaceAllMapped(
-        RegExp(r".{4}"),
-        (match) => "${match.group(0)} ",
+        RegExp(r'.{4}'),
+        (match) => '${match.group(0)} ',
       );
 
   String updatedCardNumber = '';

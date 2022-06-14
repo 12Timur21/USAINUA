@@ -65,7 +65,6 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
                 value: _values[0],
                 groupValue: _selecetedValue,
                 onChanged: (String value) {
-                  print(value);
                   setState(() {
                     _selecetedValue = value;
                   });
@@ -81,7 +80,6 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
                 value: _values[1],
                 groupValue: _selecetedValue,
                 onChanged: (String value) {
-                  print(value);
                   setState(() {
                     _selecetedValue = value;
                   });
@@ -97,7 +95,6 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
                 value: _values[2],
                 groupValue: _selecetedValue,
                 onChanged: (String value) {
-                  print(value);
                   setState(() {
                     _selecetedValue = value;
                   });
@@ -108,7 +105,6 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
               ),
               IconTextButton(
                 onTap: () {
-                  print('eqweqw');
                   Navigator.of(context).pushNamed(
                     AddRecipientAddressesPage.routeName,
                   );
@@ -200,27 +196,27 @@ Widget _addressCard<T>({
         const SizedBox(
           height: 20,
         ),
-        _rowTile(
+        _textRow(
           key: 'Способ доставки',
           value: 'НП ($_deliveryType)',
         ),
-        _rowTile(
+        _textRow(
           key: 'Область',
           value: region,
         ),
-        _rowTile(
+        _textRow(
           key: 'Город',
           value: city,
         ),
-        _rowTile(
+        _textRow(
           key: 'Отделение',
           value: '№$deliveryDepartmentNumber',
         ),
-        _rowTile(
+        _textRow(
           key: 'ФИО',
           value: fullName,
         ),
-        _rowTile(
+        _textRow(
           key: 'Номер телефона',
           value: phoneNumber,
         ),
@@ -229,7 +225,7 @@ Widget _addressCard<T>({
   );
 }
 
-Widget _rowTile({
+Widget _textRow({
   required String key,
   required String value,
 }) {

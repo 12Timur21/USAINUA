@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:usainua/resources/app_colors.dart';
 
 class CustomCheckbox extends StatefulWidget {
-  final bool isActive;
-  final Color activeColor;
-  final Color inactiveColor;
-  final Color backgroundColor;
-  final ValueChanged<bool> onChanged;
-
   const CustomCheckbox({
     this.isActive = false,
     required this.onChanged,
@@ -16,6 +10,12 @@ class CustomCheckbox extends StatefulWidget {
     this.backgroundColor = Colors.transparent,
     Key? key,
   }) : super(key: key);
+
+  final bool isActive;
+  final Color activeColor;
+  final Color inactiveColor;
+  final Color backgroundColor;
+  final ValueChanged<bool> onChanged;
 
   @override
   State<CustomCheckbox> createState() => _CustomCheckboxState();

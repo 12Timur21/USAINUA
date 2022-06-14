@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/pages/fourth_slider_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -12,12 +11,12 @@ import 'package:usainua/widgets/text/text_in_box.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
 class TariffPage extends StatefulWidget {
-  final DispatchType? initDispatchType;
-
   const TariffPage({
     this.initDispatchType,
     Key? key,
   }) : super(key: key);
+
+  final DispatchType? initDispatchType;
 
   static const routeName = '/tariff_page';
 

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:usainua/models/shopping_malls_model.dart';
 import 'package:usainua/resources/app_colors.dart';
-import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/utils/helpers/in_app_notification.dart';
 

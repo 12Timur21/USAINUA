@@ -15,13 +15,13 @@ import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
 class AdditionalDataCollectionPageParameters {
-  final UserModel userModel;
-  final AuthCredential authCredential;
-
   const AdditionalDataCollectionPageParameters({
     required this.authCredential,
     required this.userModel,
   });
+
+  final UserModel userModel;
+  final AuthCredential authCredential;
 }
 
 class AdditionalDataCollectionPage extends StatefulWidget {

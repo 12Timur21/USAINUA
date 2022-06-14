@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:usainua/models/payment_card_model.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/utils/constants.dart';
 
@@ -10,9 +9,8 @@ class CreditCardUtils {
       return 'Это обязательное поле';
     }
 
-    //TODO WTF
     if (value.length < 3 || value.length > 4) {
-      return "CVV недейсивительно";
+      return 'CVV недейсивительно';
     }
     return null;
   }
@@ -51,7 +49,7 @@ class CreditCardUtils {
     }
 
     if (!hasDateExpired(month, year)) {
-      return "Срок действия истёк";
+      return 'Срок действия истёк';
     }
     return null;
   }
@@ -100,7 +98,7 @@ class CreditCardUtils {
   }
 
   static String getCleanedNumber(String text) {
-    RegExp regExp = RegExp(r"[^0-9]");
+    RegExp regExp = RegExp(r'[^0-9]');
     return text.replaceAll(regExp, '');
   }
 

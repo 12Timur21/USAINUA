@@ -3,13 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/pages/main_pages/home_pages/only_delivery_infromation_page/only_delivery_infromation_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/purchase_and_delivery_infromation_page/purchase_and_delivery_infromation_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/tariff_page/tariff_page.dart';
-
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
-import 'package:usainua/resources/app_images.dart';
-
 import 'package:usainua/resources/app_icons.dart';
-
+import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/widgets/sliders/goods_slider.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,7 +32,6 @@ class _HomePageState extends State<HomePage> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const SizedBox(
                   height: 25,
@@ -86,13 +82,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 }),
                 const SizedBox(
-                  height: 45,
+                  height: 40,
                 ),
                 _companiesSlider(),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
-                const GoodsSlider(),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 50),
+                  child: const GoodsSlider(),
+                ),
               ],
             ),
           ),

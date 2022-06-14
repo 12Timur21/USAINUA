@@ -3,12 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:usainua/utils/constants.dart';
 
 class PaymentCardModel extends Equatable {
-  final PaymentCardType type;
-  final int number;
-  final int month;
-  final int year;
-  final int cvv;
-
   const PaymentCardModel({
     required this.type,
     required this.number,
@@ -16,6 +10,11 @@ class PaymentCardModel extends Equatable {
     required this.year,
     required this.cvv,
   });
+  final PaymentCardType type;
+  final int number;
+  final int month;
+  final int year;
+  final int cvv;
 
   @override
   List<Object?> get props => [

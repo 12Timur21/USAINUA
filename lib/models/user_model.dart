@@ -11,13 +11,6 @@ enum GenderType {
 
 @immutable
 class UserModel extends Equatable {
-  final String? uid;
-  final String? name;
-  final String? email;
-  final String? phoneNumber;
-  final GenderType? genderType;
-  final DateTime? birthday;
-
   const UserModel({
     this.uid,
     this.name,
@@ -26,6 +19,27 @@ class UserModel extends Equatable {
     this.genderType,
     this.birthday,
   });
+
+  final String? uid;
+  final String? name;
+  final String? email;
+  final String? phoneNumber;
+  final GenderType? genderType;
+  final DateTime? birthday;
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      uid: json['uid'],
+      name: json['name'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      genderType: enumFromString(
+        GenderType.values,
+        json['genderType'],
+      ),
+      birthday: json['birthday'] != null ? json['birthday'].toDate() : null,
+    );
+  }
 
   UserModel copyWith({
     String? uid,
@@ -54,20 +68,6 @@ class UserModel extends Equatable {
       'genderType': enumToString(genderType),
       'birthday': birthday != null ? Timestamp.fromDate(birthday!) : null,
     };
-  }
-
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      uid: json['uid'],
-      name: json['name'],
-      email: json['email'],
-      phoneNumber: json['phoneNumber'],
-      genderType: enumFromString(
-        GenderType.values,
-        json['genderType'],
-      ),
-      birthday: json['birthday'] != null ? json['birthday'].toDate() : null,
-    );
   }
 
   @override

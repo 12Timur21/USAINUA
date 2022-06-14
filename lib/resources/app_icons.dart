@@ -37,6 +37,7 @@ class AppIcons {
   static const String target = '$_path/target.svg';
   static const String likeInBox = '$_path/like_in_box.svg';
 
+  static const String leftArrowInBox = '$_path/left_arrow_in_box.svg';
   static const String verve = '$_path/verve.svg';
   static const String americanExpress = '$_path/american_express.svg';
   static const String discoverCard = '$_path/discover_card.svg';

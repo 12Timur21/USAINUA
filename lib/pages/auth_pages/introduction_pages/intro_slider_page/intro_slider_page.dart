@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/pages/first_slider_page.dart';
-import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/pages/fourth_slider_page.dart';
-import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/pages/second_slider_page.dart';
-import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/pages/third_slider_page.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/fourth_slider_page.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/second_slider_page.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/third_slider_page.dart';
+
 import 'package:usainua/pages/auth_pages/introduction_pages/statistics_page/statistics_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
+
+import 'widgets/first_slider_page.dart';
 
 class IntroSliderPage extends StatefulWidget {
   const IntroSliderPage({Key? key}) : super(key: key);
@@ -18,43 +20,35 @@ class IntroSliderPage extends StatefulWidget {
 }
 
 class _IntroSliderPageState extends State<IntroSliderPage> {
-  final PageController _pageViewController = PageController();
+  final _pageViewController = PageController();
 
-  void _nextSlide() async {
+  Future<void> _nextSlide() async {
     if (_pageViewController.page?.toInt() == _pageList.length - 1) {
       Navigator.of(context).pushNamedAndRemoveUntil(
         StatisticsPage.routeName,
         (Route<dynamic> route) => false,
       );
     } else {
-      await _pageViewController.nextPage(
-        curve: Curves.easeInBack,
-        duration: const Duration(
-          milliseconds: 500,
-        ),
+      await _pageViewController.animateToPage(
+        _pageViewController.page!.toInt() + 1,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeIn,
       );
     }
   }
 
-  void _previewPage() async {
-    await _pageViewController.previousPage(
-      curve: Curves.easeInBack,
-      duration: const Duration(
-        milliseconds: 500,
-      ),
-    );
-    await _pageViewController.previousPage(
-      curve: Curves.easeInBack,
-      duration: const Duration(
-        milliseconds: 500,
-      ),
+  Future<void> _previewPage() async {
+    await _pageViewController.animateToPage(
+      _pageViewController.page!.toInt() - 1,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeIn,
     );
   }
 
-  void _changeSlideByIndex(int index) async {
+  Future<void> _changeSlideByIndex(int index) async {
     await _pageViewController.animateToPage(
       index,
-      curve: Curves.easeInBack,
+      curve: Curves.easeIn,
       duration: const Duration(
         milliseconds: 500,
       ),
@@ -68,6 +62,8 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
     FourthSliderPage(),
   ];
 
+  bool test = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,12 +74,7 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
               allowImplicitScrolling: true,
               onPageChanged: (_) {},
               controller: _pageViewController,
-              children: const [
-                FirstSliderPage(),
-                SecondSliderPage(),
-                ThirdSliderPage(),
-                FourthSliderPage(),
-              ],
+              children: _pageList,
             ),
           ),
           Padding(

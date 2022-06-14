@@ -2,14 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:usainua/resources/app_colors.dart';
 
 class CustomRadioOption<T> extends StatelessWidget {
-  final T value;
-  final T? groupValue;
-  final ValueChanged<T> onChanged;
-
-  final Color activeColor;
-  final Color inactiveColor;
-  final Color backgroundColor;
-
   const CustomRadioOption({
     required this.value,
     required this.groupValue,
@@ -19,6 +11,14 @@ class CustomRadioOption<T> extends StatelessWidget {
     this.backgroundColor = Colors.transparent,
     Key? key,
   }) : super(key: key);
+
+  final T value;
+  final T? groupValue;
+  final ValueChanged<T> onChanged;
+
+  final Color activeColor;
+  final Color inactiveColor;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {

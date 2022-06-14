@@ -6,15 +6,14 @@ enum AuthorizationStatus {
 }
 
 class AuthorizationState extends Equatable {
-  final UserModel? userModel;
-  final AuthorizationStatus authorizationStatus;
-  final bool isNewUser;
-
   const AuthorizationState({
     this.userModel,
     this.authorizationStatus = AuthorizationStatus.unauthenticated,
     this.isNewUser = false,
   });
+  final UserModel? userModel;
+  final AuthorizationStatus authorizationStatus;
+  final bool isNewUser;
 
   @override
   List<Object> get props => [

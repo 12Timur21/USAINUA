@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_icons.dart';
+import 'package:usainua/utils/constants.dart';
+
+import '../../blocs/navigation_bloc/navigation_bloc.dart';
 
 class CustomButtonNavigationBar extends StatefulWidget {
   const CustomButtonNavigationBar({
-    required this.currentIndex,
-    required this.onChange,
-    required this.onFloatingActionButtonPressed,
+    required this.onActiveButtonPressed,
+    required this.onIndexChanged,
     Key? key,
-  })  : assert(currentIndex < 3),
-        super(key: key);
+  }) : super(key: key);
 
-  final int currentIndex;
-  final Function(int) onChange;
-  final VoidCallback onFloatingActionButtonPressed;
+  final Function(int index) onIndexChanged;
+  final VoidCallback onActiveButtonPressed;
 
   @override
   State<CustomButtonNavigationBar> createState() =>
@@ -22,111 +23,178 @@ class CustomButtonNavigationBar extends StatefulWidget {
 }
 
 class _CustomButtonNavigationBarState extends State<CustomButtonNavigationBar> {
-  int? _currentIndex;
-
-  @override
-  void initState() {
-    _currentIndex = widget.currentIndex;
-    super.initState();
-  }
-
-  void _setBottomBarIndex(index) {
-    setState(() {
-      _currentIndex = index;
-      widget.onChange(index);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return SizedBox(
-      width: size.width,
-      height: 80,
-      child: Stack(
-        children: [
-          CustomPaint(
-            size: Size(size.width, 80),
-            painter: BNBCustomPainter(),
-          ),
-          Center(
-            heightFactor: 0.6,
-            child: SizedBox(
-              width: 60,
-              height: 60,
-              child: FloatingActionButton(
-                backgroundColor: AppColors.lightGreen,
-                // elevation: 15,
-                onPressed: widget.onFloatingActionButtonPressed,
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  child: Center(
-                    child: SizedBox(
-                      height: 35,
-                      width: 35,
-                      child: SvgPicture.asset(AppIcons.plus),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 25,
+      ),
+      child: SizedBox(
+        width: size.width,
+        height: bottomNavBarHeight,
+        child: BlocBuilder<NavigationBloc, NavigationState>(
+          builder: (context, state) {
+            return Stack(
+              children: [
+                CustomPaint(
+                  size: Size(size.width, 80),
+                  painter: BNBCustomPainter(),
+                ),
+                Center(
+                  heightFactor: 0.6,
+                  child: SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: _CustomaActionButton(
+                      isAcitve: state.showBottomSheet,
+                      onTap: widget.onActiveButtonPressed,
                     ),
                   ),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.lightGreen.withOpacity(0.16),
-                        blurRadius: 15,
-                        spreadRadius: 10,
-                        offset: const Offset(0, 15),
+                ),
+                SizedBox(
+                  width: size.width,
+                  height: 80,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        icon: SvgPicture.asset(
+                          state.index == 0
+                              ? AppIcons.homeFilled
+                              : AppIcons.home,
+                        ),
+                        onPressed: () => widget.onIndexChanged(0),
+                      ),
+                      IconButton(
+                        icon: SvgPicture.asset(
+                          state.index == 1 ? AppIcons.bagFilled : AppIcons.bag,
+                        ),
+                        onPressed: () => widget.onIndexChanged(1),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.20,
+                      ),
+                      IconButton(
+                        icon: SvgPicture.asset(
+                          state.index == 2 ? AppIcons.boxFilled : AppIcons.box,
+                        ),
+                        onPressed: () => widget.onIndexChanged(2),
+                      ),
+                      IconButton(
+                        icon: SvgPicture.asset(
+                          state.index == 3
+                              ? AppIcons.userFilled
+                              : AppIcons.user,
+                        ),
+                        onPressed: () => widget.onIndexChanged(3),
                       ),
                     ],
+                  ),
+                )
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _CustomaActionButton extends StatefulWidget {
+  const _CustomaActionButton({
+    required this.isAcitve,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  final bool isAcitve;
+  final VoidCallback onTap;
+
+  @override
+  State<_CustomaActionButton> createState() => _CustomaActionButtonState();
+}
+
+class _CustomaActionButtonState extends State<_CustomaActionButton>
+    with TickerProviderStateMixin {
+  late final Animation<double> _buttonRotationAnimation = Tween<double>(
+    begin: 0.0,
+    end: 0.375,
+  ).animate(
+    CurvedAnimation(
+      curve: Curves.ease,
+      parent: _containerAnimationController,
+    ),
+  );
+  late final Animation _buttonColorAnimation = ColorTween(
+    begin: AppColors.lightGreen,
+    end: AppColors.darkBlue,
+  ).animate(
+    CurvedAnimation(
+      curve: Curves.ease,
+      parent: _containerAnimationController,
+    ),
+  );
+  late final Animation _iconColorAnimation = ColorTween(
+    begin: AppColors.darkGreen,
+    end: Colors.white,
+  ).animate(
+    CurvedAnimation(
+      curve: Curves.ease,
+      parent: _containerAnimationController,
+    ),
+  );
+
+  late final AnimationController _containerAnimationController =
+      AnimationController(
+    vsync: this,
+    duration: const Duration(
+      milliseconds: 1500,
+    ),
+  );
+
+  @override
+  void dispose() {
+    _containerAnimationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.isAcitve) {
+      _containerAnimationController.forward();
+    } else {
+      _containerAnimationController.reverse();
+    }
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: AnimatedBuilder(
+        animation: _containerAnimationController,
+        builder: (context, _) {
+          return RotationTransition(
+            turns: _buttonRotationAnimation,
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _buttonColorAnimation.value,
+              ),
+              child: Center(
+                child: SizedBox(
+                  height: 35,
+                  width: 35,
+                  child: SvgPicture.asset(
+                    AppIcons.plus,
+                    color: _iconColorAnimation.value,
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            width: size.width,
-            height: 80,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: SvgPicture.asset(
-                    _currentIndex == 0 ? AppIcons.homeFilled : AppIcons.home,
-                  ),
-                  onPressed: () {
-                    _setBottomBarIndex(0);
-                  },
-                ),
-                IconButton(
-                  icon: SvgPicture.asset(
-                    _currentIndex == 1 ? AppIcons.bagFilled : AppIcons.bag,
-                  ),
-                  onPressed: () {
-                    _setBottomBarIndex(1);
-                  },
-                ),
-                SizedBox(
-                  width: size.width * 0.20,
-                ),
-                IconButton(
-                    icon: SvgPicture.asset(
-                      _currentIndex == 2 ? AppIcons.boxFilled : AppIcons.box,
-                    ),
-                    onPressed: () {
-                      _setBottomBarIndex(2);
-                    }),
-                IconButton(
-                    icon: SvgPicture.asset(
-                      _currentIndex == 3 ? AppIcons.userFilled : AppIcons.user,
-                    ),
-                    onPressed: () {
-                      _setBottomBarIndex(3);
-                    }),
-              ],
-            ),
-          )
-        ],
+          );
+        },
       ),
     );
   }
@@ -191,7 +259,7 @@ class BNBCustomPainter extends CustomPainter {
     canvas.drawShadow(
       path,
       const Color(0xFF093B77).withOpacity(0.8),
-      30,
+      11,
       true,
     );
     canvas.drawPath(

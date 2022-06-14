@@ -14,9 +14,9 @@ part 'authentification_state.dart';
 
 class AuthentificationBloc
     extends Bloc<AuthentificationEvent, AuthentificationState> {
-  final AuthRepository _auth = AuthRepository.instance;
-
   AuthentificationBloc() : super(AuthentificationInitial()) {
+    final AuthRepository _auth = AuthRepository.instance;
+
     on<AuthentificationWithPhoneNumber>((event, emit) async {
       const Duration timeOutDuration = Duration(seconds: 30);
       final Completer completer = Completer();
@@ -127,7 +127,7 @@ class AuthentificationBloc
               await FirestoreRepository.instance.getUserByUid(
             user.uid,
           );
-          print(userModel);
+
           if (userModel != null) {
             emit(
               AuthentificationSuccess(
@@ -136,7 +136,6 @@ class AuthentificationBloc
               ),
             );
           } else {
-            print('here wtf');
             await user.delete();
             emit(
               SocialNetworksNeedMoreData(

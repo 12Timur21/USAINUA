@@ -1,14 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:usainua/utils/constants.dart';
 
-class ProductModel {
-  final String id;
-  final DateTime deliveryDate;
-  final DeliveryMethod deliveryMethod;
-  final double price;
-  final double weight;
-  final DeliveryStatus deliveryStatus;
-
+class ProductModel extends Equatable {
   const ProductModel({
     required this.id,
     required this.deliveryDate,
@@ -17,6 +11,13 @@ class ProductModel {
     required this.weight,
     required this.deliveryStatus,
   });
+
+  final String id;
+  final DateTime deliveryDate;
+  final DeliveryMethod deliveryMethod;
+  final double price;
+  final double weight;
+  final DeliveryStatus deliveryStatus;
 
   ProductModel copyWith({
     String? id,

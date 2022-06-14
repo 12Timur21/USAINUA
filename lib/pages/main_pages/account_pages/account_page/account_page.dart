@@ -98,7 +98,6 @@ class _AccountPageState extends State<AccountPage> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      //TODO уточнить
                       Navigator.of(context).pushNamed(
                         PrivacyTermsPage.routeName,
                         arguments: 'privacy_policy.md',

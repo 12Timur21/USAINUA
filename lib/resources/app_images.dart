@@ -19,7 +19,7 @@ class AppImages {
   static const String watch = '$_path/goods/watch.png';
   static const String lamp = '$_path/goods/lamp.png';
   static const String protein = '$_path/goods/protein.png';
-
+  static const String girlWithMarker = '$_path/girl_with_marker.png';
   static const String amazon = '$_path/companies/amazon.png';
   static const String ebay = '$_path/companies/ebay.png';
   static const String macys = '$_path/companies/macys.png';

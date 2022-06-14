@@ -20,11 +20,11 @@ class _AddRecipientAddressesPageState extends State<AddRecipientAddressesPage> {
   final TextEditingController _addressController = TextEditingController();
 
   List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("USA"), value: "USA"),
-      DropdownMenuItem(child: Text("Canada"), value: "Canada"),
-      DropdownMenuItem(child: Text("Brazil"), value: "Brazil"),
-      DropdownMenuItem(child: Text("England"), value: "England"),
+    List<DropdownMenuItem<String>> menuItems = const [
+      DropdownMenuItem(child: Text('USA'), value: 'USA'),
+      DropdownMenuItem(child: Text('Canada'), value: 'Canada'),
+      DropdownMenuItem(child: Text('Brazil'), value: 'Brazil'),
+      DropdownMenuItem(child: Text('England'), value: 'England'),
     ];
     return menuItems;
   }
@@ -99,12 +99,7 @@ class _AddRecipientAddressesPageState extends State<AddRecipientAddressesPage> {
                         ),
                       );
                     },
-                    onChanged: (CountryCode? code) {
-                      print(code?.name);
-                      print(code?.code);
-                      print(code?.dialCode);
-                      print(code?.flagUri);
-                    },
+                    onChanged: (CountryCode? code) {},
                   ),
                 ],
               ),

@@ -1,10 +1,6 @@
-<svg width="50" height="172" viewBox="0 0 50 172" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Iconly/Light/Buy">
-<g id="Buy">
-<path id="Stroke 1" d="M28.7501 3.25L30.8301 3.61L31.7931 15.083C31.8701 16.02 32.6531 16.739 33.5931 16.736H44.5021C45.3991 16.738 46.1601 16.078 46.2871 15.19L47.2361 8.632C47.3421 7.899 46.8331 7.219 46.1011 7.113C46.0371 7.104 31.1641 7.099 31.1641 7.099" stroke="#056249" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Stroke 3" d="M40.1251 10.7949H42.8981" stroke="#056249" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Stroke 5" fill-rule="evenodd" clip-rule="evenodd" d="M33.1544 20.2026C33.4554 20.2026 33.6984 20.4466 33.6984 20.7466C33.6984 21.0476 33.4554 21.2916 33.1544 21.2916C32.8534 21.2916 32.6104 21.0476 32.6104 20.7466C32.6104 20.4466 32.8534 20.2026 33.1544 20.2026Z" fill="#056249" stroke="#056249" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Stroke 7" fill-rule="evenodd" clip-rule="evenodd" d="M44.4347 20.2026C44.7357 20.2026 44.9797 20.4466 44.9797 20.7466C44.9797 21.0476 44.7357 21.2916 44.4347 21.2916C44.1337 21.2916 43.8907 21.0476 43.8907 20.7466C43.8907 20.4466 44.1337 20.2026 44.4347 20.2026Z" fill="#056249" stroke="#056249" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
+<svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.750092 1.25L2.83009 1.61L3.79309 13.083C3.87009 14.02 4.65309 14.739 5.59309 14.736H16.5021C17.3991 14.738 18.1601 14.078 18.2871 13.19L19.2361 6.632C19.3421 5.899 18.8331 5.219 18.1011 5.113C18.0371 5.104 3.16409 5.099 3.16409 5.099" stroke="#056249" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.1251 8.79492H14.8981" stroke="#056249" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.15438 18.2026C5.45538 18.2026 5.69838 18.4466 5.69838 18.7466C5.69838 19.0476 5.45538 19.2916 5.15438 19.2916C4.85338 19.2916 4.61038 19.0476 4.61038 18.7466C4.61038 18.4466 4.85338 18.2026 5.15438 18.2026Z" fill="#056249" stroke="#056249" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16.4347 18.2026C16.7357 18.2026 16.9797 18.4466 16.9797 18.7466C16.9797 19.0476 16.7357 19.2916 16.4347 19.2916C16.1337 19.2916 15.8907 19.0476 15.8907 18.7466C15.8907 18.4466 16.1337 18.2026 16.4347 18.2026Z" fill="#056249" stroke="#056249" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

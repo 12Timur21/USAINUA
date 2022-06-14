@@ -21,7 +21,7 @@ class GoodsSlider extends StatelessWidget {
       Image.asset(AppImages.book),
     ];
 
-    //TODO под модификацию
+    //TODO под модификацию (Брать с сайтов)
     return SizedBox(
       height: 215,
       child: ListView.builder(

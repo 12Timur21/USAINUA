@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome_page.dart';
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
-import 'package:usainua/pages/main_pages/main_page.dart';
+import 'package:usainua/pages/main_page.dart';
 import 'package:usainua/resources/app_icons.dart';
 
 import '../../blocs/authorization_bloc/authorization_bloc.dart';
@@ -16,9 +16,9 @@ class SplashScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Duration splashScreenDuration = Duration(
-      seconds: 1,
-    );
+    // const Duration splashScreenDuration = Duration(
+    //   seconds: 1,
+    // );
 
     // Timer(splashScreenDuration, () {
     context.read<AuthorizationBloc>().add(

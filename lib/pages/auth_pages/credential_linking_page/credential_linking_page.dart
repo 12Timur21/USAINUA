@@ -8,7 +8,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
-import 'package:usainua/pages/main_pages/main_page.dart';
+import 'package:usainua/pages/main_page.dart';
 import 'package:usainua/repositories/auth_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
@@ -26,22 +26,21 @@ enum AuthType {
 }
 
 class CredentialLinkingPageParameters {
-  final AuthType authType;
-  final AuthCredential mainAuthCredential;
-
   const CredentialLinkingPageParameters({
     required this.authType,
     required this.mainAuthCredential,
   });
+  final AuthType authType;
+  final AuthCredential mainAuthCredential;
 }
 
 class CredentialLinkingPage extends StatefulWidget {
-  static const routeName = '/credential_linking_page';
-
   const CredentialLinkingPage({
     required this.parameters,
     Key? key,
   }) : super(key: key);
+
+  static const routeName = '/credential_linking_page';
 
   final CredentialLinkingPageParameters parameters;
 
@@ -202,7 +201,7 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Через номер телефона",
+                              'Через номер телефона',
                               style: TextStyle(
                                 fontWeight: AppFonts.bold,
                                 fontSize: AppFonts.sizeXSmall,
@@ -248,7 +247,7 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
                                   primary: Colors.black,
                                 ),
                                 child: const Text(
-                                  "Cвязать с телефоном",
+                                  'Cвязать с телефоном',
                                 ),
                               ),
                             ),

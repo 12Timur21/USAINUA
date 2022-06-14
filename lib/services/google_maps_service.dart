@@ -24,8 +24,6 @@ class GoogleMapsSerivice {
         ),
       ],
     );
-    print(response.status);
-    print(response.errorMessage);
 
     return response.predictions;
   }
@@ -43,8 +41,6 @@ class GoogleMapsSerivice {
         ),
       ],
     );
-    print(response.status);
-    print(response.errorMessage);
 
     return response.predictions;
   }
@@ -62,8 +58,6 @@ class GoogleMapsSerivice {
         ),
       ],
     );
-    print(response.status);
-    print(response.errorMessage);
 
     return response.predictions;
   }

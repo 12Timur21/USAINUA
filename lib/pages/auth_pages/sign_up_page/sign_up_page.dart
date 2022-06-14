@@ -11,15 +11,16 @@ import 'package:usainua/models/user_model.dart';
 import 'package:usainua/pages/auth_pages/credential_linking_page/credential_linking_page.dart';
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
-import 'package:usainua/pages/main_pages/main_page.dart';
-import 'package:usainua/utils/helpers/in_app_notification.dart';
-import 'package:usainua/utils/validators/phone_validator.dart';
-import 'package:usainua/widgets/buttons/icon_text_button.dart';
-import 'package:usainua/widgets/buttons/service_auth_button.dart';
+import 'package:usainua/pages/main_page.dart';
 import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
+import 'package:usainua/utils/helpers/in_app_notification.dart';
+import 'package:usainua/utils/validators/phone_validator.dart';
+import 'package:usainua/widgets/buttons/icon_text_button.dart';
+import 'package:usainua/widgets/buttons/service_auth_button.dart';
+
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text/rich_text_wrapper.dart';
 

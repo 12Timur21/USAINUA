@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/models/delivery_status.dart';
 import 'package:usainua/models/product_model.dart';
+import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/order_view_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/resources/app_images.dart';
 import 'package:usainua/utils/constants.dart';
-import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/text/icon_text.dart';
 
@@ -55,7 +55,11 @@ class _MyOrderPageState extends State<MyOrderPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                OrderViewPage.routeName,
+              );
+            },
             icon: SvgPicture.asset(
               AppIcons.dialog,
               color: AppColors.lightBlue,
@@ -78,6 +82,9 @@ class _MyOrderPageState extends State<MyOrderPage> {
                 fontSize: AppFonts.sizeXXLarge,
                 letterSpacing: 0.5,
               ),
+            ),
+            const SizedBox(
+              height: 25,
             ),
             SizedBox(
               height: 100,

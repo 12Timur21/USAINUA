@@ -1,25 +1,26 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
-import 'package:usainua/utils/helpers/in_app_notification.dart';
-import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
+import 'package:usainua/utils/helpers/in_app_notification.dart';
+import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 
 class VerificationCodePageParameters {
-  final String phoneNumber;
-  final String verificationID;
-
   const VerificationCodePageParameters({
     required this.phoneNumber,
     required this.verificationID,
   });
+
+  final String phoneNumber;
+  final String verificationID;
 }
 
 class VerificationCodePage extends StatefulWidget {
