@@ -16,28 +16,28 @@ class GoodsTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         horizontal: 24,
       ),
-      // child: ListView.builder(
-      //   scrollDirection: Axis.vertical,
-      //   itemCount: 4,
-      //   itemBuilder: ((context, index) {
-      //     return Container(
-      //       margin: EdgeInsets.only(
-      //         top: index == 0 ? 0 : 10,
-      //       ),
-      //       child: _orderCard(
-      //         deliveryDate: DateTime.now(),
-      //         link: 'https://www.macys.com/...',
-      //         count: 2,
-      //         additionalServices: [
-      //           AdditionalServices.additionalPackaging,
-      //           AdditionalServices.inclusionCheck,
-      //         ],
-      //         trackNumber: '9400116901639555951023',
-      //         description: 'Qty: 1 Color: Navy Size: M',
-      //       ),
-      //     );
-      //   }),
-      // ),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 4,
+        itemBuilder: ((context, index) {
+          return Container(
+            margin: EdgeInsets.only(
+              top: index == 0 ? 0 : 10,
+            ),
+            child: _orderCard(
+              deliveryDate: DateTime.now(),
+              link: 'https://www.macys.com/...',
+              count: 2,
+              additionalServices: [
+                AdditionalServices.additionalPackaging,
+                AdditionalServices.inclusionCheck,
+              ],
+              trackNumber: '9400116901639555951023',
+              description: 'Qty: 1 Color: Navy Size: M',
+            ),
+          );
+        }),
+      ),
     );
   }
 }

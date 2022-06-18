@@ -32,7 +32,10 @@ dependencies:
   flutter_switch: ^0.3.2
   google_maps_webservice: ^0.0.20-nullsafety.5
   page_transition: ^2.0.5
+
   loop_page_view: ^1.1.1
+  carousel_slider: ^4.1.1
+
   flutter_markdown: ^0.6.10
   pin_code_fields: ^7.4.0
   smooth_page_indicator: ^1.0.0+2

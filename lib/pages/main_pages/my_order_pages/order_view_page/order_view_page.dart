@@ -1,5 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loop_page_view/loop_page_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/widgets/address_tab.dart';
 import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/widgets/goods_tab.dart';
@@ -39,6 +41,7 @@ class _OrderViewPageState extends State<OrderViewPage> {
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -56,7 +59,9 @@ class _OrderViewPageState extends State<OrderViewPage> {
             ),
             Container(
               height: 40,
-              width: MediaQuery.of(context).size.width * 0.9,
+              margin: const EdgeInsets.symmetric(
+                horizontal: 24,
+              ),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColors.antiFlashWhite,
@@ -77,19 +82,59 @@ class _OrderViewPageState extends State<OrderViewPage> {
             _tabSelectionSlider(
               pageViewController: _pageViewController,
             ),
-            // Expanded(
-            //   child: PageView(
-            //     allowImplicitScrolling: true,
-            //     onPageChanged: (_) {},
-            //     controller: _pageViewController,
-            //     children: _pageList,
-            //   ),
-            // ),
+            Expanded(
+              child: PageView(
+                allowImplicitScrolling: true,
+                onPageChanged: (_) {},
+                controller: _pageViewController,
+                children: _pageList,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Widget tabCard({
+  required SvgPicture svgPicture,
+  required String text,
+  required VoidCallback onTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      height: 80,
+      margin: const EdgeInsets.only(
+        right: 10,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            svgPicture,
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              text,
+              style: const TextStyle(
+                color: AppColors.darkBlue,
+                fontWeight: AppFonts.bold,
+                fontSize: AppFonts.sizeXXSmall,
+                letterSpacing: 1,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 Widget _tabSelectionSlider({
@@ -106,63 +151,47 @@ Widget _tabSelectionSlider({
     );
   }
 
-  Widget tabCard({
-    required SvgPicture svgPicture,
-    required String text,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 80,
-        margin: const EdgeInsets.only(
-          right: 10,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              svgPicture,
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                text,
-                style: const TextStyle(
-                  color: AppColors.darkBlue,
-                  fontWeight: AppFonts.bold,
-                  fontSize: AppFonts.sizeXXSmall,
-                  letterSpacing: 1,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  final listWidgets = [
+  final List<Widget> listWidgets = [
     tabCard(
-      onTap: () {},
+      onTap: () {
+        pageViewController.animateToPage(
+          0,
+          duration: const Duration(
+            milliseconds: 500,
+          ),
+          curve: Curves.easeIn,
+        );
+      },
       text: 'Отслеживание',
       svgPicture: SvgPicture.asset(
         AppIcons.target,
       ),
     ),
     tabCard(
-      onTap: () {},
+      onTap: () {
+        pageViewController.animateToPage(
+          1,
+          duration: const Duration(
+            milliseconds: 500,
+          ),
+          curve: Curves.easeIn,
+        );
+      },
       text: 'Адрес доставки',
       svgPicture: SvgPicture.asset(
         AppIcons.adressHouse,
       ),
     ),
     tabCard(
-      onTap: () {},
+      onTap: () {
+        pageViewController.animateToPage(
+          2,
+          duration: const Duration(
+            milliseconds: 500,
+          ),
+          curve: Curves.easeIn,
+        );
+      },
       text: 'Товары',
       svgPicture: SvgPicture.asset(
         AppIcons.cart,
@@ -172,7 +201,7 @@ Widget _tabSelectionSlider({
   ];
 
   return Container(
-    height: 160,
+    height: 150,
     decoration: BoxDecoration(
       color: AppColors.primary,
       borderRadius: BorderRadius.circular(10),
@@ -180,20 +209,13 @@ Widget _tabSelectionSlider({
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // SizedBox(
-        //   height: 80,
-        //   child: LoopPageView.builder(
-        //     controller: LoopPageController(
-        //       initialPage: 0,
-        //       viewportFraction: 0.5,
-        //     ),
-        //     itemCount: 3,
-        //     scrollDirection: Axis.horizontal,
-        //     itemBuilder: (BuildContext context, int index) {
-        //       return listWidgets[index];
-        //     },
-        //   ),
-        // ),
+        CarouselSlider(
+          options: CarouselOptions(
+            height: 80,
+            viewportFraction: 0.5,
+          ),
+          items: listWidgets,
+        ),
         const SizedBox(
           height: 15,
         ),

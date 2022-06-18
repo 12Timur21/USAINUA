@@ -6,6 +6,7 @@ import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/buttons/icon_text_button.dart';
+import 'package:usainua/widgets/card/address_card.dart';
 import 'package:usainua/widgets/radio_buttons/custom_radio_button.dart';
 
 enum DeliveryType {
@@ -128,7 +129,7 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
   }
 }
 
-Widget _addressCard<T>({
+Widget _addressCard({
   required DeliveryType deliveryType,
   required String region,
   required String city,
@@ -139,15 +140,6 @@ Widget _addressCard<T>({
   required String groupValue,
   required ValueChanged<String> onChanged,
 }) {
-  String _deliveryType = 'Неизвестный способ доставки';
-
-  if (deliveryType == DeliveryType.address) {
-    _deliveryType = 'адресная доставка';
-  }
-
-  if (deliveryType == DeliveryType.department) {
-    _deliveryType = 'до отделения';
-  }
   return Container(
     margin: const EdgeInsets.only(
       bottom: 10,
@@ -196,62 +188,13 @@ Widget _addressCard<T>({
         const SizedBox(
           height: 20,
         ),
-        _textRow(
-          key: 'Способ доставки',
-          value: 'НП ($_deliveryType)',
-        ),
-        _textRow(
-          key: 'Область',
-          value: region,
-        ),
-        _textRow(
-          key: 'Город',
-          value: city,
-        ),
-        _textRow(
-          key: 'Отделение',
-          value: '№$deliveryDepartmentNumber',
-        ),
-        _textRow(
-          key: 'ФИО',
-          value: fullName,
-        ),
-        _textRow(
-          key: 'Номер телефона',
-          value: phoneNumber,
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _textRow({
-  required String key,
-  required String value,
-}) {
-  return Padding(
-    padding: const EdgeInsets.only(
-      bottom: 6,
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          key,
-          style: const TextStyle(
-            color: AppColors.darkBlue,
-            fontWeight: AppFonts.regular,
-            fontSize: AppFonts.sizeXSmall,
-            letterSpacing: 1,
-          ),
-        ),
-        Text(
-          value,
-          style: const TextStyle(
-            color: AppColors.lightBlue,
-            fontWeight: AppFonts.bold,
-            fontSize: AppFonts.sizeXSmall,
-          ),
+        AddressCard(
+          city: city,
+          deliveryDepartmentNumber: deliveryDepartmentNumber,
+          deliveryType: deliveryType,
+          fullName: fullName,
+          phoneNumber: phoneNumber,
+          region: region,
         ),
       ],
     ),

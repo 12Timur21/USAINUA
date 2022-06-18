@@ -16,7 +16,7 @@ import 'package:usainua/widgets/custom_bottom_sheet/custom_bottom_sheet.dart';
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
-  static final GlobalKey<NavigatorState> _navigationKey =
+  static final GlobalKey<NavigatorState> navigationKey =
       GlobalKey<NavigatorState>();
 
   static const routeName = '/mainPage';
@@ -48,7 +48,7 @@ class _MainPageState extends State<MainPage> {
       _changeBottomSheetStatus(true);
 
       showModalBottomSheet(
-        context: MainPage._navigationKey.currentContext!,
+        context: MainPage.navigationKey.currentContext!,
         backgroundColor: Colors.white,
         barrierColor: AppColors.primary.withOpacity(
           0.85,
@@ -80,23 +80,23 @@ class _MainPageState extends State<MainPage> {
 
     if (_currentIndex != index) {
       if (index == 0) {
-        MainPage._navigationKey.currentState?.pushReplacementNamed(
+        MainPage.navigationKey.currentState?.pushReplacementNamed(
           HomePage.routeName,
           // PurchaseAndDeliveryPage.routeName,
         );
       }
       if (index == 1) {
-        MainPage._navigationKey.currentState?.pushReplacementNamed(
+        MainPage.navigationKey.currentState?.pushReplacementNamed(
           OurChoisePage.routeName,
         );
       }
       if (index == 2) {
-        MainPage._navigationKey.currentState?.pushReplacementNamed(
+        MainPage.navigationKey.currentState?.pushReplacementNamed(
           MyOrderPage.routeName,
         );
       }
       if (index == 3) {
-        MainPage._navigationKey.currentState?.pushReplacementNamed(
+        MainPage.navigationKey.currentState?.pushReplacementNamed(
           AccountPage.routeName,
         );
       }
@@ -117,7 +117,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Navigator(
-        key: MainPage._navigationKey,
+        key: MainPage.navigationKey,
         onGenerateRoute: AppRouter.generateRoute,
         initialRoute: HomePage.routeName,
       ),

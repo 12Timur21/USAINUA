@@ -23,12 +23,8 @@ class AuthentificationBloc
 
       await _auth.verifyPhoneNumberAndSendOTP(
         phoneNumber: event.phoneNumber,
-        verificationCompleted: (PhoneAuthCredential authCredential) async {
-          // add(
-          //   AuthentificationWithAuthCredential(
-          //     authCredential: authCredential,
-          //   ),
-          // );
+        verificationCompleted: (_) {
+         
         },
         codeSent: (String verificationId, int? token) async {
           emit(
@@ -81,6 +77,7 @@ class AuthentificationBloc
 
     on<AuthentificationWithGoogle>((event, emit) async {
       try {
+        
         final AuthCredential authCredential = await _auth.signInWithGoogle();
 
         add(
@@ -89,12 +86,13 @@ class AuthentificationBloc
           ),
         );
       } on FirebaseAuthException catch (e) {
+        
         add(
           AuthentificationError(
             error: e,
           ),
         );
-      }
+      } 
     });
 
     on<AuthentificationWithFacebook>((event, emit) async {
@@ -240,8 +238,8 @@ class AuthentificationBloc
     });
 
     on<AuthentificationError>((event, emit) async {
-      log(event.error.code);
-      log(event.error.message.toString());
+      
+
       final String response = await rootBundle.loadString(
         'assets/jsons/firebase_errors.json',
       );
