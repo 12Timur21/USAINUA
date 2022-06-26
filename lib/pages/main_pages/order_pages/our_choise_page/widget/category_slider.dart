@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
+import 'package:usainua/utils/constants.dart';
 
 class CategorySlider extends StatefulWidget {
-  const CategorySlider({Key? key}) : super(key: key);
+  const CategorySlider({
+    required this.onChange,
+    this.activeCategory = WebsiteSections.popular,
+    Key? key,
+  }) : super(key: key);
+
+  final Function(WebsiteSections value) onChange;
+  final WebsiteSections activeCategory;
 
   @override
   State<CategorySlider> createState() => _CategorySliderState();
 }
 
 class _CategorySliderState extends State<CategorySlider> {
-  final List<String> _categories = [
-    'Топ товары',
-    'Обувь',
-    'Одежда',
-    'Электроника',
+  final List<WebsiteSections> _categories = [
+    WebsiteSections.popular,
+    WebsiteSections.clothes,
+    WebsiteSections.shoes,
+    WebsiteSections.electronics,
   ];
 
-  String? _selectedCategory;
+  WebsiteSections? _selectedCategory;
 
   @override
   void initState() {
-    _selectedCategory = _categories[0];
+    _selectedCategory = widget.activeCategory;
     super.initState();
   }
 
-  void selectCategory(String selectedCategory) {
+  void _selectCategory(WebsiteSections selectedCategory) {
     setState(() {
       _selectedCategory = selectedCategory;
     });
+    widget.onChange(selectedCategory);
   }
 
   @override
@@ -48,10 +57,10 @@ class _CategorySliderState extends State<CategorySlider> {
                   ),
             child: TextButton(
               onPressed: () {
-                selectCategory(_categories[index]);
+                _selectCategory(_categories[index]);
               },
               child: Text(
-                _categories[index],
+                _categories[index].displayTitle,
                 style: TextStyle(
                   color: isSelected ? AppColors.lightBlue : AppColors.darkBlue,
                   fontWeight: AppFonts.bold,

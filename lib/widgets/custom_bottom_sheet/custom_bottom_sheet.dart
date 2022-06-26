@@ -55,17 +55,6 @@ class CustomButtomSheet extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          deliveryCard(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            cardColor: AppColors.darkBlue,
-            icon: SvgPicture.asset(
-              AppIcons.camera,
-              color: Colors.white,
-            ),
-            text: 'Заказать по фотографии',
-          ),
         ],
       ),
     );

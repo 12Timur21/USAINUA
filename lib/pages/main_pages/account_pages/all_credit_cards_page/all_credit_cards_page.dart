@@ -57,7 +57,6 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Банковские карты',
       ),
       body: Padding(

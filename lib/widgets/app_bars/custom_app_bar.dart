@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final VoidCallback? onLeading;
   final VoidCallback? onAction;
   final String? text;
-  final SvgPicture? leadingIcon;
+  final Widget? leadingIcon;
   final SvgPicture? actionIcon;
 
   @override
@@ -44,14 +44,15 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             )
           : null,
       actions: [
-        IconButton(
-          icon: actionIcon ??
-              SvgPicture.asset(
-                AppIcons.dialog,
-                color: AppColors.lightBlue,
-              ),
-          onPressed: onAction,
-        ),
+        if (onAction != null)
+          IconButton(
+            icon: actionIcon ??
+                SvgPicture.asset(
+                  AppIcons.dialog,
+                  color: AppColors.lightBlue,
+                ),
+            onPressed: onAction,
+          ),
       ],
     );
   }

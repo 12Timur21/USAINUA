@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/fourth_slider_page.dart';
-import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/second_slider_page.dart';
-import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/third_slider_page.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/fourth_slider_tab.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/second_slider_tab.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/first_slider_tab.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/widgets/third_slider_tab.dart';
 
 import 'package:usainua/pages/auth_pages/introduction_pages/statistics_page/statistics_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
-
-import 'widgets/first_slider_page.dart';
 
 class IntroSliderPage extends StatefulWidget {
   const IntroSliderPage({Key? key}) : super(key: key);
@@ -56,13 +55,11 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
   }
 
   final List<Widget> _pageList = const [
-    FirstSliderPage(),
-    SecondSliderPage(),
-    ThirdSliderPage(),
-    FourthSliderPage(),
+    FirstSliderTab(),
+    SecondSliderTab(),
+    ThirdSliderTab(),
+    FourthSliderTab(),
   ];
-
-  bool test = false;
 
   @override
   Widget build(BuildContext context) {

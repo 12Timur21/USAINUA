@@ -54,7 +54,6 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Банковские карты',
       ),
       body: Padding(

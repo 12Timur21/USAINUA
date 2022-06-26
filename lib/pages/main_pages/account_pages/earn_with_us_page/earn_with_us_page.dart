@@ -18,7 +18,6 @@ class EarnWithUsPage extends StatelessWidget {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Зарабатывайте c нами',
       ),
       body: Padding(
@@ -55,6 +54,9 @@ class EarnWithUsPage extends StatelessWidget {
                 image: Image.asset(
                   AppImages.warehouseWithMan,
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
             ],
           ),

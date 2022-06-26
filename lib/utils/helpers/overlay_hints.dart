@@ -23,9 +23,12 @@ class OverlayHints {
       ),
     );
 
-    Future.delayed(const Duration(seconds: 0), () {
-      overlayState?.insert(overlayEntry!);
-    });
+    Future.delayed(
+      const Duration(seconds: 0),
+      () {
+        overlayState?.insert(overlayEntry!);
+      },
+    );
   }
 }
 

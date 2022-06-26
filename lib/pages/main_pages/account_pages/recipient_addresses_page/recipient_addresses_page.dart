@@ -44,7 +44,6 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Адреса получателей',
       ),
       body: Padding(

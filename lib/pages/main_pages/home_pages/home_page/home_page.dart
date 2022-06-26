@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:usainua/pages/main_pages/home_pages/only_delivery_infromation_page/only_delivery_infromation_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/purchase_and_delivery_infromation_page/purchase_and_delivery_infromation_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/tariff_page/tariff_page.dart';
@@ -22,7 +23,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: SvgPicture.asset(
+          AppIcons.logo,
+        ),
+      ),
       body: SizedBox(
         width: double.infinity,
         child: Padding(
@@ -88,9 +94,9 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 50),
-                  child: const GoodsSlider(),
+                const GoodsSlider(),
+                const SizedBox(
+                  height: 50,
                 ),
               ],
             ),
@@ -99,29 +105,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-PreferredSizeWidget _appBar() {
-  return AppBar(
-    leading: IconButton(
-      icon: SvgPicture.asset(
-        AppIcons.bell,
-      ),
-      onPressed: () {},
-    ),
-    centerTitle: true,
-    title: SvgPicture.asset(
-      AppIcons.logo,
-    ),
-    actions: [
-      IconButton(
-        icon: SvgPicture.asset(
-          AppIcons.dialog,
-        ),
-        onPressed: () {},
-      ),
-    ],
-  );
 }
 
 Widget _userBalance() {

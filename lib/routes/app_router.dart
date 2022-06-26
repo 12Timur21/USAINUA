@@ -24,9 +24,9 @@ import 'package:usainua/pages/main_pages/home_pages/purchase_and_delivery_infrom
 import 'package:usainua/pages/main_pages/home_pages/tariff_page/tariff_page.dart';
 import 'package:usainua/pages/main_pages/my_order_pages/my_order_page/my_order_page.dart';
 import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/order_view_page.dart';
-import 'package:usainua/pages/main_pages/order_pages/approximate_cost_purchase_and_delivery_page/approximate_cost_purchase_and_delivery_page.dart';
+
 import 'package:usainua/pages/main_pages/order_pages/only_delivery_page/only_delivery_page.dart';
-import 'package:usainua/pages/main_pages/order_pages/our_choise_page/out_choice_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/our_choise_page/our_choice_page.dart';
 import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/purchase_and_delivery_page.dart';
 
 import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
@@ -173,10 +173,6 @@ class AppRouter {
         builder = const PurchaseAndDeliveryPage();
         break;
 
-      case ApproximateCostPurchaseAndDeliveryPage.routeName:
-        builder = const ApproximateCostPurchaseAndDeliveryPage();
-        break;
-
       case OnlyDeliveryPage.routeName:
         builder = const OnlyDeliveryPage();
         break;
@@ -193,7 +189,9 @@ class AppRouter {
       //? [END] My order pages
 
       default:
-        throw Exception('Invalid route: ${settings.name}');
+        throw Exception(
+          'Invalid route: ${settings.name}',
+        );
     }
 
     return PageTransition(

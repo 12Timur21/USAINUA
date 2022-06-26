@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:usainua/pages/main_pages/account_pages/recipient_addresses_page/recipient_addresses_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
-import 'package:usainua/widgets/radio_buttons/custom_radio_button.dart';
 
 class AddressCard extends StatelessWidget {
   const AddressCard({

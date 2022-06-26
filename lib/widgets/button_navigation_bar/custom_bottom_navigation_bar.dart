@@ -28,9 +28,10 @@ class _CustomButtonNavigationBarState extends State<CustomButtonNavigationBar> {
     final Size size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 25,
+      padding: const EdgeInsets.only(
+        left: 10,
+        right: 10,
+        bottom: 25,
       ),
       child: SizedBox(
         width: size.width,

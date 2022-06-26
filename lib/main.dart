@@ -30,22 +30,23 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
   ]);
 
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.immersiveSticky,
+    overlays: [SystemUiOverlay.top],
+  );
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: AppColors.scaffold,
-      systemNavigationBarColor: AppColors.scaffold,
-      systemNavigationBarDividerColor: AppColors.scaffold,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
 
-  runZonedGuarded(
-    () {
-      runApp(const MyApp());
-    },
-    _errorHandler,
-  );
+  runZonedGuarded(() {
+    runApp(const MyApp());
+  }, _errorHandler);
 }
 
 class MyApp extends StatelessWidget {

@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
 import 'package:usainua/pages/auth_pages/additional_data_collection_page/additional_data_collection_page.dart';
 import 'package:usainua/pages/auth_pages/credential_linking_page/credential_linking_page.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome_page.dart';
 import 'package:usainua/pages/auth_pages/sign_up_page/sign_up_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
 import 'package:usainua/pages/main_page.dart';
@@ -103,10 +105,17 @@ class _SignInPageState extends State<SignInPage> {
                   isNewUser: state.isNewUser,
                 ),
               );
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            MainPage.routeName,
-            (route) => false,
-          );
+          if (state.isNewUser) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              WelcomePage.routeName,
+              (Route<dynamic> route) => false,
+            );
+          } else {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              MainPage.routeName,
+              (Route<dynamic> route) => false,
+            );
+          }
         }
 
         if (state is AuthentificationFailure) {
@@ -146,129 +155,119 @@ class _SignInPageState extends State<SignInPage> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 25,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Вход',
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.042,
-                    ),
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFieldWithCustomLabel(
-                          controller: _phoneController,
-                          textInputAction: TextInputAction.done,
-                          hintText: 'Ваш номер телефона*',
-                          keyboardType: TextInputType.phone,
-                          onSubmitted: (_) {
-                            _signIn();
-                          },
-                          formatters: [
-                            PhoneInputFormatter(),
-                          ],
-                          validator: MultiValidator([
-                            MinLengthValidator(
-                              1,
-                              errorText: 'Укажите номер телефона',
-                            ),
-                            PhoneValidator(
-                              errorText: 'Укажите корректный номер телефона',
-                            ),
-                          ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.050,
-                    ),
-                  ),
-                  SubmitButton(
-                    onTap: _signIn,
-                    text: 'ВОЙТИ',
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.030,
-                    ),
-                  ),
-                  RichTextWrapper(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    textStyle: const TextStyle(
-                      color: AppColors.darkBlue,
-                      fontWeight: AppFonts.bold,
-                      fontSize: AppFonts.sizeXSmall,
-                    ),
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      IconTextButton(
-                        onTap: _signUp,
-                        text: 'Зарегистрироваться',
-                        icon: SvgPicture.asset(
-                          AppIcons.addUser,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.080,
-                    ),
-                  ),
-                  RichTextWrapper(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    textStyle: const TextStyle(
-                      color: AppColors.darkBlue,
-                      fontWeight: AppFonts.regular,
-                      fontSize: AppFonts.sizeXSmall,
-                      letterSpacing: 1,
-                    ),
-                    children: [
-                      ServiceAuthButton(
-                        text: 'Войти как пользователь',
-                        icon: SvgPicture.asset(AppIcons.google),
-                        onTap: _googleAuth,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ServiceAuthButton(
-                        text: 'Войти как пользователь',
-                        icon: SvgPicture.asset(AppIcons.facebook),
-                        onTap: _facebookAuth,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+        body: LoadingOverlay(
+          isLoading: _isPageLoading,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
             ),
-            if (_isPageLoading)
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.black.withOpacity(0.3),
-                child: const Center(
-                  child: CircularProgressIndicator(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Вход',
+                  style: Theme.of(context).textTheme.headlineLarge,
                 ),
-              ),
-          ],
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.042,
+                  ),
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFieldWithCustomLabel(
+                        controller: _phoneController,
+                        textInputAction: TextInputAction.done,
+                        hintText: 'Ваш номер телефона*',
+                        keyboardType: TextInputType.phone,
+                        onSubmitted: (_) {
+                          _signIn();
+                        },
+                        formatters: [
+                          PhoneInputFormatter(),
+                        ],
+                        validator: MultiValidator([
+                          MinLengthValidator(
+                            1,
+                            errorText: 'Укажите номер телефона',
+                          ),
+                          PhoneValidator(
+                            errorText: 'Укажите корректный номер телефона',
+                          ),
+                        ]),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.050,
+                  ),
+                ),
+                SubmitButton(
+                  onTap: _signIn,
+                  text: 'ВОЙТИ',
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.030,
+                  ),
+                ),
+                RichTextWrapper(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  textStyle: const TextStyle(
+                    color: AppColors.darkBlue,
+                    fontWeight: AppFonts.bold,
+                    fontSize: AppFonts.sizeXSmall,
+                  ),
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    IconTextButton(
+                      onTap: _signUp,
+                      text: 'Зарегистрироваться',
+                      icon: SvgPicture.asset(
+                        AppIcons.addUser,
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.080,
+                  ),
+                ),
+                RichTextWrapper(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  textStyle: const TextStyle(
+                    color: AppColors.darkBlue,
+                    fontWeight: AppFonts.regular,
+                    fontSize: AppFonts.sizeXSmall,
+                    letterSpacing: 1,
+                  ),
+                  children: [
+                    ServiceAuthButton(
+                      text: 'Войти как пользователь',
+                      icon: SvgPicture.asset(AppIcons.google),
+                      onTap: _googleAuth,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ServiceAuthButton(
+                      text: 'Войти как пользователь',
+                      icon: SvgPicture.asset(AppIcons.facebook),
+                      onTap: _facebookAuth,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

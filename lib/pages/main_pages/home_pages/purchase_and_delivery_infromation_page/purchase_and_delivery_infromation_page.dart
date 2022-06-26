@@ -19,7 +19,6 @@ class PurchaseAndDeliveryInfromationPage extends StatelessWidget {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Покупка и доставка',
       ),
       body: Padding(
@@ -42,7 +41,7 @@ class PurchaseAndDeliveryInfromationPage extends StatelessWidget {
               child: PurchareAndDeliveryList(),
             ),
             const SizedBox(
-              height: 60,
+              height: 30,
             ),
             SubmitButton(
               text: 'Рассчитать покупку и доставку',
@@ -52,6 +51,9 @@ class PurchaseAndDeliveryInfromationPage extends StatelessWidget {
                   arguments: DispatchType.purchaseAndDelivery,
                 );
               },
+            ),
+            const SizedBox(
+              height: 30,
             ),
           ],
         ),

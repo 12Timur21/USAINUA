@@ -4,9 +4,8 @@ import 'package:usainua/blocs/navigation_bloc/navigation_bloc.dart';
 import 'package:usainua/pages/main_pages/account_pages/account_page/account_page.dart';
 import 'package:usainua/pages/main_pages/home_pages/home_page/home_page.dart';
 import 'package:usainua/pages/main_pages/my_order_pages/my_order_page/my_order_page.dart';
-import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/order_view_page.dart';
 
-import 'package:usainua/pages/main_pages/order_pages/our_choise_page/out_choice_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/our_choise_page/our_choice_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 
 import 'package:usainua/routes/app_router.dart';

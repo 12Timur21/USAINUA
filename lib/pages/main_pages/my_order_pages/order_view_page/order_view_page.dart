@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loop_page_view/loop_page_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/widgets/address_tab.dart';
 import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/widgets/goods_tab.dart';
@@ -36,14 +35,13 @@ class _OrderViewPageState extends State<OrderViewPage> {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Заказ №735689',
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
               'Только доставка',
@@ -155,7 +153,7 @@ Widget _tabSelectionSlider({
     tabCard(
       onTap: () {
         pageViewController.animateToPage(
-          0,
+          1,
           duration: const Duration(
             milliseconds: 500,
           ),
@@ -170,7 +168,7 @@ Widget _tabSelectionSlider({
     tabCard(
       onTap: () {
         pageViewController.animateToPage(
-          1,
+          0,
           duration: const Duration(
             milliseconds: 500,
           ),

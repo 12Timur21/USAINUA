@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,9 +22,7 @@ class AuthentificationBloc
 
       await _auth.verifyPhoneNumberAndSendOTP(
         phoneNumber: event.phoneNumber,
-        verificationCompleted: (_) {
-         
-        },
+        verificationCompleted: (_) {},
         codeSent: (String verificationId, int? token) async {
           emit(
             AuthentificationCodeSend(
@@ -77,7 +74,6 @@ class AuthentificationBloc
 
     on<AuthentificationWithGoogle>((event, emit) async {
       try {
-        
         final AuthCredential authCredential = await _auth.signInWithGoogle();
 
         add(
@@ -86,13 +82,12 @@ class AuthentificationBloc
           ),
         );
       } on FirebaseAuthException catch (e) {
-        
         add(
           AuthentificationError(
             error: e,
           ),
         );
-      } 
+      }
     });
 
     on<AuthentificationWithFacebook>((event, emit) async {
@@ -190,7 +185,14 @@ class AuthentificationBloc
               await FirestoreRepository.instance.getUserByUid(
             user.uid,
           );
-          if (userModel == null) {
+          if (userModel != null) {
+            emit(
+              AuthentificationSuccess(
+                userModel: userModel,
+                isNewUser: false,
+              ),
+            );
+          } else {
             await user.updateEmail(event.userModel.email!);
             await user.updateDisplayName(event.userModel.name);
 
@@ -238,8 +240,6 @@ class AuthentificationBloc
     });
 
     on<AuthentificationError>((event, emit) async {
-      
-
       final String response = await rootBundle.loadString(
         'assets/jsons/firebase_errors.json',
       );

@@ -23,13 +23,17 @@ class _AddressTabState extends State<AddressTab> {
     return Column(
       children: [
         _hasAdress
-            ? const _Addresses()
-            : _NoAdress(
-                onTap: () {
-                  setState(() {
-                    _hasAdress = true;
-                  });
-                },
+            ? const Expanded(
+                child: _Addresses(),
+              )
+            : Expanded(
+                child: _NoAdress(
+                  onTap: () {
+                    setState(() {
+                      _hasAdress = true;
+                    });
+                  },
+                ),
               ),
       ],
     );
@@ -46,27 +50,29 @@ class _NoAdress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(
-          AppImages.girlWithMarker,
-        ),
-        TextButton.icon(
-          onPressed: onTap,
-          icon: SvgPicture.asset(
-            AppIcons.plus,
-            color: AppColors.lightBlue,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Image.asset(
+            AppImages.girlWithMarker,
           ),
-          label: const Text(
-            'Добавить адрес доставки',
-            style: TextStyle(
-              color: AppColors.darkBlue,
-              fontWeight: AppFonts.bold,
-              fontSize: AppFonts.sizeXSmall,
+          TextButton.icon(
+            onPressed: onTap,
+            icon: SvgPicture.asset(
+              AppIcons.plus,
+              color: AppColors.lightBlue,
+            ),
+            label: const Text(
+              'Добавить адрес доставки',
+              style: TextStyle(
+                color: AppColors.darkBlue,
+                fontWeight: AppFonts.bold,
+                fontSize: AppFonts.sizeXSmall,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -88,53 +94,51 @@ class __AddressesState extends State<_Addresses> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 24,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: _addressList.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return DehiscentContainer(
-                    isOpen: _addressList[index] == _selectedAdress,
-                    title: _addressHeader(
-                      value: _addressList[index],
-                      groupValue: _selectedAdress,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedAdress = value;
-                        });
-                      },
-                      onEdit: () {},
-                    ),
-                    body: adressBody(),
-                  );
-                },
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 24,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: _addressList.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return DehiscentContainer(
+                  isOpen: _addressList[index] == _selectedAdress,
+                  title: _addressHeader(
+                    value: _addressList[index],
+                    groupValue: _selectedAdress,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedAdress = value;
+                      });
+                    },
+                    onEdit: () {},
+                  ),
+                  body: adressBody(),
+                );
+              },
+            ),
+          ),
+          TextButton.icon(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              AppIcons.plus,
+              color: AppColors.lightBlue,
+            ),
+            label: const Text(
+              'Добавить еще адрес',
+              style: TextStyle(
+                color: AppColors.darkBlue,
+                fontWeight: AppFonts.bold,
+                fontSize: AppFonts.sizeXSmall,
               ),
             ),
-            TextButton.icon(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                AppIcons.plus,
-                color: AppColors.lightBlue,
-              ),
-              label: const Text(
-                'Добавить еще адрес',
-                style: TextStyle(
-                  color: AppColors.darkBlue,
-                  fontWeight: AppFonts.bold,
-                  fontSize: AppFonts.sizeXSmall,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -52,21 +52,6 @@ class _MyOrderPageState extends State<MyOrderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                OrderViewPage.routeName,
-              );
-            },
-            icon: SvgPicture.asset(
-              AppIcons.dialog,
-              color: AppColors.lightBlue,
-            ),
-          ),
-        ],
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 24,
@@ -105,10 +90,15 @@ class _MyOrderPageState extends State<MyOrderPage> {
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    margin: EdgeInsets.only(
-                      bottom: index == 3 ? 0 : 10,
+                    margin: const EdgeInsets.only(
+                      bottom: 10,
                     ),
                     child: _orderedProductCard(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          OrderViewPage.routeName,
+                        );
+                      },
                       productModel: ProductModel(
                         id: '123213123',
                         deliveryDate: DateTime.now(),
@@ -131,206 +121,210 @@ class _MyOrderPageState extends State<MyOrderPage> {
 
 Widget _orderedProductCard({
   required ProductModel productModel,
+  required VoidCallback onTap,
 }) {
-  return Container(
-    padding: const EdgeInsets.symmetric(
-      horizontal: 22,
-      vertical: 10,
-    ),
-    decoration: BoxDecoration(
-      border: Border.all(
-        width: 2,
-        color: AppColors.primary,
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 22,
+        vertical: 10,
       ),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Column(
-      children: [
-        Row(
-          children: [
-            SizedBox(
-              width: 40,
-              height: 40,
-              child: Stack(
-                children: [
-                  Image.asset(
-                    AppImages.protein,
-                  ),
-                  Positioned(
-                    top: 10,
-                    right: 0,
-                    child: Container(
-                      child: const Center(
-                        child: Text(
-                          '+2',
-                          style: TextStyle(
-                            color: AppColors.darkBlue,
-                            fontWeight: AppFonts.bold,
-                            letterSpacing: 1,
-                            fontSize: AppFonts.sizeXXSmall,
-                          ),
-                        ),
-                      ),
-                      width: 24,
-                      height: 24,
-                      decoration: const BoxDecoration(
-                        color: AppColors.antiFlashWhite,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                        fontWeight: AppFonts.bold,
-                        fontSize: AppFonts.sizeSmall,
-                      ),
-                      children: [
-                        const TextSpan(
-                          text: '№ ',
-                          style: TextStyle(
-                            color: AppColors.darkBlue,
-                            fontWeight: AppFonts.regular,
-                          ),
-                        ),
-                        TextSpan(
-                          text: productModel.id,
-                          style: const TextStyle(
-                            color: AppColors.lightGreen,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  RichText(
-                    text: const TextSpan(
-                      style: TextStyle(
-                        fontWeight: AppFonts.bold,
-                        fontSize: AppFonts.sizeSmall,
-                        color: AppColors.darkBlue,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'Дата доставки ',
-                          style: TextStyle(
-                            color: AppColors.darkBlue,
-                            fontWeight: AppFonts.regular,
-                          ),
-                        ),
-                        TextSpan(
-                          text: '13/12/2021',
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: AppColors.primary,
         ),
-        const SizedBox(
-          height: 8,
-        ),
-        SizedBox(
-          height: 40,
-          child: Row(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Row(
             children: [
-              Expanded(
-                child: IconText(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  icon: SvgPicture.asset(
-                    AppIcons.boat,
-                    color: AppColors.lightBlue,
-                  ),
-                  iconPadding: const EdgeInsets.only(
-                    right: 6,
-                  ),
-                  label: 'Море',
-                  textStyle: const TextStyle(
-                    color: AppColors.darkBlue,
-                    fontWeight: AppFonts.bold,
-                    fontSize: AppFonts.sizeXSmall,
-                  ),
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      AppImages.protein,
+                    ),
+                    Positioned(
+                      top: 10,
+                      right: 0,
+                      child: Container(
+                        child: const Center(
+                          child: Text(
+                            '+2',
+                            style: TextStyle(
+                              color: AppColors.darkBlue,
+                              fontWeight: AppFonts.bold,
+                              letterSpacing: 1,
+                              fontSize: AppFonts.sizeXXSmall,
+                            ),
+                          ),
+                        ),
+                        width: 24,
+                        height: 24,
+                        decoration: const BoxDecoration(
+                          color: AppColors.antiFlashWhite,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               Expanded(
-                child: IconText(
-                  icon: SvgPicture.asset(
-                    AppIcons.dollarCoin,
-                    color: AppColors.lightBlue,
-                  ),
-                  iconPadding: const EdgeInsets.only(
-                    right: 6,
-                  ),
-                  label: '8500.00\$',
-                  textStyle: const TextStyle(
-                    color: AppColors.darkBlue,
-                    fontWeight: AppFonts.bold,
-                    fontSize: AppFonts.sizeXSmall,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: IconText(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  icon: SvgPicture.asset(
-                    AppIcons.kettlebell,
-                    color: AppColors.lightBlue,
-                  ),
-                  iconPadding: const EdgeInsets.only(
-                    right: 6,
-                  ),
-                  label: '1000.0кг',
-                  textStyle: const TextStyle(
-                    color: AppColors.darkBlue,
-                    fontWeight: AppFonts.bold,
-                    fontSize: AppFonts.sizeXSmall,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontWeight: AppFonts.bold,
+                          fontSize: AppFonts.sizeSmall,
+                        ),
+                        children: [
+                          const TextSpan(
+                            text: '№ ',
+                            style: TextStyle(
+                              color: AppColors.darkBlue,
+                              fontWeight: AppFonts.regular,
+                            ),
+                          ),
+                          TextSpan(
+                            text: productModel.id,
+                            style: const TextStyle(
+                              color: AppColors.lightGreen,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontWeight: AppFonts.bold,
+                          fontSize: AppFonts.sizeSmall,
+                          color: AppColors.darkBlue,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Дата доставки ',
+                            style: TextStyle(
+                              color: AppColors.darkBlue,
+                              fontWeight: AppFonts.regular,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '13/12/2021',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        SizedBox(
-          height: 40,
-          child: Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 30),
-                child: Text(
-                  'Готов к оплате',
-                  style: TextStyle(
-                    color: AppColors.lightBlue,
-                    fontSize: AppFonts.sizeXSmall,
-                    fontWeight: AppFonts.regular,
-                    letterSpacing: 1,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: SubmitButton(
-                  text: 'Оплатить',
-                  onTap: () {},
-                  borderRadius: BorderRadius.circular(
-                    40,
-                  ),
-                ),
-              ),
-            ],
+          const SizedBox(
+            height: 8,
           ),
-        ),
-      ],
+          SizedBox(
+            height: 40,
+            child: Row(
+              children: [
+                Expanded(
+                  child: IconText(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    icon: SvgPicture.asset(
+                      AppIcons.boat,
+                      color: AppColors.lightBlue,
+                    ),
+                    iconPadding: const EdgeInsets.only(
+                      right: 6,
+                    ),
+                    label: 'Море',
+                    textStyle: const TextStyle(
+                      color: AppColors.darkBlue,
+                      fontWeight: AppFonts.bold,
+                      fontSize: AppFonts.sizeXSmall,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: IconText(
+                    icon: SvgPicture.asset(
+                      AppIcons.dollarCoin,
+                      color: AppColors.lightBlue,
+                    ),
+                    iconPadding: const EdgeInsets.only(
+                      right: 6,
+                    ),
+                    label: '8500.00\$',
+                    textStyle: const TextStyle(
+                      color: AppColors.darkBlue,
+                      fontWeight: AppFonts.bold,
+                      fontSize: AppFonts.sizeXSmall,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: IconText(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    icon: SvgPicture.asset(
+                      AppIcons.kettlebell,
+                      color: AppColors.lightBlue,
+                    ),
+                    iconPadding: const EdgeInsets.only(
+                      right: 6,
+                    ),
+                    label: '1000.0кг',
+                    textStyle: const TextStyle(
+                      color: AppColors.darkBlue,
+                      fontWeight: AppFonts.bold,
+                      fontSize: AppFonts.sizeXSmall,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 40,
+            child: Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(right: 30),
+                  child: Text(
+                    'Готов к оплате',
+                    style: TextStyle(
+                      color: AppColors.lightBlue,
+                      fontSize: AppFonts.sizeXSmall,
+                      fontWeight: AppFonts.regular,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SubmitButton(
+                    text: 'Оплатить',
+                    onTap: () {},
+                    borderRadius: BorderRadius.circular(
+                      40,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }

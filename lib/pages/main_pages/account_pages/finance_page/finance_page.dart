@@ -31,7 +31,6 @@ class _FinancePageState extends State<FinancePage> {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Финансы',
       ),
       body: Padding(

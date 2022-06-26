@@ -41,11 +41,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        onLeading: () {},
-        onAction: () {},
-        leadingIcon: SvgPicture.asset(
-          AppIcons.bell,
-        ),
+        leadingIcon: const SizedBox(),
         actionIcon: SvgPicture.asset(
           AppIcons.settings,
         ),
@@ -96,23 +92,6 @@ class _AccountPageState extends State<AccountPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        PrivacyTermsPage.routeName,
-                        arguments: 'privacy_policy.md',
-                      );
-                    },
-                    child: const Text(
-                      'Справочник',
-                      style: TextStyle(
-                        color: AppColors.darkBlue,
-                        fontWeight: AppFonts.regular,
-                        fontSize: AppFonts.sizeXSmall,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                  ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(
@@ -255,7 +234,7 @@ Widget _links({
         },
         text: 'Банковские карты',
         icon: SvgPicture.asset(
-          AppIcons.wallet,
+          AppIcons.creditCard,
         ),
       ),
       const SizedBox(

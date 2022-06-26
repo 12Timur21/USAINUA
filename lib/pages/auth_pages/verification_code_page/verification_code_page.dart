@@ -164,7 +164,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                     fontWeight: AppFonts.regular,
                     fontSize: AppFonts.sizeXLarge,
                   ),
-                  pinTheme: _pinTheme,
+                  pinTheme: _pinTheme(context),
 
                   // animationDuration: Duration(milliseconds: 300),
 
@@ -227,15 +227,17 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
   }
 }
 
-final PinTheme _pinTheme = PinTheme(
-  shape: PinCodeFieldShape.underline,
-  borderRadius: BorderRadius.circular(5),
-  inactiveFillColor: Colors.transparent,
-  selectedFillColor: Colors.transparent,
-  activeColor: AppColors.darkBlue,
-  inactiveColor: AppColors.primary,
-  selectedColor: AppColors.darkBlue,
-  fieldHeight: 50,
-  fieldWidth: 60,
-  activeFillColor: Colors.white,
-);
+PinTheme _pinTheme(BuildContext context) {
+  return PinTheme(
+    shape: PinCodeFieldShape.underline,
+    borderRadius: BorderRadius.circular(5),
+    inactiveFillColor: Colors.transparent,
+    selectedFillColor: Colors.transparent,
+    activeColor: AppColors.darkBlue,
+    inactiveColor: AppColors.primary,
+    selectedColor: AppColors.darkBlue,
+    fieldHeight: 50,
+    fieldWidth: MediaQuery.of(context).size.width / 6 - 20,
+    activeFillColor: Colors.white,
+  );
+}

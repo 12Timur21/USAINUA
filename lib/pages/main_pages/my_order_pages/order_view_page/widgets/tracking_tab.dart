@@ -149,6 +149,9 @@ class TrackingTab extends StatelessWidget {
                 fillColor: AppColors.primary,
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),

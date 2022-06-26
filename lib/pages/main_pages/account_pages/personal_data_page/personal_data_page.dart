@@ -6,9 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
 import 'package:usainua/models/user_model.dart';
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
-import 'package:usainua/pages/main_page.dart';
-import 'package:usainua/pages/main_pages/home_pages/home_page/home_page.dart';
-import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
 import 'package:usainua/repositories/auth_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
@@ -84,9 +81,11 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   }
 
   Future<void> _signOut() async {
-    print('sign out');
     await AuthRepository.instance.signOut();
-   Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(SignInPage.routeName, ModalRoute.withName('/'),);
+    Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(
+      SignInPage.routeName,
+      ModalRoute.withName('/'),
+    );
   }
 
   @override
@@ -97,7 +96,6 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Личные данные',
       ),
       body: Padding(
@@ -230,6 +228,9 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 icon: SvgPicture.asset(
                   AppIcons.logOut,
                 ),
+              ),
+              const SizedBox(
+                height: 30,
               ),
             ],
           ),

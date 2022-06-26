@@ -23,11 +23,11 @@ class _AnimatedDotHintState extends State<AnimatedDotHint>
   late final AnimationController _animationController = AnimationController(
     duration: const Duration(seconds: 1),
     vsync: this,
-  )..forward();
+  );
 
   late final Animation<double> _radiusTweenAnimation = Tween<double>(
     begin: 0.0,
-    end: MediaQuery.of(context).size.width * 0.95,
+    end: 340,
   ).animate(
     CurvedAnimation(
       curve: Curves.ease,

@@ -19,7 +19,6 @@ class OnlyDeliveryInfromationPage extends StatelessWidget {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Только доставка',
       ),
       body: Padding(
@@ -42,7 +41,7 @@ class OnlyDeliveryInfromationPage extends StatelessWidget {
               child: DeliveryOnlyList(),
             ),
             const SizedBox(
-              height: 60,
+              height: 30,
             ),
             SubmitButton(
               text: 'Рассчитать только доставку',
@@ -54,6 +53,9 @@ class OnlyDeliveryInfromationPage extends StatelessWidget {
                   arguments: DispatchType.deliveryOnly,
                 );
               },
+            ),
+            const SizedBox(
+              height: 30,
             ),
           ],
         ),

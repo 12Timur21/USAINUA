@@ -76,133 +76,135 @@ Widget _warhouseCard({
       vertical: 30,
       horizontal: 20,
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          warhouseName,
-          style: const TextStyle(
-            color: AppColors.darkBlue,
-            fontWeight: AppFonts.heavy,
-            letterSpacing: 0.5,
-            fontSize: AppFonts.sizeXXLarge,
-          ),
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'ФИО',
-              style: _labelStyle,
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            warhouseName,
+            style: const TextStyle(
+              color: AppColors.darkBlue,
+              fontWeight: AppFonts.heavy,
+              letterSpacing: 0.5,
+              fontSize: AppFonts.sizeXXLarge,
             ),
-            Text(
-              fullName,
-              style: _textStyle,
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'ФИО',
+                style: _labelStyle,
+              ),
+              Text(
+                fullName,
+                style: _textStyle,
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
             ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-          ),
-          child: IconTextButtonWithLabel(
-            isReverse: true,
-            onTap: (() {
-              _copyToBuffer(street);
-            }),
-            label: 'Улица',
-            text: street,
-            textOverflow: TextOverflow.ellipsis,
-            icon: SvgPicture.asset(
-              AppIcons.copy_3,
+            child: IconTextButtonWithLabel(
+              isReverse: true,
+              onTap: (() {
+                _copyToBuffer(street);
+              }),
+              label: 'Улица',
+              text: street,
+              textOverflow: TextOverflow.ellipsis,
+              icon: SvgPicture.asset(
+                AppIcons.copy_3,
+              ),
+              labelStyle: _labelStyle,
+              textStyle: _textStyle,
             ),
-            labelStyle: _labelStyle,
-            textStyle: _textStyle,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-          ),
-          child: IconTextButtonWithLabel(
-            isReverse: true,
-            onTap: (() {
-              _copyToBuffer(street);
-            }),
-            label: 'Город',
-            text: city,
-            textOverflow: TextOverflow.ellipsis,
-            icon: SvgPicture.asset(
-              AppIcons.copy_3,
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
             ),
-            labelStyle: _labelStyle,
-            textStyle: _textStyle,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-          ),
-          child: IconTextButtonWithLabel(
-            isReverse: true,
-            onTap: (() {
-              _copyToBuffer(street);
-            }),
-            label: 'Штат',
-            text: state,
-            textOverflow: TextOverflow.ellipsis,
-            icon: SvgPicture.asset(
-              AppIcons.copy_3,
+            child: IconTextButtonWithLabel(
+              isReverse: true,
+              onTap: (() {
+                _copyToBuffer(street);
+              }),
+              label: 'Город',
+              text: city,
+              textOverflow: TextOverflow.ellipsis,
+              icon: SvgPicture.asset(
+                AppIcons.copy_3,
+              ),
+              labelStyle: _labelStyle,
+              textStyle: _textStyle,
             ),
-            labelStyle: _labelStyle,
-            textStyle: _textStyle,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-          ),
-          child: IconTextButtonWithLabel(
-            isReverse: true,
-            onTap: (() {
-              _copyToBuffer(street);
-            }),
-            label: 'Индекс',
-            text: index.toString(),
-            textOverflow: TextOverflow.ellipsis,
-            icon: SvgPicture.asset(
-              AppIcons.copy_3,
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
             ),
-            labelStyle: _labelStyle,
-            textStyle: _textStyle,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-          ),
-          child: IconTextButtonWithLabel(
-            isReverse: true,
-            onTap: (() {
-              _copyToBuffer(street);
-            }),
-            label: 'Телефон',
-            text: PhoneInputFormatter().mask(
-              phoneNumber.toString(),
+            child: IconTextButtonWithLabel(
+              isReverse: true,
+              onTap: (() {
+                _copyToBuffer(street);
+              }),
+              label: 'Штат',
+              text: state,
+              textOverflow: TextOverflow.ellipsis,
+              icon: SvgPicture.asset(
+                AppIcons.copy_3,
+              ),
+              labelStyle: _labelStyle,
+              textStyle: _textStyle,
             ),
-            textOverflow: TextOverflow.ellipsis,
-            icon: SvgPicture.asset(
-              AppIcons.copy_3,
-            ),
-            labelStyle: _labelStyle,
-            textStyle: _textStyle,
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
+            ),
+            child: IconTextButtonWithLabel(
+              isReverse: true,
+              onTap: (() {
+                _copyToBuffer(street);
+              }),
+              label: 'Индекс',
+              text: index.toString(),
+              textOverflow: TextOverflow.ellipsis,
+              icon: SvgPicture.asset(
+                AppIcons.copy_3,
+              ),
+              labelStyle: _labelStyle,
+              textStyle: _textStyle,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
+            ),
+            child: IconTextButtonWithLabel(
+              isReverse: true,
+              onTap: (() {
+                _copyToBuffer(street);
+              }),
+              label: 'Телефон',
+              text: PhoneInputFormatter().mask(
+                phoneNumber.toString(),
+              ),
+              textOverflow: TextOverflow.ellipsis,
+              icon: SvgPicture.asset(
+                AppIcons.copy_3,
+              ),
+              labelStyle: _labelStyle,
+              textStyle: _textStyle,
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }

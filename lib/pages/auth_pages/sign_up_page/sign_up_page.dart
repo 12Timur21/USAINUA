@@ -5,10 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
 import 'package:usainua/models/user_model.dart';
 import 'package:usainua/pages/auth_pages/credential_linking_page/credential_linking_page.dart';
+import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome_page.dart';
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:usainua/pages/auth_pages/verification_code_page/verification_code_page.dart';
 import 'package:usainua/pages/main_page.dart';
@@ -130,10 +132,17 @@ class _SignUpPageState extends State<SignUpPage> {
                   isNewUser: state.isNewUser,
                 ),
               );
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            MainPage.routeName,
-            (route) => false,
-          );
+          if (state.isNewUser) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              WelcomePage.routeName,
+              (Route<dynamic> route) => false,
+            );
+          } else {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              MainPage.routeName,
+              (Route<dynamic> route) => false,
+            );
+          }
         }
 
         if (state is AuthentificationFailure) {
@@ -173,198 +182,189 @@ class _SignUpPageState extends State<SignUpPage> {
         }
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 25,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Регистрация',
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.042,
-                    ),
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFieldWithCustomLabel(
-                          controller: _nameController,
-                          textInputAction: TextInputAction.next,
-                          maxLength: 35,
-                          keyboardType: TextInputType.name,
-                          validator: MultiValidator([
-                            LengthRangeValidator(
-                              min: 1,
-                              max: 35,
-                              errorText: 'Укажите ваше имя',
-                            )
-                          ]),
-                          hintText: 'Ваше имя*',
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFieldWithCustomLabel(
-                          controller: _emailController,
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: MultiValidator(
-                            [
-                              EmailValidator(
-                                errorText: 'Укажите корректный email',
-                              ),
-                              MinLengthValidator(
-                                1,
-                                errorText: 'Укажите вашу почту',
-                              ),
-                            ],
-                          ),
-                          hintText: 'Ваш email*',
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFieldWithCustomLabel(
-                          controller: _phoneController,
-                          textInputAction: TextInputAction.done,
-                          hintText: 'Ваш номер телефона*',
-                          keyboardType: TextInputType.phone,
-                          formatters: [
-                            PhoneInputFormatter(),
-                          ],
-                          validator: MultiValidator(
-                            [
-                              MinLengthValidator(
-                                1,
-                                errorText: 'Укажите номер телефона',
-                              ),
-                              PhoneValidator(
-                                errorText: 'Укажите корректный номер телефона',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                        fontSize: AppFonts.sizeXSmall,
-                        fontWeight: AppFonts.regular,
-                        letterSpacing: 0.75,
+        // resizeToAvoidBottomInset: false,
+        body: LoadingOverlay(
+          isLoading: _isPageLoading,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
+            ),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Регистрация',
+                      style: TextStyle(
+                        fontSize: AppFonts.sizeXXXLarge,
+                        fontWeight: AppFonts.bold,
+                        letterSpacing: 0.5,
                         color: AppColors.darkBlue,
                       ),
-                      children: <TextSpan>[
-                        const TextSpan(
-                            text: 'Регистрируясь, Вы соглашаетесь с '),
-                        TextSpan(
-                          text: 'пользовательским соглашением',
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => _showPrivacyPolicy(),
-                          style: const TextStyle(
-                            height: 1.5,
-                            shadows: [
-                              Shadow(
-                                color: AppColors.darkBlue,
-                                offset: Offset(0, -3),
+                    ),
+                    const SizedBox(
+                      height: 42,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFieldWithCustomLabel(
+                            controller: _nameController,
+                            textInputAction: TextInputAction.next,
+                            maxLength: 35,
+                            keyboardType: TextInputType.name,
+                            validator: MultiValidator([
+                              LengthRangeValidator(
+                                min: 1,
+                                max: 35,
+                                errorText: 'Укажите ваше имя',
                               )
-                            ],
-                            color: Colors.transparent,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.darkBlue,
+                            ]),
+                            hintText: 'Ваше имя*',
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFieldWithCustomLabel(
+                            controller: _emailController,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: MultiValidator(
+                              [
+                                EmailValidator(
+                                  errorText: 'Укажите корректный email',
+                                ),
+                                MinLengthValidator(
+                                  1,
+                                  errorText: 'Укажите вашу почту',
+                                ),
+                              ],
+                            ),
+                            hintText: 'Ваш email*',
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFieldWithCustomLabel(
+                            controller: _phoneController,
+                            textInputAction: TextInputAction.done,
+                            hintText: 'Ваш номер телефона*',
+                            keyboardType: TextInputType.phone,
+                            formatters: [
+                              PhoneInputFormatter(),
+                            ],
+                            validator: MultiValidator(
+                              [
+                                MinLengthValidator(
+                                  1,
+                                  errorText: 'Укажите номер телефона',
+                                ),
+                                PhoneValidator(
+                                  errorText:
+                                      'Укажите корректный номер телефона',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontSize: AppFonts.sizeXSmall,
+                          fontWeight: AppFonts.regular,
+                          letterSpacing: 0.75,
+                          color: AppColors.darkBlue,
+                        ),
+                        children: <TextSpan>[
+                          const TextSpan(
+                              text: 'Регистрируясь, Вы соглашаетесь с '),
+                          TextSpan(
+                            text: 'пользовательским соглашением',
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _showPrivacyPolicy(),
+                            style: const TextStyle(
+                              height: 1.5,
+                              shadows: [
+                                Shadow(
+                                  color: AppColors.darkBlue,
+                                  offset: Offset(0, -3),
+                                )
+                              ],
+                              color: Colors.transparent,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.darkBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    BlocBuilder<AuthentificationBloc, AuthentificationState>(
+                      builder: (context, state) {
+                        return SubmitButton(
+                          onTap: () {
+                            _validateFormAndRegister(context);
+                          },
+                          text: 'ЗАРЕГИСТРИРОВАТЬСЯ',
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    IconTextButton(
+                      onTap: _alreadySignUp,
+                      text: 'Я уже зарегестрирован',
+                      textStyle: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.bold,
+                        fontSize: AppFonts.sizeXSmall,
+                      ),
+                      icon: SvgPicture.asset(
+                        AppIcons.keyInBox,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 45,
+                    ),
+                    RichTextWrapper(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      textStyle: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.regular,
+                        fontSize: AppFonts.sizeXSmall,
+                        letterSpacing: 1,
+                      ),
+                      children: [
+                        ServiceAuthButton(
+                          text: 'Войти как пользователь',
+                          icon: SvgPicture.asset(AppIcons.google),
+                          onTap: _googleAuth,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ServiceAuthButton(
+                          text: 'Войти как пользователь',
+                          icon: SvgPicture.asset(AppIcons.facebook),
+                          onTap: _facebookAuth,
                         ),
                       ],
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                  ),
-                  BlocBuilder<AuthentificationBloc, AuthentificationState>(
-                    builder: (context, state) {
-                      return SubmitButton(
-                        onTap: () {
-                          _validateFormAndRegister(context);
-                        },
-                        text: 'ЗАРЕГИСТРИРОВАТЬСЯ',
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.030,
-                    ),
-                  ),
-                  IconTextButton(
-                    onTap: _alreadySignUp,
-                    text: 'Я уже зарегестрирован',
-                    textStyle: const TextStyle(
-                      color: AppColors.darkBlue,
-                      fontWeight: AppFonts.bold,
-                      fontSize: AppFonts.sizeXSmall,
-                    ),
-                    icon: SvgPicture.asset(
-                      AppIcons.keyInBox,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.045,
-                    ),
-                  ),
-                  RichTextWrapper(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    textStyle: const TextStyle(
-                      color: AppColors.darkBlue,
-                      fontWeight: AppFonts.regular,
-                      fontSize: AppFonts.sizeXSmall,
-                      letterSpacing: 1,
-                    ),
-                    children: [
-                      ServiceAuthButton(
-                        text: 'Войти как пользователь',
-                        icon: SvgPicture.asset(AppIcons.google),
-                        onTap: _googleAuth,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ServiceAuthButton(
-                        text: 'Войти как пользователь',
-                        icon: SvgPicture.asset(AppIcons.facebook),
-                        onTap: _facebookAuth,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            if (_isPageLoading)
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.black.withOpacity(0.3),
-                child: const Center(
-                  child: CircularProgressIndicator(),
+                  ],
                 ),
               ),
-          ],
+            ),
+          ),
         ),
       ),
     );

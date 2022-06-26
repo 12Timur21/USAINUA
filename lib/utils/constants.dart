@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 const double bottomNavBarHeight = 80;
 
 enum DispatchType {
@@ -41,4 +43,35 @@ enum AdditionalServices {
   productPhoto,
   additionalPackaging,
   inclusionCheck,
+}
+
+enum WebCites {
+  amazon,
+  ebay,
+  wallmart,
+}
+
+enum WebsiteSections {
+  popular,
+  shoes,
+  clothes,
+  electronics,
+}
+
+extension SelectedColorExtension on WebsiteSections {
+  String get name => describeEnum(this);
+  String get displayTitle {
+    switch (this) {
+      case WebsiteSections.popular:
+        return 'Топ товары';
+      case WebsiteSections.shoes:
+        return 'Обувь';
+      case WebsiteSections.clothes:
+        return 'Одежда';
+      case WebsiteSections.electronics:
+        return 'Электрика';
+      default:
+        throw Exception('Enum does not has name');
+    }
+  }
 }

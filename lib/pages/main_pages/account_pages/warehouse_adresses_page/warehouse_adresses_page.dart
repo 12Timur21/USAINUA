@@ -17,7 +17,6 @@ class WarehouseAdressesPage extends StatelessWidget {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Адреса складов',
       ),
       body: Padding(
@@ -27,23 +26,23 @@ class WarehouseAdressesPage extends StatelessWidget {
         ),
         child: Column(
           children: const [
-            SizedBox(
-              height: 470,
+            Expanded(
               child: WarehouseSlider(),
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  '* - технику компании Apple можно отправлять только на дополнительный склад',
-                  style: TextStyle(
-                    color: AppColors.darkBlue,
-                    fontWeight: AppFonts.regular,
-                    letterSpacing: 1,
-                    fontSize: AppFonts.sizeXSmall,
-                  ),
-                ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              '* - технику компании Apple можно отправлять только на дополнительный склад',
+              style: TextStyle(
+                color: AppColors.darkBlue,
+                fontWeight: AppFonts.regular,
+                letterSpacing: 1,
+                fontSize: AppFonts.sizeXSmall,
               ),
+            ),
+            SizedBox(
+              height: 30,
             ),
           ],
         ),

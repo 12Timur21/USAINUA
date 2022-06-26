@@ -11,56 +11,53 @@ class PurchareAndDeliveryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
-      child: RichTextWrapper(
-        textStyle: const TextStyle(
-          color: AppColors.darkBlue,
-          fontWeight: AppFonts.regular,
-          fontSize: AppFonts.sizeXSmall,
-        ),
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconText(
-            icon: SvgPicture.asset(
-              AppIcons.basket,
-            ),
-            iconPadding: const EdgeInsets.only(
-              right: 30,
-            ),
-            label: 'Выберите желаемые товары в интернет-магазинах США/Европы.',
-          ),
-          IconText(
-            icon: SvgPicture.asset(
-              AppIcons.copy,
-            ),
-            iconPadding: const EdgeInsets.only(
-              right: 30,
-            ),
-            label: 'Скопируйте ссылки на выбранные товары в форму заказа.',
-          ),
-          IconText(
-            icon: SvgPicture.asset(
-              AppIcons.moneyBag,
-            ),
-            iconPadding: const EdgeInsets.only(
-              right: 30,
-            ),
-            label:
-                'В течение 30 минут в кабинете появится расчёт стоимости покупки товаров с доставкой.',
-          ),
-          IconText(
-            icon: SvgPicture.asset(
-              AppIcons.location,
-            ),
-            iconPadding: const EdgeInsets.only(
-              right: 30,
-            ),
-            label:
-                'Мы выкупим Ваш заказ, и привезем его к Вам. Вы сможете отслеживать его в личном кабинете.',
-          ),
-        ],
+    return RichTextWrapper(
+      textStyle: const TextStyle(
+        color: AppColors.darkBlue,
+        fontWeight: AppFonts.regular,
+        fontSize: AppFonts.sizeXSmall,
       ),
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        IconText(
+          icon: SvgPicture.asset(
+            AppIcons.basket,
+          ),
+          iconPadding: const EdgeInsets.only(
+            right: 30,
+          ),
+          label: 'Выберите желаемые товары в интернет-магазинах США/Европы.',
+        ),
+        IconText(
+          icon: SvgPicture.asset(
+            AppIcons.copy,
+          ),
+          iconPadding: const EdgeInsets.only(
+            right: 30,
+          ),
+          label: 'Скопируйте ссылки на выбранные товары в форму заказа.',
+        ),
+        IconText(
+          icon: SvgPicture.asset(
+            AppIcons.moneyBag,
+          ),
+          iconPadding: const EdgeInsets.only(
+            right: 30,
+          ),
+          label:
+              'В течение 30 минут в кабинете появится расчёт стоимости покупки товаров с доставкой.',
+        ),
+        IconText(
+          icon: SvgPicture.asset(
+            AppIcons.location,
+          ),
+          iconPadding: const EdgeInsets.only(
+            right: 30,
+          ),
+          label:
+              'Мы выкупим Ваш заказ, и привезем его к Вам. Вы сможете отслеживать его в личном кабинете.',
+        ),
+      ],
     );
   }
 }

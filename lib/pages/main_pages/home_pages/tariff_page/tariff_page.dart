@@ -42,184 +42,188 @@ class _TariffPageState extends State<TariffPage> {
         onLeading: () {
           Navigator.of(context).pop();
         },
-        onAction: () {},
         text: 'Тарифы',
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 24,
         ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      CustomRadioOption<DispatchType>(
-                        value: DispatchType.purchaseAndDelivery,
-                        groupValue: _dispatchType,
-                        onChanged: (DispatchType dispatchType) {
-                          setState(() {
-                            _dispatchType = dispatchType;
-                          });
-                        },
-                        activeColor: AppColors.lightGreen,
-                        backgroundColor: AppColors.primary,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Покупка и доставка',
-                        style: _checkBoxTextStyle.copyWith(
-                          color:
-                              _dispatchType == DispatchType.purchaseAndDelivery
-                                  ? AppColors.darkBlue
-                                  : AppColors.primary,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        CustomRadioOption<DispatchType>(
+                          value: DispatchType.purchaseAndDelivery,
+                          groupValue: _dispatchType,
+                          onChanged: (DispatchType dispatchType) {
+                            setState(() {
+                              _dispatchType = dispatchType;
+                            });
+                          },
+                          activeColor: AppColors.lightGreen,
+                          backgroundColor: AppColors.primary,
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      CustomRadioOption<DispatchType>(
-                        value: DispatchType.deliveryOnly,
-                        groupValue: _dispatchType,
-                        onChanged: (DispatchType dispatchType) {
-                          setState(() {
-                            _dispatchType = dispatchType;
-                          });
-                        },
-                        activeColor: AppColors.lightGreen,
-                        backgroundColor: AppColors.primary,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Только доставка',
-                        style: _checkBoxTextStyle.copyWith(
-                          color: _dispatchType == DispatchType.deliveryOnly
-                              ? AppColors.darkBlue
-                              : AppColors.primary,
+                        const SizedBox(
+                          width: 10,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFieldWithCustomLabel(
-                    controller: _packageWeightController,
-                    textInputAction: TextInputAction.next,
-                    hintText: 'Примерный вес посылки*',
-                    sufixIcon: SvgPicture.asset(
-                      AppIcons.kilogram,
-                      fit: BoxFit.scaleDown,
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: MultiValidator(
-                      [
-                        MinLengthValidator(
-                          1,
-                          errorText: 'Укажите вес посылки',
+                        Text(
+                          'Покупка и доставка',
+                          style: _checkBoxTextStyle.copyWith(
+                            color: _dispatchType ==
+                                    DispatchType.purchaseAndDelivery
+                                ? AppColors.darkBlue
+                                : AppColors.primary,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFieldWithCustomLabel(
-                    controller: _packageWeightController,
-                    textInputAction: TextInputAction.next,
-                    hintText: 'Общая стоимость*',
-                    sufixIcon: SvgPicture.asset(
-                      AppIcons.dollar,
-                      fit: BoxFit.scaleDown,
+                    const SizedBox(
+                      height: 20,
                     ),
-                    keyboardType: TextInputType.number,
-                    validator: MultiValidator(
-                      [
-                        MinLengthValidator(
-                          1,
-                          errorText: 'Укажите стоимость посылки',
+                    Row(
+                      children: [
+                        CustomRadioOption<DispatchType>(
+                          value: DispatchType.deliveryOnly,
+                          groupValue: _dispatchType,
+                          onChanged: (DispatchType dispatchType) {
+                            setState(() {
+                              _dispatchType = dispatchType;
+                            });
+                          },
+                          activeColor: AppColors.lightGreen,
+                          backgroundColor: AppColors.primary,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Только доставка',
+                          style: _checkBoxTextStyle.copyWith(
+                            color: _dispatchType == DispatchType.deliveryOnly
+                                ? AppColors.darkBlue
+                                : AppColors.primary,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _rowTile(
-                    key: 'Услуги доставки:',
-                    value: 59.50,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _rowTile(
-                    key: 'Страховка:',
-                    value: 2.85,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _rowTile(
-                    key: 'Прием и оформление::',
-                    value: 0.99,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _rowTile(
-                    key: 'Комиссия услуги::',
-                    value: 7.50,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'Ориентировочная стоимость товара с доставкой: ',
-                    style: TextStyle(
-                      color: AppColors.darkBlue,
-                      fontWeight: AppFonts.regular,
-                      fontSize: AppFonts.sizeXSmall,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const TextInBox(
-                    backgroundColor: AppColors.primary,
-                    text: '220.84\$',
-                    textStyle: TextStyle(
-                      color: AppColors.darkBlue,
-                      fontWeight: AppFonts.heavy,
-                      fontSize: AppFonts.sizeXXLarge,
-                      letterSpacing: 0.5,
-                    ),
-                    alignment: Alignment.centerLeft,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 25,
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFieldWithCustomLabel(
+                      controller: _packageWeightController,
+                      textInputAction: TextInputAction.next,
+                      hintText: 'Примерный вес посылки*',
+                      sufixIcon: SvgPicture.asset(
+                        AppIcons.kilogram,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: MultiValidator(
+                        [
+                          MinLengthValidator(
+                            1,
+                            errorText: 'Укажите вес посылки',
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFieldWithCustomLabel(
+                      controller: _packageWeightController,
+                      textInputAction: TextInputAction.next,
+                      hintText: 'Общая стоимость*',
+                      sufixIcon: SvgPicture.asset(
+                        AppIcons.dollar,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: MultiValidator(
+                        [
+                          MinLengthValidator(
+                            1,
+                            errorText: 'Укажите стоимость посылки',
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _rowTile(
+                      key: 'Услуги доставки:',
+                      value: 59.50,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _rowTile(
+                      key: 'Страховка:',
+                      value: 2.85,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _rowTile(
+                      key: 'Прием и оформление::',
+                      value: 0.99,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _rowTile(
+                      key: 'Комиссия услуги::',
+                      value: 7.50,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      'Ориентировочная стоимость товара с доставкой: ',
+                      style: TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.regular,
+                        fontSize: AppFonts.sizeXSmall,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const TextInBox(
+                      backgroundColor: AppColors.primary,
+                      text: '220.84\$',
+                      textStyle: TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.heavy,
+                        fontSize: AppFonts.sizeXXLarge,
+                        letterSpacing: 0.5,
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
         ),
       ),
     );
