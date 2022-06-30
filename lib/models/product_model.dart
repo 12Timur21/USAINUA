@@ -5,35 +5,51 @@ import 'package:usainua/utils/constants.dart';
 class ProductModel extends Equatable {
   const ProductModel({
     required this.id,
-    required this.deliveryDate,
-    required this.deliveryMethod,
-    required this.price,
-    required this.weight,
+    required this.link,
+    this.count,
+    this.deliveryDate,
+    this.deliveryMethod,
+    this.price,
+    this.weight,
     required this.deliveryStatus,
+    this.additionalServices,
+    this.description,
   });
 
   final String id;
-  final DateTime deliveryDate;
-  final DeliveryMethod deliveryMethod;
-  final double price;
-  final double weight;
-  final DeliveryStatus deliveryStatus;
+  final String link;
+  final String? description;
+  final String? count;
+  final DateTime? deliveryDate;
+  final DeliveryMethod? deliveryMethod;
+  final double? price;
+  final double? weight;
+  final DeliveryStatus? deliveryStatus;
+  final String? additionalServices;
 
   ProductModel copyWith({
     String? id,
+    String? link,
+    String? count,
+    String? description,
     DateTime? deliveryDate,
     DeliveryMethod? deliveryMethod,
     double? price,
     double? weight,
     DeliveryStatus? deliveryStatus,
+    String? additionalServices,
   }) {
     return ProductModel(
       id: id ?? this.id,
+      link: link ?? this.link,
+      count: count ?? this.count,
+      description: description ?? this.description,
       deliveryDate: deliveryDate ?? this.deliveryDate,
       deliveryMethod: deliveryMethod ?? this.deliveryMethod,
       price: price ?? this.price,
       weight: weight ?? this.weight,
       deliveryStatus: deliveryStatus ?? this.deliveryStatus,
+      additionalServices: additionalServices ?? this.additionalServices,
     );
   }
 
@@ -41,6 +57,9 @@ class ProductModel extends Equatable {
     //TODO
     return {
       'id': id,
+      'link': link,
+      'description': description,
+      'count': count,
       'deliveryDate': deliveryDate,
       'deliveryMethod': enumToString(deliveryMethod),
       'price': price,
@@ -67,6 +86,9 @@ class ProductModel extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        link,
+        description,
+        count,
         deliveryDate,
         deliveryMethod,
         price,

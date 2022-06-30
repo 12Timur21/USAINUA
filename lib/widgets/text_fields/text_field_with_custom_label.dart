@@ -85,6 +85,7 @@ class _TextFieldWithCustomLabelState extends State<TextFieldWithCustomLabel> {
           alignment: Alignment.bottomCenter,
           child: Container(
             margin: EdgeInsets.only(
+              top: 25,
               bottom: _currentText.isNotEmpty || _hasFocus ? 15 : 20,
             ),
             child: TextFormField(
@@ -102,10 +103,12 @@ class _TextFieldWithCustomLabelState extends State<TextFieldWithCustomLabel> {
                   left: 20,
                   right: widget.sufixIcon != null ? 50 : 20,
                 ),
-                suffixIconConstraints: const BoxConstraints(
-                  minWidth: 2,
-                  minHeight: 2,
-                ),
+
+                // suffixIconConstraints: const BoxConstraints(
+                //   minWidth: 2,
+                //   minHeight: 2,
+                // ),
+
                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                 alignLabelWithHint: true,
                 filled: true,

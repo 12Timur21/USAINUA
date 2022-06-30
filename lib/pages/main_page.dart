@@ -114,6 +114,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Navigator.of(context, rootNavigator: ).pushNamed();
     return Scaffold(
       body: Navigator(
         key: MainPage.navigationKey,

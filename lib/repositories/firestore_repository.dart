@@ -1,9 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:usainua/models/product_model.dart';
 import 'package:usainua/models/user_model.dart';
+import 'package:usainua/repositories/auth_repository.dart';
 
 class FirestoreRepository {
   FirestoreRepository._();
   static final FirestoreRepository instance = FirestoreRepository._();
+
+  final CollectionReference _ordersCollection =
+      FirebaseFirestore.instance.collection(
+    'orders',
+  );
 
   //? [START] User management
   final CollectionReference _userCollection =
@@ -50,4 +57,21 @@ class FirestoreRepository {
     _userCollection.doc().delete();
   }
   //? [End] User management
+
+  Future<void> createProduct({
+    required List<ProductModel> productModelList,
+  }) async {
+    String? uid = AuthRepository.instance.uid;
+    for (ProductModel element in productModelList) {
+      _ordersCollection
+          .doc(uid)
+          .collection('allOrders')
+          .doc(
+            element.id,
+          )
+          .set(
+            element.toJson(),
+          );
+    }
+  }
 }

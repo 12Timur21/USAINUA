@@ -106,6 +106,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
                         price: 1233.22,
                         weight: 123.1,
                         deliveryStatus: DeliveryStatus.awaitingToSend,
+                        link: '',
                       ),
                     ),
                   );

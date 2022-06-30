@@ -1,3 +1,5 @@
+import 'package:usainua/utils/constants.dart';
+
 int? getIntFromString(String? string) {
   if (string == null) return null;
 
@@ -7,4 +9,14 @@ int? getIntFromString(String? string) {
       '',
     ),
   )?.toInt();
+}
+
+double? calculatePrice({
+  required double price,
+  required DeliveryMethod deliveryMethod,
+  required String additionalServices,
+  required double weight,
+  required int count,
+}) {
+  return price * count;
 }

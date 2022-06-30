@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:usainua/pages/auth_pages/additional_data_collection_page/additional_data_collection_page.dart';
 import 'package:usainua/pages/auth_pages/credential_linking_page/credential_linking_page.dart';
@@ -27,6 +28,7 @@ import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/order_vi
 
 import 'package:usainua/pages/main_pages/order_pages/only_delivery_page/only_delivery_page.dart';
 import 'package:usainua/pages/main_pages/order_pages/our_choise_page/our_choice_page.dart';
+import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/bloc/product_filling_form_cubit/product_filling_form_cubit.dart';
 import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/purchase_and_delivery_page.dart';
 
 import 'package:usainua/pages/privacy_terms_page/privacy_terms_page.dart';
@@ -170,7 +172,10 @@ class AppRouter {
         break;
 
       case PurchaseAndDeliveryPage.routeName:
-        builder = const PurchaseAndDeliveryPage();
+        builder = BlocProvider(
+          create: (context) => ProductFillingFormCubit(),
+          child: const PurchaseAndDeliveryPage(),
+        );
         break;
 
       case OnlyDeliveryPage.routeName:

@@ -9,9 +9,7 @@ import 'package:usainua/utils/constants.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/check_boxes/custom_checkbox.dart';
-import 'package:usainua/widgets/drop_downs/custom_drop_down.dart';
-import 'package:usainua/widgets/radio_buttons/custom_radio_button.dart';
-import 'package:usainua/widgets/text/icon_text_with_label.dart';
+import 'package:usainua/widgets/select_widgets/select_delivery.dart';
 import 'package:usainua/widgets/text_fields/resizable_text_field.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
@@ -192,9 +190,9 @@ class _OnlyDeliveryPageState extends State<OnlyDeliveryPage> {
               const SizedBox(
                 height: 35,
               ),
-              _selectDelivery(
+              SelectDeliveryMethod(
                 selectedDeliveryMethod: _deliveryMethod,
-                onChange: (value) {
+                onChange: (DeliveryMethod value) {
                   setState(() {
                     _deliveryMethod = value;
                   });
@@ -264,11 +262,11 @@ class _OnlyDeliveryPageState extends State<OnlyDeliveryPage> {
               const SizedBox(
                 height: 10,
               ),
-              CustomDropDown(
-                textController: _additionalServicesController,
-                errorText: 'Дополнительные услуги*',
-                hintText: 'Дополнительные услуги*',
-              ),
+              // CustomDropDown(
+              //   textController: _additionalServicesController,
+              //   errorText: 'Дополнительные услуги*',
+              //   hintText: 'Дополнительные услуги*',
+              // ),
               const SizedBox(
                 height: 30,
               ),
@@ -470,87 +468,3 @@ Widget _downloadTrack({
     ),
   );
 }
-
-Widget _selectDelivery({
-  required DeliveryMethod selectedDeliveryMethod,
-  required Function(DeliveryMethod value) onChange,
-}) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Row(
-        children: [
-          CustomRadioOption<DeliveryMethod>(
-            value: DeliveryMethod.air,
-            groupValue: selectedDeliveryMethod,
-            onChanged: onChange,
-            activeColor: AppColors.lightBlue,
-            backgroundColor: AppColors.primary,
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          IconTextWithLabel(
-            label: 'Авиадоставка',
-            text: '4-9 рабочих дней',
-            icon: Padding(
-              padding: const EdgeInsets.only(
-                right: 10,
-              ),
-              child: SvgPicture.asset(
-                AppIcons.plane,
-              ),
-            ),
-            labelStyle: _iconTextWithLabelStyle,
-            textStyle: _iconTextWithText,
-          ),
-        ],
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-      Row(
-        children: [
-          CustomRadioOption<DeliveryMethod>(
-            value: DeliveryMethod.sea,
-            groupValue: selectedDeliveryMethod,
-            onChanged: onChange,
-            activeColor: AppColors.lightBlue,
-            backgroundColor: AppColors.primary,
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          IconTextWithLabel(
-            label: 'Бысторое море',
-            text: '28-35 рабочих дней',
-            icon: Padding(
-              padding: const EdgeInsets.only(
-                right: 10,
-              ),
-              child: SvgPicture.asset(
-                AppIcons.boat,
-              ),
-            ),
-            labelStyle: _iconTextWithLabelStyle,
-            textStyle: _iconTextWithText,
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
-const TextStyle _iconTextWithLabelStyle = TextStyle(
-  color: AppColors.darkBlue,
-  letterSpacing: 0.5,
-  fontSize: AppFonts.sizeSmall,
-  fontWeight: AppFonts.bold,
-);
-
-const TextStyle _iconTextWithText = TextStyle(
-  color: AppColors.darkBlue,
-  fontWeight: AppFonts.regular,
-  fontSize: AppFonts.sizeXSmall,
-  letterSpacing: 1,
-);

@@ -15,7 +15,7 @@ class SelectDeliveryMethod extends StatelessWidget {
   }) : super(key: key);
 
   final DeliveryMethod selectedDeliveryMethod;
-  final Function(DeliveryMethod value) onChange;
+  final void Function(DeliveryMethod value) onChange;
 
   @override
   Widget build(BuildContext context) {

@@ -32,6 +32,7 @@ enum DeliveryMethod {
 }
 
 enum DeliveryStatus {
+  operatorWaiting,
   notPaid,
   awaitingToSend,
   sentToYou,
@@ -43,6 +44,37 @@ enum AdditionalServices {
   productPhoto,
   additionalPackaging,
   inclusionCheck,
+}
+
+extension SelectedAdditionalServiceExtension on AdditionalServices {
+  String get name => describeEnum(this);
+  String get displayTitle {
+    switch (this) {
+      case AdditionalServices.productPhoto:
+        return 'Фото товара';
+      case AdditionalServices.additionalPackaging:
+        return 'Дополнительная упаковка';
+      case AdditionalServices.inclusionCheck:
+        return 'Проверить устройство';
+
+      default:
+        throw Exception('Enum does not has this name');
+    }
+  }
+
+  AdditionalServices enumFromString(String value) {
+    switch (value) {
+      case 'Фото товара':
+        return AdditionalServices.productPhoto;
+      case 'Дополнительная упаковка':
+        return AdditionalServices.additionalPackaging;
+      case 'Проверить устройство':
+        return AdditionalServices.inclusionCheck;
+
+      default:
+        throw Exception('Enum does not has this string');
+    }
+  }
 }
 
 enum WebCites {
@@ -58,7 +90,7 @@ enum WebsiteSections {
   electronics,
 }
 
-extension SelectedColorExtension on WebsiteSections {
+extension SelectedWebsiteExtension on WebsiteSections {
   String get name => describeEnum(this);
   String get displayTitle {
     switch (this) {

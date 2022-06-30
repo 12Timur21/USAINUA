@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:usainua/resources/app_colors.dart';
+import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
+import 'package:usainua/widgets/check_boxes/custom_checkbox.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
-class CustomDropDown extends StatefulWidget {
-  const CustomDropDown({
+class DropDownWithCheckbox extends StatefulWidget {
+  const DropDownWithCheckbox({
     required this.items,
     required this.textController,
     required this.errorText,
@@ -24,16 +26,17 @@ class CustomDropDown extends StatefulWidget {
   final List<String> items;
 
   @override
-  _CustomDropDownState createState() => _CustomDropDownState();
+  _DropDownWithCheckboxState createState() => _DropDownWithCheckboxState();
 }
 
-class _CustomDropDownState extends State<CustomDropDown> {
+class _DropDownWithCheckboxState extends State<DropDownWithCheckbox> {
   final _focusNode = FocusNode();
   final _globalKey = GlobalKey();
 
   OverlayEntry? _overlayEntry;
 
   final LayerLink _layerLink = LayerLink();
+  final List<String> _selectedItems = [];
 
   @override
   void initState() {
@@ -57,6 +60,17 @@ class _CustomDropDownState extends State<CustomDropDown> {
     super.dispose();
   }
 
+  void _toogleSelectedItem(String item) {
+    bool isSelected = _selectedItems.contains(item);
+    if (isSelected) {
+      _selectedItems.remove(item);
+    } else {
+      _selectedItems.add(item);
+    }
+
+    widget.textController.text = _selectedItems.join(', ');
+  }
+
   OverlayEntry _createOverlayEntry() {
     final RenderBox renderBox =
         _globalKey.currentContext?.findRenderObject() as RenderBox;
@@ -78,15 +92,17 @@ class _CustomDropDownState extends State<CustomDropDown> {
             child: ListView.builder(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
+              itemCount: widget.items.length,
               itemBuilder: (BuildContext context, int index) {
+                String item = widget.items[index];
                 return ListTile(
-                  title: Text(
-                    widget.items[index],
+                  title: _checkBox(
+                    isSelected: _selectedItems.contains(item),
+                    onChanged: (_) {
+                      _toogleSelectedItem(item);
+                    },
+                    value: item,
                   ),
-                  onTap: () {
-                    widget.textController.text = 'Syria';
-                    _focusNode.unfocus();
-                  },
                 );
               },
             ),
@@ -124,4 +140,36 @@ class _CustomDropDownState extends State<CustomDropDown> {
       ),
     );
   }
+}
+
+Widget _checkBox({
+  required String value,
+  required bool isSelected,
+  required void Function(bool) onChanged,
+}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      CustomCheckbox(
+        isActive: isSelected,
+        activeColor: AppColors.lightBlue,
+        backgroundColor: Colors.white,
+        onChanged: onChanged,
+      ),
+      const SizedBox(
+        width: 20,
+      ),
+      Expanded(
+        child: Text(
+          value,
+          style: const TextStyle(
+            color: AppColors.darkBlue,
+            fontWeight: AppFonts.regular,
+            fontSize: AppFonts.sizeXSmall,
+            letterSpacing: 1,
+          ),
+        ),
+      ),
+    ],
+  );
 }
