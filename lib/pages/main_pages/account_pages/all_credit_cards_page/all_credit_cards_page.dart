@@ -67,7 +67,7 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
           children: [
             Column(
               children: [
-                _creditCard(
+                _CreditCard(
                   value: _paymentCard[0],
                   groupValue: _selectedCard,
                   onChanged: (value) {
@@ -76,7 +76,7 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
                     });
                   },
                 ),
-                _creditCard(
+                _CreditCard(
                   value: _paymentCard[1],
                   groupValue: _selectedCard,
                   onChanged: (value) {
@@ -158,73 +158,83 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
   }
 }
 
-Widget _creditCard({
-  required PaymentCardModel value,
-  required PaymentCardModel groupValue,
-  required Function(PaymentCardModel) onChanged,
-}) {
-  String updatedCardNumber0 = value.number.toString().replaceAllMapped(
-        RegExp(r'.{4}'),
-        (match) => '${match.group(0)} ',
-      );
+class _CreditCard extends StatelessWidget {
+  const _CreditCard({
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    Key? key,
+  }) : super(key: key);
 
-  String updatedCardNumber = '';
-  updatedCardNumber += updatedCardNumber0.substring(
-    0,
-    7,
-  );
-  updatedCardNumber += ' ... ';
-  updatedCardNumber += updatedCardNumber0.substring(
-    updatedCardNumber0.length - 5,
-  );
+  final PaymentCardModel value;
+  final PaymentCardModel groupValue;
+  final Function(PaymentCardModel) onChanged;
 
-  SvgPicture cardIcon = CreditCardUtils.getCardIcon(
-    paymentCardType: value.type,
-  );
+  @override
+  Widget build(BuildContext context) {
+    String updatedCardNumber0 = value.number.toString().replaceAllMapped(
+          RegExp(r'.{4}'),
+          (match) => '${match.group(0)} ',
+        );
 
-  return Container(
-    height: 80,
-    width: double.infinity,
-    decoration: BoxDecoration(
-      color: AppColors.primary,
-      borderRadius: BorderRadius.circular(
-        10,
-      ),
-    ),
-    margin: const EdgeInsets.only(
-      top: 10,
-    ),
-    padding: const EdgeInsets.symmetric(
-      horizontal: 20,
-      vertical: 24,
-    ),
-    child: Row(
-      children: [
-        Row(
-          children: [
-            CustomRadioOption<PaymentCardModel>(
-              value: value,
-              groupValue: groupValue,
-              onChanged: onChanged,
-              backgroundColor: Colors.white,
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-            Text(
-              updatedCardNumber,
-              style: const TextStyle(
-                color: AppColors.darkBlue,
-                fontWeight: AppFonts.heavy,
-                fontSize: AppFonts.sizeLarge,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ],
+    String updatedCardNumber = '';
+    updatedCardNumber += updatedCardNumber0.substring(
+      0,
+      7,
+    );
+    updatedCardNumber += ' ... ';
+    updatedCardNumber += updatedCardNumber0.substring(
+      updatedCardNumber0.length - 5,
+    );
+
+    SvgPicture cardIcon = CreditCardUtils.getCardIcon(
+      paymentCardType: value.type,
+    );
+
+    return Container(
+      height: 80,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.primary,
+        borderRadius: BorderRadius.circular(
+          10,
         ),
-        const Spacer(),
-        cardIcon,
-      ],
-    ),
-  );
+      ),
+      margin: const EdgeInsets.only(
+        top: 10,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 24,
+      ),
+      child: Row(
+        children: [
+          Row(
+            children: [
+              CustomRadioOption<PaymentCardModel>(
+                value: value,
+                groupValue: groupValue,
+                onChanged: onChanged,
+                backgroundColor: Colors.white,
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Text(
+                updatedCardNumber,
+                style: const TextStyle(
+                  color: AppColors.darkBlue,
+                  fontWeight: AppFonts.heavy,
+                  fontSize: AppFonts.sizeLarge,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          cardIcon,
+        ],
+      ),
+    );
+  }
 }

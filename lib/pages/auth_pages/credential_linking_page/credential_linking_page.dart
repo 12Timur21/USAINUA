@@ -179,7 +179,7 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
+                      children: [
                         const Text(
                           'Аккаунт уже существует с указаным email адресом',
                           style: TextStyle(

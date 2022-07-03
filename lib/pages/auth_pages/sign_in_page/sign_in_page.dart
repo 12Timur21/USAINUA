@@ -183,9 +183,7 @@ class _SignInPageState extends State<SignInPage> {
                         textInputAction: TextInputAction.done,
                         hintText: 'Ваш номер телефона*',
                         keyboardType: TextInputType.phone,
-                        onSubmitted: (_) {
-                          _signIn();
-                        },
+                        onSubmitted: (_) => _signIn(),
                         formatters: [
                           PhoneInputFormatter(),
                         ],

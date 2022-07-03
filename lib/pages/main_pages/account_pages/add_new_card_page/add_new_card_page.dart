@@ -205,6 +205,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
   }
 }
 
+//TODO! Рефакторинг
 Widget _textInput({
   required TextEditingController controller,
   String? hintText,

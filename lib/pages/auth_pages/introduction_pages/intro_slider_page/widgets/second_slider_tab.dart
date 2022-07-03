@@ -27,8 +27,8 @@ class SecondSliderTab extends StatelessWidget {
       );
     }
 
-    List<Widget> _pages = [
-      _slide(
+    List<_Slide> _pages = [
+      _Slide(
         context: context,
         title: 'Nike Pegasus Trail 2',
         imageURL: AppImages.nikeShoes,
@@ -37,7 +37,7 @@ class SecondSliderTab extends StatelessWidget {
         onRightArrowTap: _nextSlide,
         onLeftArrowTap: _previewSlide,
       ),
-      _slide(
+      _Slide(
         context: context,
         title: 'Published',
         imageURL: AppImages.book,
@@ -46,7 +46,7 @@ class SecondSliderTab extends StatelessWidget {
         onRightArrowTap: _nextSlide,
         onLeftArrowTap: _previewSlide,
       ),
-      _slide(
+      _Slide(
         context: context,
         title: 'Louis Vuitton',
         imageURL: AppImages.handBag,
@@ -109,211 +109,246 @@ class SecondSliderTab extends StatelessWidget {
   }
 }
 
-Widget _slide({
-  required BuildContext context,
-  required String title,
-  required String imageURL,
-  required int costInUkraine,
-  required int costInUSA,
-  required VoidCallback onLeftArrowTap,
-  required VoidCallback onRightArrowTap,
-}) {
-  final double _width = MediaQuery.of(context).size.width - 48;
-  final int _priceDifference = costInUkraine - costInUSA;
+class _Slide extends StatefulWidget {
+  const _Slide({
+    required this.context,
+    required this.title,
+    required this.imageURL,
+    required this.costInUkraine,
+    required this.costInUSA,
+    required this.onLeftArrowTap,
+    required this.onRightArrowTap,
+    Key? key,
+  }) : super(key: key);
 
-  return Container(
-    alignment: Alignment.bottomCenter,
-    width: double.infinity,
-    height: double.infinity,
-    child: SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                height: 380,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 15),
-                      blurRadius: 23,
-                      color: AppColors.boxShadow.withOpacity(0.09),
-                    ),
-                  ],
-                  border: Border.all(
-                    width: 1,
-                    color: AppColors.primary,
-                  ),
-                  color: Colors.white,
-                ),
-              ),
-              Positioned(
-                top: -50,
-                width: _width,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                  ),
-                  child: SizedBox(
-                    width: 300,
-                    height: 150,
-                    child: Image.asset(
-                      imageURL,
-                      fit: BoxFit.contain,
-                      width: 400,
-                    ),
-                  ),
-                ),
-              ),
+  final BuildContext context;
+  final String title;
+  final String imageURL;
+  final int costInUkraine;
+  final int costInUSA;
+  final VoidCallback onLeftArrowTap;
+  final VoidCallback onRightArrowTap;
 
-              Positioned(
-                width: _width,
-                top: 120,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: onLeftArrowTap,
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          icon: SvgPicture.asset(
-                            AppIcons.leftArrow,
-                            color: AppColors.darkBlue,
-                          ),
-                        ),
-                        Text(
-                          title,
-                          style: const TextStyle(
-                            fontSize: AppFonts.sizeLarge,
-                            fontWeight: AppFonts.heavy,
-                            letterSpacing: 0.5,
-                            color: AppColors.darkBlue,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: onRightArrowTap,
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          icon: SvgPicture.asset(
-                            AppIcons.rightArrow,
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                      ),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                            ),
-                            child: Column(
-                              children: [
-                                _costInCountries(
-                                  title: 'Цена в украине',
-                                  cost: costInUkraine,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                _costInCountries(
-                                  title: 'Цена в США',
-                                  cost: costInUSA,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            height: 75,
-                            decoration: const BoxDecoration(
-                              color: AppColors.primary,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                            ),
-                            child: Center(
-                              child: RichText(
-                                text: TextSpan(
-                                  style: const TextStyle(
-                                    color: AppColors.darkBlue,
-                                    fontWeight: AppFonts.heavy,
-                                    fontSize: AppFonts.sizeXXLarge,
-                                    letterSpacing: 0.5,
-                                  ),
-                                  children: <TextSpan>[
-                                    const TextSpan(text: 'Экономия '),
-                                    TextSpan(
-                                      text: '$_priceDifference\$',
-                                      style: const TextStyle(
-                                        fontWeight: AppFonts.heavy,
-                                        color: AppColors.lightGreen,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-
-              // const SizedBox(
-              //   height: 12,
-              // ),
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
+  @override
+  State<_Slide> createState() => _SlideState();
 }
 
-Widget _costInCountries({
-  required String title,
-  required int cost,
-}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-        title,
-        style: const TextStyle(
-          color: AppColors.darkBlue,
-          fontWeight: AppFonts.regular,
-          fontSize: AppFonts.sizeXSmall,
-          letterSpacing: 1,
+class _SlideState extends State<_Slide> {
+  late final double _width;
+  late final int _priceDifference;
+
+  @override
+  void initState() {
+    _width = MediaQuery.of(widget.context).size.width - 48;
+    _priceDifference = widget.costInUkraine - widget.costInUSA;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.bottomCenter,
+      width: double.infinity,
+      height: double.infinity,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  height: 380,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: const Offset(0, 15),
+                        blurRadius: 23,
+                        color: AppColors.boxShadow.withOpacity(0.09),
+                      ),
+                    ],
+                    border: Border.all(
+                      width: 1,
+                      color: AppColors.primary,
+                    ),
+                    color: Colors.white,
+                  ),
+                ),
+                Positioned(
+                  top: -50,
+                  width: _width,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                    ),
+                    child: SizedBox(
+                      width: 300,
+                      height: 150,
+                      child: Image.asset(
+                        widget.imageURL,
+                        fit: BoxFit.contain,
+                        width: 400,
+                      ),
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  width: _width,
+                  top: 120,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: widget.onLeftArrowTap,
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            icon: SvgPicture.asset(
+                              AppIcons.leftArrow,
+                              color: AppColors.darkBlue,
+                            ),
+                          ),
+                          Text(
+                            widget.title,
+                            style: const TextStyle(
+                              fontSize: AppFonts.sizeLarge,
+                              fontWeight: AppFonts.heavy,
+                              letterSpacing: 0.5,
+                              color: AppColors.darkBlue,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: widget.onRightArrowTap,
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            icon: SvgPicture.asset(
+                              AppIcons.rightArrow,
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                        ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
+                              child: Column(
+                                children: [
+                                  _CostInCountries(
+                                    title: 'Цена в украине',
+                                    cost: widget.costInUkraine,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  _CostInCountries(
+                                    title: 'Цена в США',
+                                    cost: widget.costInUSA,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              height: 75,
+                              decoration: const BoxDecoration(
+                                color: AppColors.primary,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: Center(
+                                child: RichText(
+                                  text: TextSpan(
+                                    style: const TextStyle(
+                                      color: AppColors.darkBlue,
+                                      fontWeight: AppFonts.heavy,
+                                      fontSize: AppFonts.sizeXXLarge,
+                                      letterSpacing: 0.5,
+                                    ),
+                                    children: <TextSpan>[
+                                      const TextSpan(text: 'Экономия '),
+                                      TextSpan(
+                                        text: '$_priceDifference\$',
+                                        style: const TextStyle(
+                                          fontWeight: AppFonts.heavy,
+                                          color: AppColors.lightGreen,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+
+                // const SizedBox(
+                //   height: 12,
+                // ),
+              ],
+            ),
+          ],
         ),
       ),
-      Text(
-        '$cost\$',
-        style: const TextStyle(
-          color: AppColors.darkBlue,
-          fontWeight: AppFonts.bold,
-          fontSize: AppFonts.sizeSmall,
-          letterSpacing: 0.5,
+    );
+  }
+}
+
+class _CostInCountries extends StatelessWidget {
+  const _CostInCountries({
+    required this.title,
+    required this.cost,
+    Key? key,
+  }) : super(key: key);
+
+  final String title;
+  final int cost;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            color: AppColors.darkBlue,
+            fontWeight: AppFonts.regular,
+            fontSize: AppFonts.sizeXSmall,
+            letterSpacing: 1,
+          ),
         ),
-      ),
-    ],
-  );
+        Text(
+          '$cost\$',
+          style: const TextStyle(
+            color: AppColors.darkBlue,
+            fontWeight: AppFonts.bold,
+            fontSize: AppFonts.sizeSmall,
+            letterSpacing: 0.5,
+          ),
+        ),
+      ],
+    );
+  }
 }
