@@ -15,12 +15,12 @@ import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
 class ProductFillingForm extends StatelessWidget {
   ProductFillingForm({
-    required this.overlayController,
+    required this.promptOverlayController,
     required this.onDelete,
     Key? key,
   }) : super(key: key);
 
-  final OverlayController overlayController;
+  final OverlayController promptOverlayController;
   final VoidCallback onDelete;
 
   final linkController = TextEditingController();
@@ -28,12 +28,7 @@ class ProductFillingForm extends StatelessWidget {
   final costController = TextEditingController();
   final weightController = TextEditingController();
   final additionalServicesController = TextEditingController();
-  final descriptionController = TextEditingController(
-    text:
-        'Reprehenderit dolor pariatur sint tempor in commodo est amet eiusmod in. Id cupidatat dolor exercitation pariatur eu aute occaecat consectetur magna consectetur. Occaecat labore non pariatur magna veniam adipisicing nostrud eu nulla voluptate. Nulla do cupidatat deserunt incididunt occaecat nulla minim cupidatat irure anim dolor ad dolor et. Exercitation aliquip proident est nulla nisi ut ex id adipisicing culpa eu ut ad. Eiusmod qui eiusmod ut non qui laborum anim. Consectetur eiusmod amet consequat consectetur adipisicing dolore quis deserunt exercitation ea elit veniam velit eu. Duis Lorem do sunt do elit sit id ad. Ipsum cillum sunt laborum proident in. Laborum elit culpa voluptate enim deserunt nisi excepteur. Dolore esse ad in sit velit voluptate. Tempor adipisicing enim incididunt do. Nisi officia sint cupidatat culpa magna deserunt est irure cillum labore. Enim eu veniam aute sit. Laborum ea culpa pariatur nisi. Voluptate officia ex amet ad incididunt excepteur. Est et elit mollit do. Id fugiat deserunt tempor enim voluptate laboris id. Deserunt fugiat in voluptate minim nisi sunt ex commodo. Ut excepteur fugiat elit sint et sint dolor in velit. Ut veniam deserunt commodo mollit deserunt laborum nulla excepteur nostrud. Cillum do non est consectetur velit. Aliquip do ad dolore occaecat pariatur proident voluptate eu voluptate elit magna aliquip eiusmod. Labore do sint nulla velit sit. Aute duis nulla aute ullamco veniam duis culpa. Id laboris in commodo do.',
-  );
-
-  void rebuildf() {}
+  final descriptionController = TextEditingController();
 
   Future<bool?> _refineDeletion(BuildContext context) async {
     return await showDialog<bool>(
@@ -114,7 +109,7 @@ class ProductFillingForm extends StatelessWidget {
               _LinkTextField(
                 controller: linkController,
                 onSuffixTap: () {
-                  overlayController.open();
+                  promptOverlayController.open();
                 },
               ),
               if (state.isExtended) ...[

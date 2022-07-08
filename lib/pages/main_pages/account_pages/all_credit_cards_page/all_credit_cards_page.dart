@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:usainua/models/payment_card_model.dart';
 import 'package:usainua/pages/main_pages/account_pages/add_new_card_page/add_new_card_page.dart';
+import 'package:usainua/repositories/firestore_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -11,6 +12,7 @@ import 'package:usainua/utils/credit_card_utils.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/buttons/icon_text_button.dart';
 import 'package:usainua/widgets/radio_buttons/custom_radio_button.dart';
+import 'package:collection/collection.dart';
 
 class AllCreditCardsPage extends StatefulWidget {
   const AllCreditCardsPage({Key? key}) : super(key: key);
@@ -22,33 +24,81 @@ class AllCreditCardsPage extends StatefulWidget {
 }
 
 class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
-  final List<PaymentCardModel> _paymentCard = const [
-    PaymentCardModel(
-      type: PaymentCardType.masterCard,
-      number: 123456781234,
-      month: 12,
-      year: 13,
-      cvv: 123,
-    ),
-    PaymentCardModel(
-      type: PaymentCardType.visa,
-      number: 124444671234,
-      month: 04,
-      year: 01,
-      cvv: 144,
-    ),
-  ];
-
-  late PaymentCardModel _selectedCard;
+  final List<PaymentCardModel> _paymentCards = [];
+  PaymentCardModel? _selectedCard;
+  bool _isAutomaticWriteOff = false;
 
   @override
   void initState() {
-    _selectedCard = _paymentCard[0];
-
+    _asyncInit();
     super.initState();
   }
 
-  bool isAutomaticWriteOff = false;
+  Future<void> _asyncInit() async {
+    List<PaymentCardModel>? paymentCardModels =
+        await FirestoreRepository.instance.getAllPaymentCards();
+    if (paymentCardModels != null) {
+      _paymentCards.addAll(paymentCardModels);
+    }
+
+    PaymentCardModel? activePaymentCard = await _getActivePaymentCardID();
+    bool? isAutomaticWriteOff = await _getAutomaticWriteOffStatus();
+    setState(() {
+      _selectedCard = activePaymentCard;
+      _isAutomaticWriteOff = isAutomaticWriteOff ?? false;
+    });
+  }
+
+  void _changeAutomaticWriteOffStatus(bool status) {
+    setState(() {
+      _isAutomaticWriteOff = status;
+    });
+    FirestoreRepository.instance.setAutomaticWriteOffStatus(
+      _isAutomaticWriteOff,
+    );
+  }
+
+  void _setActivePaymentCard(PaymentCardModel value) {
+    setState(() {
+      _selectedCard = value;
+    });
+    FirestoreRepository.instance.setActivePaymentCardID(value.id);
+  }
+
+  Future<PaymentCardModel?> _getActivePaymentCardID() async {
+    String? id = await FirestoreRepository.instance.getActivePaymentCardID();
+
+    PaymentCardModel? selectedCard = _paymentCards.firstWhereOrNull(
+      (element) {
+        print(element.id);
+        print(id);
+        return element.id == id;
+      },
+    );
+    // print(id);
+    // print(selectedCard);
+
+    return selectedCard;
+  }
+
+  Future<bool?> _getAutomaticWriteOffStatus() async {
+    bool? isActive =
+        await FirestoreRepository.instance.getAutomaticWriteOffStatus();
+
+    return isActive;
+  }
+
+  Future<void> _addNewPaymentCard() async {
+    PaymentCardModel? paymentCardModel = await Navigator.of(context).pushNamed(
+      AddNewCardPage.routeName,
+    ) as PaymentCardModel?;
+
+    if (paymentCardModel != null) {
+      setState(() {
+        _paymentCards.add(paymentCardModel);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,37 +115,22 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
         ),
         child: Column(
           children: [
-            Column(
-              children: [
-                _CreditCard(
-                  value: _paymentCard[0],
+            ListView.builder(
+              itemCount: _paymentCards.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return _CreditCard(
+                  value: _paymentCards[index],
                   groupValue: _selectedCard,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedCard = value;
-                    });
-                  },
-                ),
-                _CreditCard(
-                  value: _paymentCard[1],
-                  groupValue: _selectedCard,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedCard = value;
-                    });
-                  },
-                ),
-              ],
+                  onChanged: _setActivePaymentCard,
+                );
+              },
             ),
             const SizedBox(
               height: 20,
             ),
             IconTextButton(
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                  AddNewCardPage.routeName,
-                );
-              },
+              onTap: _addNewPaymentCard,
               textStyle: const TextStyle(
                 color: AppColors.darkBlue,
                 fontWeight: AppFonts.bold,
@@ -139,14 +174,10 @@ class _AllCreditCardsPageState extends State<AllCreditCardsPage> {
                     inactiveText: '',
                     activeColor: AppColors.antiFlashWhite,
                     inactiveColor: AppColors.antiFlashWhite,
-                    value: isAutomaticWriteOff,
+                    value: _isAutomaticWriteOff,
                     borderRadius: 30.0,
                     showOnOff: true,
-                    onToggle: (val) {
-                      setState(() {
-                        isAutomaticWriteOff = val;
-                      });
-                    },
+                    onToggle: _changeAutomaticWriteOffStatus,
                   ),
                 ),
               ],
@@ -167,7 +198,7 @@ class _CreditCard extends StatelessWidget {
   }) : super(key: key);
 
   final PaymentCardModel value;
-  final PaymentCardModel groupValue;
+  final PaymentCardModel? groupValue;
   final Function(PaymentCardModel) onChanged;
 
   @override

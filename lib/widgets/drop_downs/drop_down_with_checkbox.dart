@@ -30,25 +30,21 @@ class DropDownWithCheckbox extends StatefulWidget {
 }
 
 class _DropDownWithCheckboxState extends State<DropDownWithCheckbox> {
-  final _focusNode = FocusNode();
   final _globalKey = GlobalKey();
-
+  final _focusNode = FocusNode();
   OverlayEntry? _overlayEntry;
+  bool _isOverlayOpened = false;
 
   final LayerLink _layerLink = LayerLink();
-  final List<String> _selectedItems = [];
 
+  final List<String> _selectedItems = [];
   @override
   void initState() {
     _focusNode.addListener(() {
-      setState(() {
-        if (_focusNode.hasFocus) {
-          _overlayEntry = _createOverlayEntry();
-          Overlay.of(context)?.insert(_overlayEntry!);
-        } else {
-          _overlayEntry?.remove();
-        }
-      });
+      print(_focusNode.hasFocus);
+      if (!_focusNode.hasFocus) {
+        _overlayEntry?.remove();
+      }
     });
     super.initState();
   }
@@ -56,7 +52,7 @@ class _DropDownWithCheckboxState extends State<DropDownWithCheckbox> {
   @override
   void dispose() {
     _overlayEntry?.dispose();
-
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -69,11 +65,13 @@ class _DropDownWithCheckboxState extends State<DropDownWithCheckbox> {
     }
 
     widget.textController.text = _selectedItems.join(', ');
+    print(widget.textController.text.split(', '));
   }
 
   OverlayEntry _createOverlayEntry() {
     final RenderBox renderBox =
         _globalKey.currentContext?.findRenderObject() as RenderBox;
+
     return OverlayEntry(
       builder: (context) => Positioned(
         width: renderBox.size.width,
@@ -96,11 +94,9 @@ class _DropDownWithCheckboxState extends State<DropDownWithCheckbox> {
               itemBuilder: (BuildContext context, int index) {
                 String item = widget.items[index];
                 return ListTile(
-                  title: _checkBox(
+                  title: _CheckBox(
                     isSelected: _selectedItems.contains(item),
-                    onChanged: (_) {
-                      _toogleSelectedItem(item);
-                    },
+                    onChanged: (_) => _toogleSelectedItem(item),
                     value: item,
                   ),
                 );
@@ -112,6 +108,21 @@ class _DropDownWithCheckboxState extends State<DropDownWithCheckbox> {
     );
   }
 
+  void _toogleOverlayStatus() {
+    print('wtf');
+    setState(() {
+      _isOverlayOpened = _overlayEntry == null ? false : true;
+      if (_isOverlayOpened) {
+        _overlayEntry?.remove();
+        _overlayEntry = null;
+      } else {
+        _overlayEntry = _createOverlayEntry();
+
+        Overlay.of(context)?.insert(_overlayEntry!);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
@@ -119,57 +130,68 @@ class _DropDownWithCheckboxState extends State<DropDownWithCheckbox> {
       child: Container(
         key: _globalKey,
         child: TextFieldWithCustomLabel(
-            controller: widget.textController,
-            focusNode: _focusNode,
-            readOnly: true,
-            validator: widget.validator,
-            hintText: widget.hintText,
-            sufixIcon: GestureDetector(
-              onTap: () {
-                if (_focusNode.hasFocus) {
-                  _focusNode.unfocus();
-                }
-              },
-              child: RotatedBox(
-                quarterTurns: _focusNode.hasFocus ? 90 : 0,
-                child: SvgPicture.asset(
-                  AppIcons.arrowDown,
-                ),
-              ),
-            )),
+          controller: widget.textController,
+          onTap: _toogleOverlayStatus,
+          focusNode: _focusNode,
+          readOnly: true,
+          validator: widget.validator,
+          hintText: widget.hintText,
+          // sufixIcon: GestureDetector(
+          //   onTap: _toogleOverlayStatus,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(10),
+          //     child: RotatedBox(
+          //       quarterTurns: _isOverlayOpened ? 90 : 0,
+          //       child: SvgPicture.asset(
+          //         AppIcons.arrowDown,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ),
       ),
     );
   }
 }
 
-Widget _checkBox({
-  required String value,
-  required bool isSelected,
-  required void Function(bool) onChanged,
-}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      CustomCheckbox(
-        isActive: isSelected,
-        activeColor: AppColors.lightBlue,
-        backgroundColor: Colors.white,
-        onChanged: onChanged,
-      ),
-      const SizedBox(
-        width: 20,
-      ),
-      Expanded(
-        child: Text(
-          value,
-          style: const TextStyle(
-            color: AppColors.darkBlue,
-            fontWeight: AppFonts.regular,
-            fontSize: AppFonts.sizeXSmall,
-            letterSpacing: 1,
+class _CheckBox extends StatelessWidget {
+  const _CheckBox({
+    required this.value,
+    required this.isSelected,
+    required this.onChanged,
+    Key? key,
+  }) : super(key: key);
+
+  final String value;
+  final bool isSelected;
+  final void Function(bool) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        CustomCheckbox(
+          isActive: isSelected,
+          activeColor: AppColors.lightBlue,
+          backgroundColor: Colors.white,
+          onChanged: onChanged,
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: const TextStyle(
+              color: AppColors.darkBlue,
+              fontWeight: AppFonts.regular,
+              fontSize: AppFonts.sizeXSmall,
+              letterSpacing: 1,
+            ),
           ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }

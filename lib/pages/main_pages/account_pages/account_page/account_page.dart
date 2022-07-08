@@ -59,8 +59,6 @@ class _AccountPageState extends State<AccountPage> {
                 avatar: const AssetImage(
                   AppImages.userAvatar,
                 ),
-                userName: _userModel.name!,
-                email: _userModel.email!,
                 onClick: () {
                   Navigator.of(context).pushNamed(
                     PersonalDataPage.routeName,
@@ -179,15 +177,11 @@ class _BalanceCard extends StatelessWidget {
 class _UserCard extends StatelessWidget {
   const _UserCard({
     required this.avatar,
-    required this.userName,
-    required this.email,
     required this.onClick,
     Key? key,
   }) : super(key: key);
 
   final ImageProvider avatar;
-  final String userName;
-  final String email;
   final VoidCallback onClick;
 
   @override
@@ -212,28 +206,32 @@ class _UserCard extends StatelessWidget {
               backgroundColor: Colors.red,
               backgroundImage: avatar,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  userName,
-                  style: const TextStyle(
-                    color: AppColors.darkBlue,
-                    fontWeight: AppFonts.heavy,
-                    letterSpacing: 0.5,
-                    fontSize: AppFonts.sizeLarge,
-                  ),
-                ),
-                Text(
-                  email,
-                  style: const TextStyle(
-                    color: AppColors.darkBlue,
-                    fontWeight: AppFonts.regular,
-                    fontSize: AppFonts.sizeXSmall,
-                  ),
-                ),
-              ],
+            BlocBuilder<AuthorizationBloc, AuthorizationState>(
+              builder: (context, state) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      state.userModel?.name ?? '',
+                      style: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.heavy,
+                        letterSpacing: 0.5,
+                        fontSize: AppFonts.sizeLarge,
+                      ),
+                    ),
+                    Text(
+                      state.userModel?.email ?? '',
+                      style: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.regular,
+                        fontSize: AppFonts.sizeXSmall,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             IconButton(
               onPressed: onClick,

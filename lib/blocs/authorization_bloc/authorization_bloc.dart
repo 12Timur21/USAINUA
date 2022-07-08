@@ -48,5 +48,13 @@ class AuthorizationBloc extends Bloc<AuthorizationEvent, AuthorizationState> {
         ),
       );
     });
+    //Тут что-то не так
+    on<UpdateUserModel>((event, emit) {
+      emit(
+        state.copyWith(
+          userModel: event.userModel,
+        ),
+      );
+    });
   }
 }

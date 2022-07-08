@@ -25,7 +25,7 @@ class ProductModel extends Equatable {
   final double? price;
   final double? weight;
   final DeliveryStatus? deliveryStatus;
-  final String? additionalServices;
+  final List<String>? additionalServices;
 
   ProductModel copyWith({
     String? id,
@@ -37,7 +37,7 @@ class ProductModel extends Equatable {
     double? price,
     double? weight,
     DeliveryStatus? deliveryStatus,
-    String? additionalServices,
+    List<String>? additionalServices,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -61,14 +61,14 @@ class ProductModel extends Equatable {
       'description': description,
       'count': count,
       'deliveryDate': deliveryDate,
-      'deliveryMethod': enumToString(deliveryMethod),
+      'deliveryMethod': deliveryMethod?.displayTitle,
       'price': price,
       'weight': weight,
       'deliveryStatus': enumToString(deliveryStatus),
     };
   }
 
-  //TODO
+  // //TODO
   // factory ProductModel.fromJson(Map<String, dynamic> json) {
   //   return ProductModel(
   //     id: json['id'],
@@ -94,5 +94,6 @@ class ProductModel extends Equatable {
         price,
         weight,
         deliveryStatus,
+        additionalServices,
       ];
 }

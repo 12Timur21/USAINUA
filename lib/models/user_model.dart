@@ -3,14 +3,23 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_multi_formatter/utils/enum_utils.dart';
-
-enum GenderType {
-  man,
-  woman,
-}
+import 'package:usainua/utils/constants.dart';
 
 @immutable
 class UserModel extends Equatable {
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      uid: json['uid'],
+      name: json['name'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      genderType: GenderType.values[0].enumFromString(
+        json['genderType'],
+      ),
+      birthday: json['birthday'] != null ? json['birthday'].toDate() : null,
+    );
+  }
+
   const UserModel({
     this.uid,
     this.name,
@@ -26,20 +35,6 @@ class UserModel extends Equatable {
   final String? phoneNumber;
   final GenderType? genderType;
   final DateTime? birthday;
-
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      uid: json['uid'],
-      name: json['name'],
-      email: json['email'],
-      phoneNumber: json['phoneNumber'],
-      genderType: enumFromString(
-        GenderType.values,
-        json['genderType'],
-      ),
-      birthday: json['birthday'] != null ? json['birthday'].toDate() : null,
-    );
-  }
 
   UserModel copyWith({
     String? uid,
@@ -65,7 +60,7 @@ class UserModel extends Equatable {
       'name': name,
       'email': email,
       'phoneNumber': phoneNumber,
-      'genderType': enumToString(genderType),
+      'genderType': genderType?.displayTitle,
       'birthday': birthday != null ? Timestamp.fromDate(birthday!) : null,
     };
   }
@@ -77,5 +72,6 @@ class UserModel extends Equatable {
         email,
         phoneNumber,
         genderType,
+        birthday,
       ];
 }

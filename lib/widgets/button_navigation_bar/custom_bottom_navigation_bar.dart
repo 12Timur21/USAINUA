@@ -35,7 +35,7 @@ class _CustomButtonNavigationBarState extends State<CustomButtonNavigationBar> {
       ),
       child: SizedBox(
         width: size.width,
-        height: bottomNavBarHeight,
+        height: 80,
         child: BlocBuilder<NavigationBloc, NavigationState>(
           builder: (context, state) {
             return Stack(

@@ -15,6 +15,18 @@ class AuthorizationState extends Equatable {
   final AuthorizationStatus authorizationStatus;
   final bool isNewUser;
 
+  AuthorizationState copyWith({
+    UserModel? userModel,
+    AuthorizationStatus? authorizationStatus,
+    bool? isNewUser,
+  }) {
+    return AuthorizationState(
+      userModel: userModel ?? this.userModel,
+      authorizationStatus: authorizationStatus ?? this.authorizationStatus,
+      isNewUser: isNewUser ?? this.isNewUser,
+    );
+  }
+
   @override
   List<Object> get props => [
         authorizationStatus,

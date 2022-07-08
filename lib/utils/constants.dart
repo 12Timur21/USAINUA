@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-const double bottomNavBarHeight = 80;
-
 enum DispatchType {
   purchaseAndDelivery,
   deliveryOnly,
@@ -31,13 +29,100 @@ enum DeliveryMethod {
   sea,
 }
 
+extension DeliveryMethodExtension on DeliveryMethod {
+  String get name => describeEnum(this);
+  String get displayTitle {
+    switch (this) {
+      case DeliveryMethod.air:
+        return 'Авиадоставка';
+      case DeliveryMethod.sea:
+        return 'Бысторое море';
+
+      default:
+        throw Exception('Enum does not has this name');
+    }
+  }
+
+  DeliveryMethod enumFromString(String value) {
+    switch (value) {
+      case 'Авиадоставка':
+        return DeliveryMethod.air;
+      case 'Бысторое море':
+        return DeliveryMethod.sea;
+
+      default:
+        throw Exception('Enum does not has this string');
+    }
+  }
+}
+
 enum DeliveryStatus {
   operatorWaiting,
   notPaid,
   awaitingToSend,
   sentToYou,
+  waitingInTheMail,
   successfullyRecived,
   leaveFeedback,
+}
+
+extension DeliveryStatusExtension on DeliveryStatus {
+  String get name => describeEnum(this);
+  String get displayTitle {
+    switch (this) {
+      case DeliveryStatus.operatorWaiting:
+        return 'Ожидание оператора';
+
+      case DeliveryStatus.notPaid:
+        return 'Не оплачено';
+
+      case DeliveryStatus.awaitingToSend:
+        return 'Ожидает отправки';
+
+      case DeliveryStatus.sentToYou:
+        return 'Отправлено вам';
+
+      case DeliveryStatus.waitingInTheMail:
+        return 'Ожидает на почте';
+
+      case DeliveryStatus.successfullyRecived:
+        return 'Успешно получено';
+
+      case DeliveryStatus.leaveFeedback:
+        return 'Ожидает отзыва';
+
+      default:
+        throw Exception('Enum does not has this name');
+    }
+  }
+
+  DeliveryStatus enumFromString(String value) {
+    switch (value) {
+      case 'Ожидание оператора':
+        return DeliveryStatus.operatorWaiting;
+
+      case 'Не оплачено':
+        return DeliveryStatus.notPaid;
+
+      case 'Ожидает отправки':
+        return DeliveryStatus.awaitingToSend;
+
+      case 'Отправлено вам':
+        return DeliveryStatus.sentToYou;
+
+      case 'Ожидает на почте':
+        return DeliveryStatus.waitingInTheMail;
+
+      case 'Успешно получено':
+        return DeliveryStatus.successfullyRecived;
+
+      case 'Ожидает отзыва':
+        return DeliveryStatus.leaveFeedback;
+
+      default:
+        throw Exception('Enum does not has this string');
+    }
+  }
 }
 
 enum AdditionalServices {
@@ -46,7 +131,7 @@ enum AdditionalServices {
   inclusionCheck,
 }
 
-extension SelectedAdditionalServiceExtension on AdditionalServices {
+extension AdditionalServiceExtension on AdditionalServices {
   String get name => describeEnum(this);
   String get displayTitle {
     switch (this) {
@@ -90,7 +175,7 @@ enum WebsiteSections {
   electronics,
 }
 
-extension SelectedWebsiteExtension on WebsiteSections {
+extension WebsiteSectionsExtension on WebsiteSections {
   String get name => describeEnum(this);
   String get displayTitle {
     switch (this) {
@@ -104,6 +189,38 @@ extension SelectedWebsiteExtension on WebsiteSections {
         return 'Электрика';
       default:
         throw Exception('Enum does not has name');
+    }
+  }
+}
+
+enum GenderType {
+  man,
+  woman,
+}
+
+extension GenderTypextension on GenderType {
+  String get name => describeEnum(this);
+  String? get displayTitle {
+    switch (this) {
+      case GenderType.man:
+        return 'Мужчина';
+      case GenderType.woman:
+        return 'Женщина';
+
+      default:
+        return null;
+    }
+  }
+
+  GenderType? enumFromString(String? value) {
+    switch (value) {
+      case 'Мужчина':
+        return GenderType.man;
+      case 'Женщина':
+        return GenderType.woman;
+
+      default:
+        return null;
     }
   }
 }

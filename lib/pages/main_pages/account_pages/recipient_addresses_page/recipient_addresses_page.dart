@@ -55,7 +55,7 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _addressCard(
+              _AddressCard(
                 deliveryType: DeliveryType.address,
                 region: 'регион',
                 city: 'qeqwewq',
@@ -69,8 +69,13 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
                     _selecetedValue = value;
                   });
                 },
+                onEdit: () {
+                  Navigator.of(context).pushNamed(
+                    AddRecipientAddressesPage.routeName,
+                  );
+                },
               ),
-              _addressCard(
+              _AddressCard(
                 deliveryType: DeliveryType.address,
                 region: 'zxczxczxc',
                 city: 'vcvcxb',
@@ -84,8 +89,9 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
                     _selecetedValue = value;
                   });
                 },
+                onEdit: () {},
               ),
-              _addressCard(
+              _AddressCard(
                 deliveryType: DeliveryType.address,
                 region: 'zxczxczxc',
                 city: 'vcvcxb',
@@ -99,6 +105,7 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
                     _selecetedValue = value;
                   });
                 },
+                onEdit: () {},
               ),
               const SizedBox(
                 height: 20,
@@ -128,74 +135,92 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
   }
 }
 
-Widget _addressCard({
-  required DeliveryType deliveryType,
-  required String region,
-  required String city,
-  required String deliveryDepartmentNumber,
-  required String fullName,
-  required String phoneNumber,
-  required String value,
-  required String groupValue,
-  required ValueChanged<String> onChanged,
-}) {
-  return Container(
-    margin: const EdgeInsets.only(
-      bottom: 10,
-    ),
-    padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: AppColors.primary,
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                CustomRadioOption<String>(
-                  value: value,
-                  groupValue: groupValue,
-                  onChanged: onChanged,
-                  backgroundColor: Colors.white,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16,
+class _AddressCard extends StatelessWidget {
+  const _AddressCard({
+    required this.deliveryType,
+    required this.region,
+    required this.city,
+    required this.deliveryDepartmentNumber,
+    required this.fullName,
+    required this.phoneNumber,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    required this.onEdit,
+    Key? key,
+  }) : super(key: key);
+
+  final DeliveryType deliveryType;
+  final String region;
+  final String city;
+  final String deliveryDepartmentNumber;
+  final String fullName;
+  final String phoneNumber;
+  final String value;
+  final String groupValue;
+  final ValueChanged<String> onChanged;
+  final VoidCallback onEdit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 10,
+      ),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.primary,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  CustomRadioOption<String>(
+                    value: value,
+                    groupValue: groupValue,
+                    onChanged: onChanged,
+                    backgroundColor: Colors.white,
                   ),
-                  child: Text(
-                    value,
-                    style: const TextStyle(
-                      color: AppColors.darkBlue,
-                      fontWeight: AppFonts.heavy,
-                      fontSize: AppFonts.sizeLarge,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
                     ),
-                  ),
-                )
-              ],
-            ),
-            IconButton(
-              icon: SvgPicture.asset(
-                AppIcons.editBox,
+                    child: Text(
+                      value,
+                      style: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontWeight: AppFonts.heavy,
+                        fontSize: AppFonts.sizeLarge,
+                      ),
+                    ),
+                  )
+                ],
               ),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        AddressCard(
-          city: city,
-          deliveryDepartmentNumber: deliveryDepartmentNumber,
-          deliveryType: deliveryType,
-          fullName: fullName,
-          phoneNumber: phoneNumber,
-          region: region,
-        ),
-      ],
-    ),
-  );
+              IconButton(
+                icon: SvgPicture.asset(
+                  AppIcons.editBox,
+                ),
+                onPressed: onEdit,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          AddressCard(
+            city: city,
+            deliveryDepartmentNumber: deliveryDepartmentNumber,
+            deliveryType: deliveryType,
+            fullName: fullName,
+            phoneNumber: phoneNumber,
+            region: region,
+          ),
+        ],
+      ),
+    );
+  }
 }

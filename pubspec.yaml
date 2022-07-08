@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
+    
   cupertino_icons: ^1.0.2
   cached_network_image: ^3.2.1
   skeletons: ^0.0.3
@@ -31,7 +31,6 @@ dependencies:
   flutter_multi_formatter: ^2.5.1
   form_field_validator: ^1.1.0
   flutter_switch: ^0.3.2
-  google_maps_webservice: ^0.0.20-nullsafety.5
   page_transition: ^2.0.5
   html: ^0.15.0
   loop_page_view: ^1.1.1
@@ -47,12 +46,14 @@ dependencies:
   country_list_pick: ^1.0.1+5
   bot_toast: ^4.0.2
   uuid: ^3.0.6
+  permission_handler: ^10.0.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
 
 flutter:  
   uses-material-design: true  

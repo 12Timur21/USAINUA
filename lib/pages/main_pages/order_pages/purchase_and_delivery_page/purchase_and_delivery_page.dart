@@ -46,7 +46,7 @@ class _PurchaseAndDeliveryPageState extends State<PurchaseAndDeliveryPage> {
     UniqueKey uniqueKey = UniqueKey();
     _productFillingFormList[uniqueKey] = ProductFillingForm(
       key: uniqueKey,
-      overlayController: _overlayController,
+      promptOverlayController: _overlayController,
       onDelete: () {
         _onFormDelete(uniqueKey);
       },
@@ -81,7 +81,7 @@ class _PurchaseAndDeliveryPageState extends State<PurchaseAndDeliveryPage> {
     UniqueKey uniqueKey = UniqueKey();
     _productFillingFormList[uniqueKey] = ProductFillingForm(
       key: uniqueKey,
-      overlayController: _overlayController,
+      promptOverlayController: _overlayController,
       onDelete: () => _onFormDelete(uniqueKey),
     );
     context
@@ -104,15 +104,18 @@ class _PurchaseAndDeliveryPageState extends State<PurchaseAndDeliveryPage> {
               count: element.countController.text,
               price: double.tryParse(element.costController.text),
               weight: double.tryParse(element.weightController.text),
-              additionalServices: element.additionalServicesController.text,
+              additionalServices: [element.additionalServicesController.text],
               description: element.descriptionController.text,
             ),
           );
         }),
       );
-      FirestoreRepository.instance.createProduct(
-        productModelList: productModelList,
-      );
+      productModelList.forEach((element) {
+        print(element.additionalServices);
+      });
+      // FirestoreRepository.instance.createProduct(
+      //   productModelList: productModelList,
+      // );
     }
   }
 

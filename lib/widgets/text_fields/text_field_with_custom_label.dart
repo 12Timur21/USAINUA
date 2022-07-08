@@ -1,5 +1,3 @@
-// ignore_for_file: invalid_use_of_protected_member
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +45,7 @@ class TextFieldWithCustomLabel extends StatefulWidget {
 }
 
 class _TextFieldWithCustomLabelState extends State<TextFieldWithCustomLabel> {
-  late final FocusNode _focusNode;
+  FocusNode? _focusNode;
   String? _currentText;
   FormFieldState<String?>? _currentFormFieldState;
   String? _errorText;
@@ -59,36 +57,34 @@ class _TextFieldWithCustomLabelState extends State<TextFieldWithCustomLabel> {
     _focusNode = widget.focusNode ?? FocusNode();
     _currentText = widget.controller.text;
 
-    _focusNode.addListener(() {
+    _focusNode?.addListener(() {
       setState(() {
-        _hasFocus = _focusNode.hasFocus;
+        _hasFocus = _focusNode!.hasFocus;
         _currentText = widget.controller.text;
       });
     });
 
-    initControllerListener();
+    widget.controller.addListener(_controllerListener);
 
     super.initState();
   }
 
   @override
   void dispose() {
-    _focusNode.dispose();
+    widget.controller.removeListener(_controllerListener);
     super.dispose();
   }
 
-  void initControllerListener() {
-    widget.controller.addListener(() {
-      _currentFormFieldState?.setValue(widget.controller.text);
-      setState(() {
-        _currentText = widget.controller.text;
-      });
+  void _controllerListener() {
+    _currentFormFieldState?.setValue(widget.controller.text);
+    setState(() {
+      _currentText = widget.controller.text;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_hasFocus && _currentText != '') {
+    if (_hasFocus || _currentText != '') {
       _isCompressedLayout = true;
     } else {
       _isCompressedLayout = false;
@@ -148,7 +144,8 @@ class _TextFieldWithCustomLabelState extends State<TextFieldWithCustomLabel> {
                             ),
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
                             alignLabelWithHint: true,
-                            hintText: widget.hintText,
+                            hintText:
+                                _isCompressedLayout ? null : widget.hintText,
                             counterText: '',
                             errorStyle: const TextStyle(height: 0),
                             errorText: '',
@@ -179,7 +176,7 @@ class _TextFieldWithCustomLabelState extends State<TextFieldWithCustomLabel> {
                           onTap: () {
                             if (widget.onTap != null) {
                               widget.onTap!();
-                              _focusNode.requestFocus();
+                              _focusNode?.requestFocus();
                             }
                           },
                           onFieldSubmitted: widget.onSubmitted,

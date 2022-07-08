@@ -21,4 +21,14 @@ class UserLoggedIn extends AuthorizationEvent {
   List<Object> get props => [userModel];
 }
 
+class UpdateUserModel extends AuthorizationEvent {
+  const UpdateUserModel({
+    required this.userModel,
+  });
+  final UserModel userModel;
+
+  @override
+  List<Object> get props => [userModel];
+}
+
 class UserLoggedOut extends AuthorizationEvent {}
