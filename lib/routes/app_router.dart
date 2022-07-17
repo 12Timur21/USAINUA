@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:usainua/models/recipient_address_model.dart';
 import 'package:usainua/pages/auth_pages/additional_data_collection_page/additional_data_collection_page.dart';
 import 'package:usainua/pages/auth_pages/credential_linking_page/credential_linking_page.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/intro_slider_page/intro_slider_page.dart';
@@ -12,7 +13,7 @@ import 'package:usainua/pages/auth_pages/verification_code_page/verification_cod
 import 'package:usainua/pages/main_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/account_page/account_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/add_new_card_page/add_new_card_page.dart';
-import 'package:usainua/pages/main_pages/account_pages/add_recipient_addresses_page/add_recipient_addresses_page.dart';
+import 'package:usainua/pages/main_pages/account_pages/add_recipient_addresses_page/add_recipient_address_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/all_credit_cards_page/all_credit_cards_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/earn_with_us_page/earn_with_us_page.dart';
 import 'package:usainua/pages/main_pages/account_pages/finance_page/finance_page.dart';
@@ -150,8 +151,12 @@ class AppRouter {
         builder = const AddNewCardPage();
         break;
 
-      case AddRecipientAddressesPage.routeName:
-        builder = const AddRecipientAddressesPage();
+      case AddRecipientAddressPage.routeName:
+        RecipentAddressModel? recipentAddressModel =
+            arguments as RecipentAddressModel?;
+        builder = AddRecipientAddressPage(
+          recipentAddressModel: recipentAddressModel,
+        );
         break;
 
       case RecipientAddressesPage.routeName:

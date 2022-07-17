@@ -9,7 +9,7 @@ import 'package:usainua/utils/constants.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/check_boxes/custom_checkbox.dart';
-import 'package:usainua/widgets/select_widgets/select_delivery.dart';
+import 'package:usainua/widgets/select_widgets/select_delivery_method.dart';
 import 'package:usainua/widgets/text_fields/resizable_text_field.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 

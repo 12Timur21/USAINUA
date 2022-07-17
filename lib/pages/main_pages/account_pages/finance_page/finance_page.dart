@@ -21,7 +21,7 @@ class FinancePage extends StatefulWidget {
 }
 
 class _FinancePageState extends State<FinancePage> {
-  final TextEditingController _balanceController = TextEditingController();
+  final _balanceController = TextEditingController();
   bool _isAutomaticallyWriteOffDebts = false;
 
   @override

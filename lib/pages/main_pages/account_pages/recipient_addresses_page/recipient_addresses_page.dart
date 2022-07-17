@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:usainua/pages/main_pages/account_pages/add_recipient_addresses_page/add_recipient_addresses_page.dart';
+import 'package:usainua/blocs/recipient_address_bloc/recipient_address_bloc.dart';
+import 'package:usainua/models/new_post_models/city_model.dart';
+import 'package:usainua/models/new_post_models/region_model.dart';
+import 'package:usainua/models/recipient_address_model.dart';
+import 'package:usainua/pages/main_pages/account_pages/add_recipient_addresses_page/add_recipient_address_page.dart';
+import 'package:usainua/repositories/firestore_repository.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
@@ -24,17 +30,54 @@ class RecipientAddressesPage extends StatefulWidget {
 }
 
 class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
-  final List<String> _values = [
-    'Дом',
-    'Офис',
-    'Работа',
-  ];
-  late String _selecetedValue;
+  Future<void> _addNewRecipentAddress() async {
+    RecipentAddressModel? recipientAddressesModel =
+        await Navigator.of(context).pushNamed(
+      AddRecipientAddressPage.routeName,
+    ) as RecipentAddressModel?;
 
-  @override
-  void initState() {
-    _selecetedValue = _values[0];
-    super.initState();
+    if (recipientAddressesModel != null) {
+      context.read<RecipientAddressBloc>().add(
+            AddRecipientAddressEvent(
+              recipentAddressModel: recipientAddressesModel,
+            ),
+          );
+    }
+  }
+
+  Future<void> _editNewRecipentAddress(
+    RecipentAddressModel recipentAddressModel,
+  ) async {
+    final recipientAddressesModel = await Navigator.of(context).pushNamed(
+      AddRecipientAddressPage.routeName,
+      arguments: recipentAddressModel,
+    ) as RecipentAddressModel?;
+
+    if (recipientAddressesModel != null) {
+      context.read<RecipientAddressBloc>().add(
+            UpdateRecipientAddressEvent(
+              recipentAddressModel: recipientAddressesModel,
+            ),
+          );
+    }
+  }
+
+  Future<void> _deleteRecipentAddress(
+    String recipentAddressID,
+  ) async {
+    context.read<RecipientAddressBloc>().add(
+          DeleteRecipientAddressEvent(
+            recipentAddressID: recipentAddressID,
+          ),
+        );
+  }
+
+  void _onSelectRecipentAddress(String id) {
+    context.read<RecipientAddressBloc>().add(
+          UpdateSelectedRecipientAddressIDEvent(
+            recipentAddressID: id,
+          ),
+        );
   }
 
   @override
@@ -55,67 +98,16 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _AddressCard(
-                deliveryType: DeliveryType.address,
-                region: 'регион',
-                city: 'qeqwewq',
-                deliveryDepartmentNumber: '12321',
-                fullName: 'full name',
-                phoneNumber: '38097',
-                value: _values[0],
-                groupValue: _selecetedValue,
-                onChanged: (String value) {
-                  setState(() {
-                    _selecetedValue = value;
-                  });
-                },
-                onEdit: () {
-                  Navigator.of(context).pushNamed(
-                    AddRecipientAddressesPage.routeName,
-                  );
-                },
-              ),
-              _AddressCard(
-                deliveryType: DeliveryType.address,
-                region: 'zxczxczxc',
-                city: 'vcvcxb',
-                deliveryDepartmentNumber: '5555555',
-                fullName: 'full ff',
-                phoneNumber: '111',
-                value: _values[1],
-                groupValue: _selecetedValue,
-                onChanged: (String value) {
-                  setState(() {
-                    _selecetedValue = value;
-                  });
-                },
-                onEdit: () {},
-              ),
-              _AddressCard(
-                deliveryType: DeliveryType.address,
-                region: 'zxczxczxc',
-                city: 'vcvcxb',
-                deliveryDepartmentNumber: '5555555',
-                fullName: 'full ff',
-                phoneNumber: '111',
-                value: _values[2],
-                groupValue: _selecetedValue,
-                onChanged: (String value) {
-                  setState(() {
-                    _selecetedValue = value;
-                  });
-                },
-                onEdit: () {},
+              _RecipientAdressList(
+                onDismissed: _deleteRecipentAddress,
+                onEdit: _editNewRecipentAddress,
+                onChanged: _onSelectRecipentAddress,
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               IconTextButton(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    AddRecipientAddressesPage.routeName,
-                  );
-                },
+                onTap: _addNewRecipentAddress,
                 text: 'Добавить еще адрес',
                 textStyle: const TextStyle(
                   color: AppColors.darkBlue,
@@ -126,7 +118,10 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
                   AppIcons.plus,
                   color: AppColors.lightBlue,
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
@@ -135,31 +130,69 @@ class _RecipientAddressesPageState extends State<RecipientAddressesPage> {
   }
 }
 
+class _RecipientAdressList extends StatelessWidget {
+  const _RecipientAdressList({
+    required this.onChanged,
+    required this.onEdit,
+    required this.onDismissed,
+    Key? key,
+  }) : super(key: key);
+
+  final void Function(String) onChanged;
+  final void Function(RecipentAddressModel) onEdit;
+  final void Function(String) onDismissed;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RecipientAddressBloc, RecipientAddressState>(
+      builder: (context, state) {
+        print('123');
+        print(state.selectedRecipentAddressID);
+        List<RecipentAddressModel> recipientAddressModels =
+            state.recipientAddressModels;
+        return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: recipientAddressModels.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Dismissible(
+              key: UniqueKey(),
+              direction: DismissDirection.endToStart,
+              background: Container(
+                color: Colors.red,
+              ),
+              onDismissed: (_) {
+                onDismissed(recipientAddressModels[index].id);
+              },
+              child: _AddressCard(
+                recipentAddressModel: recipientAddressModels[index],
+                value: recipientAddressModels[index].id,
+                groupValue: state.selectedRecipentAddressID,
+                onChanged: onChanged,
+                onEdit: onEdit,
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
 class _AddressCard extends StatelessWidget {
   const _AddressCard({
-    required this.deliveryType,
-    required this.region,
-    required this.city,
-    required this.deliveryDepartmentNumber,
-    required this.fullName,
-    required this.phoneNumber,
+    required this.recipentAddressModel,
     required this.value,
     required this.groupValue,
     required this.onChanged,
     required this.onEdit,
     Key? key,
   }) : super(key: key);
-
-  final DeliveryType deliveryType;
-  final String region;
-  final String city;
-  final String deliveryDepartmentNumber;
-  final String fullName;
-  final String phoneNumber;
+  final RecipentAddressModel recipentAddressModel;
   final String value;
-  final String groupValue;
+  final String? groupValue;
   final ValueChanged<String> onChanged;
-  final VoidCallback onEdit;
+  final void Function(RecipentAddressModel) onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +223,8 @@ class _AddressCard extends StatelessWidget {
                       left: 16,
                     ),
                     child: Text(
-                      value,
+                      recipentAddressModel.addressName,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: AppColors.darkBlue,
                         fontWeight: AppFonts.heavy,
@@ -204,7 +238,9 @@ class _AddressCard extends StatelessWidget {
                 icon: SvgPicture.asset(
                   AppIcons.editBox,
                 ),
-                onPressed: onEdit,
+                onPressed: () {
+                  onEdit(recipentAddressModel);
+                },
               ),
             ],
           ),
@@ -212,12 +248,7 @@ class _AddressCard extends StatelessWidget {
             height: 20,
           ),
           AddressCard(
-            city: city,
-            deliveryDepartmentNumber: deliveryDepartmentNumber,
-            deliveryType: deliveryType,
-            fullName: fullName,
-            phoneNumber: phoneNumber,
-            region: region,
+            recipentAddressModel: recipentAddressModel,
           ),
         ],
       ),

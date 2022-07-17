@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:usainua/models/new_post_models/city_model.dart';
 import 'package:usainua/models/new_post_models/region_model.dart';
 import 'package:usainua/models/new_post_models/street_model.dart';
+import 'package:usainua/models/new_post_models/warehouse_model.dart';
 
 class NewPostService {
   NewPostService._();
@@ -40,7 +41,7 @@ class NewPostService {
     return (regionModels);
   }
 
-  Future<List<CityModel>> getCitys({
+  Future<List<CityModel>> getCities({
     required String cityName,
     required String regionRef,
   }) async {
@@ -89,10 +90,10 @@ class NewPostService {
       data: {
         'apiKey': _apiKey,
         'modelName': 'Address',
-        'calledMethod': 'searchSettlementStreets',
+        'calledMethod': 'getStreet',
         'methodProperties': {
-          'StreetName': streetName,
-          'SettlementRef': cityRef,
+          'FindByString': streetName,
+          'CityRef': cityRef,
         }
       },
     );
@@ -101,15 +102,14 @@ class NewPostService {
 
     if (initData['success'] == true) {
       List? dataList = initData['data'];
-      List? addressesList = dataList?[0]['Addresses'];
 
-      addressesList?.forEach(
+      dataList?.forEach(
         (element) {
           streetModels.add(
             StreetModel(
-              streetName: element['SettlementStreetRef']!,
-              streetRef: element['SettlementStreetDescription']!,
-              streetType: element['StreetsTypeDescription']!,
+              streetName: element['Description']!,
+              streetRef: element['Ref']!,
+              streetType: element['StreetsType']!,
             ),
           );
         },
@@ -117,5 +117,42 @@ class NewPostService {
     }
 
     return (streetModels);
+  }
+
+  Future<List<WarehouseModel>> getWarehouses({
+    required String cityRef,
+  }) async {
+    List<WarehouseModel> warehouseModels = [];
+
+    Response response = await _dio.post(
+      'https://api.novaposhta.ua/v2.0/json/',
+      data: {
+        'apiKey': _apiKey,
+        'modelName': 'Address',
+        'calledMethod': 'getWarehouses',
+        'methodProperties': {
+          'CityRef': cityRef,
+        }
+      },
+    );
+
+    Map<String, dynamic> data = response.data;
+
+    if (data['success'] == true) {
+      List? dataList = data['data'];
+
+      dataList?.forEach(
+        (element) {
+          warehouseModels.add(
+            WarehouseModel(
+              warehouseName: element['Description']!,
+              warehousesRef: element['Ref']!,
+            ),
+          );
+        },
+      );
+    }
+    warehouseModels;
+    return (warehouseModels);
   }
 }

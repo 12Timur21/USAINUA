@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:usainua/models/payment_card_model.dart';
 import 'package:usainua/models/product_model.dart';
+import 'package:usainua/models/recipient_address_model.dart';
 import 'package:usainua/models/user_model.dart';
 import 'package:usainua/repositories/auth_repository.dart';
 import 'package:uuid/uuid.dart';
@@ -15,10 +16,18 @@ class FirestoreRepository {
       FirebaseFirestore.instance.collection('orders');
   final CollectionReference _paymentCardCollection =
       FirebaseFirestore.instance.collection('payment_cards');
-
-  //? [START] User management
   final CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
+
+  final CollectionReference _recipientAddressCollection = FirebaseFirestore
+      .instance
+      .collection('recipient_address')
+      .doc(AuthRepository.instance.uid)
+      .collection(
+        'all_recipient_address',
+      );
+
+  //? [START] User management
 
   Future<void> createUser(UserModel userModel) async {
     await _userCollection.doc(userModel.uid).set(
@@ -38,7 +47,6 @@ class FirestoreRepository {
   Future<void> updateUser({
     required UserModel userModel,
   }) async {
-    print('gere');
     String? uid = AuthRepository.instance.uid;
     await _userCollection.doc(uid).update(
           userModel.toJson(),
@@ -49,6 +57,76 @@ class FirestoreRepository {
     _userCollection.doc().delete();
   }
 //? [End] User management
+
+//? [START] Recipient Address
+
+  Future<void> saveRecipientAddressModel({
+    required RecipentAddressModel recipentAddressModel,
+  }) async {
+    await _recipientAddressCollection.doc(recipentAddressModel.id).set(
+          recipentAddressModel.toJson(),
+        );
+  }
+
+  Future<void> deleteRecipientAddressModel({
+    required String recipentAddressID,
+  }) async {
+    await _recipientAddressCollection.doc(recipentAddressID).delete();
+  }
+
+  Future<List<RecipentAddressModel>> getAllRecipientAddressModels() async {
+    List<RecipentAddressModel> recipientAdressModels = [];
+    QuerySnapshot querySnapshot = await _recipientAddressCollection.get();
+    List<QueryDocumentSnapshot> queryDocumentSnapshots = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot? element in queryDocumentSnapshots) {
+      final mapElement = element?.data() as Map<String, dynamic>?;
+      if (mapElement != null) {
+        recipientAdressModels.add(
+          RecipentAddressModel.fromJson(mapElement),
+        );
+      }
+    }
+    return recipientAdressModels;
+  }
+
+  Future<void> updateRecipientAddressModel({
+    required RecipentAddressModel recipentAddressModel,
+  }) async {
+    await _recipientAddressCollection.doc(recipentAddressModel.id).update(
+          recipentAddressModel.toJson(),
+        );
+  }
+
+  Future<void> updateSelectedRecipientAddressModel({
+    required String? recipentAddressID,
+  }) async {
+    FirebaseFirestore.instance
+        .collection('recipient_address')
+        .doc(AuthRepository.instance.uid)
+        .collection('additional')
+        .doc('settings')
+        .set(
+      {
+        'selected_item_id': recipentAddressID,
+      },
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<String?> getSelectedRecipientAddressModel() async {
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+        .collection('recipient_address')
+        .doc(AuthRepository.instance.uid)
+        .collection('additional')
+        .doc('settings')
+        .get();
+
+    final mapElement = documentSnapshot.data() as Map<String, dynamic>?;
+    return mapElement?['selected_item_id'];
+  }
+
+  //? [End] Recipient Address
 
   //? [START] Payment cards
   Future<void> saveUserPaymentCard({

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
 
-class CustomDropDown extends StatefulWidget {
-  const CustomDropDown({
+class CustomDropDownWithSearch extends StatefulWidget {
+  const CustomDropDownWithSearch({
     required this.items,
     required this.textController,
-    required this.errorText,
     required this.hintText,
     this.overlayHeight = 160,
     this.validator,
@@ -18,17 +16,18 @@ class CustomDropDown extends StatefulWidget {
   }) : super(key: key);
 
   final TextEditingController textController;
-  final String? errorText;
+
   final String hintText;
   final MultiValidator? validator;
   final double overlayHeight;
   final List<String> items;
 
   @override
-  _CustomDropDownState createState() => _CustomDropDownState();
+  State<CustomDropDownWithSearch> createState() =>
+      _CustomDropDownWithSearchState();
 }
 
-class _CustomDropDownState extends State<CustomDropDown> {
+class _CustomDropDownWithSearchState extends State<CustomDropDownWithSearch> {
   final _focusNode = FocusNode();
   final _globalKey = GlobalKey();
 
@@ -54,7 +53,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
   @override
   void dispose() {
     _overlayEntry?.dispose();
-
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -77,6 +76,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(16),
             child: ListView.builder(
+              itemCount: widget.items.length,
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
@@ -85,7 +85,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                     widget.items[index],
                   ),
                   onTap: () {
-                    widget.textController.text = 'Syria';
+                    widget.textController.text = widget.items[index];
                     _focusNode.unfocus();
                   },
                 );
@@ -104,24 +104,27 @@ class _CustomDropDownState extends State<CustomDropDown> {
       child: Container(
         key: _globalKey,
         child: TextFieldWithCustomLabel(
-            controller: widget.textController,
-            focusNode: _focusNode,
-            readOnly: true,
-            validator: widget.validator,
-            hintText: widget.hintText,
-            sufixIcon: GestureDetector(
-              onTap: () {
-                if (_focusNode.hasFocus) {
-                  _focusNode.unfocus();
-                }
-              },
-              child: RotatedBox(
-                quarterTurns: _focusNode.hasFocus ? 90 : 0,
-                child: SvgPicture.asset(
-                  AppIcons.arrowDown,
-                ),
+          controller: widget.textController,
+          focusNode: _focusNode,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.next,
+          // readOnly: true,
+          validator: widget.validator,
+          hintText: widget.hintText,
+          sufixIcon: GestureDetector(
+            onTap: () {
+              if (_focusNode.hasFocus) {
+                _focusNode.unfocus();
+              }
+            },
+            child: RotatedBox(
+              quarterTurns: _focusNode.hasFocus ? 90 : 0,
+              child: SvgPicture.asset(
+                AppIcons.arrowDown,
               ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

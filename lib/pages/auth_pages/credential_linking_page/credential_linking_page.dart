@@ -81,6 +81,7 @@ class _CredentialLinkingPageState extends State<CredentialLinkingPage> {
 
   Future<void> _facebookLinking() async {
     AuthCredential facebookAuthCredential = await _auth.signInWithFacebook();
+    if (!mounted) return;
     context.read<AuthentificationBloc>().add(
           AuthentificationLinking(
             oldCredential: facebookAuthCredential,

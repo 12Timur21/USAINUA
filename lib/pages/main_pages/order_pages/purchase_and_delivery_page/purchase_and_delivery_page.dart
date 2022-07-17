@@ -13,7 +13,7 @@ import 'package:usainua/utils/constants.dart';
 import 'package:usainua/utils/helpers/overlay_hints.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
-import 'package:usainua/widgets/select_widgets/select_delivery.dart';
+import 'package:usainua/widgets/select_widgets/select_delivery_method.dart';
 import 'package:uuid/uuid.dart';
 
 class PurchaseAndDeliveryPage extends StatefulWidget {

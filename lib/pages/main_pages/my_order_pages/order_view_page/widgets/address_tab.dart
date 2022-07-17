@@ -106,20 +106,21 @@ class __AddressesState extends State<_Addresses> {
               itemCount: _addressList.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
-                return DehiscentContainer(
-                  isOpen: _addressList[index] == _selectedAdress,
-                  title: _addressHeader(
-                    value: _addressList[index],
-                    groupValue: _selectedAdress,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedAdress = value;
-                      });
-                    },
-                    onEdit: () {},
-                  ),
-                  body: adressBody(),
-                );
+                return Container();
+                // return DehiscentContainer(
+                //   isOpen: _addressList[index] == _selectedAdress,
+                //   title: _addressHeader(
+                //     value: _addressList[index],
+                //     groupValue: _selectedAdress,
+                //     onChanged: (value) {
+                //       setState(() {
+                //         _selectedAdress = value;
+                //       });
+                //     },
+                //     onEdit: () {},
+                //   ),
+                //   body: adressBody(),
+                // );
               },
             ),
           ),
@@ -182,13 +183,13 @@ Widget _addressHeader({
   );
 }
 
-Widget adressBody() {
-  return const AddressCard(
-    city: 'Розсошенцы ',
-    deliveryDepartmentNumber: '№1',
-    deliveryType: DeliveryType.address,
-    fullName: 'Сергей Билан',
-    phoneNumber: '0960504316',
-    region: 'Полтавская',
-  );
-}
+// Widget adressBody() {
+//   return const AddressCard(
+//     city: 'Розсошенцы ',
+//     deliveryDepartmentNumber: '№1',
+//     deliveryType: DeliveryType.address,
+//     fullName: 'Сергей Билан',
+//     phoneNumber: '0960504316',
+//     region: 'Полтавская',
+//   );
+// }

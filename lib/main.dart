@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:usainua/blocs/authentication_bloc/authentification_bloc.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
 import 'package:usainua/blocs/navigation_bloc/navigation_bloc.dart';
+import 'package:usainua/blocs/recipient_address_bloc/recipient_address_bloc.dart';
 import 'package:usainua/pages/splash_screen_page/splash_screen_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_themes.dart';
@@ -57,13 +58,19 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthorizationBloc(),
+          create: (_) => AuthorizationBloc(),
         ),
         BlocProvider(
-          create: (context) => AuthentificationBloc(),
+          create: (_) => AuthentificationBloc(),
         ),
         BlocProvider(
-          create: (context) => NavigationBloc(),
+          create: (_) => NavigationBloc(),
+        ),
+        BlocProvider(
+          create: (_) => RecipientAddressBloc()
+            ..add(
+              const SyncRecipientAddressWithFirebaseEvent(),
+            ),
         ),
       ],
       child: MaterialApp(
