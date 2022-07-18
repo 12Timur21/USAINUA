@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:usainua/blocs/navigation_bloc/navigation_bloc.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
 import 'package:usainua/resources/app_icons.dart';
 import 'package:usainua/utils/constants.dart';
+import 'package:usainua/utils/helpers/warehouse_adresses_dialog.dart';
 import 'package:usainua/widgets/app_bars/custom_app_bar.dart';
 import 'package:usainua/widgets/buttons/submit_button.dart';
 import 'package:usainua/widgets/check_boxes/custom_checkbox.dart';
 import 'package:usainua/widgets/select_widgets/select_delivery_method.dart';
 import 'package:usainua/widgets/text_fields/resizable_text_field.dart';
 import 'package:usainua/widgets/text_fields/text_field_with_custom_label.dart';
-
-import '../../../../blocs/navigation_bloc/navigation_bloc.dart';
 
 class OnlyDeliveryPage extends StatefulWidget {
   const OnlyDeliveryPage({Key? key}) : super(key: key);
@@ -91,7 +91,9 @@ class _OnlyDeliveryPageState extends State<OnlyDeliveryPage> {
               ),
               TextButton.icon(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  showWarehouseAdressesDialog(
+                    context: context,
+                  );
                 },
                 icon: SvgPicture.asset(
                   AppIcons.adressHouse,

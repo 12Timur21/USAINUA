@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:usainua/models/new_post_models/city_model.dart';
 import 'package:usainua/models/new_post_models/region_model.dart';
 import 'package:usainua/models/new_post_models/street_model.dart';
-import 'package:usainua/models/new_post_models/warehouse_model.dart';
+import 'package:usainua/models/new_post_models/new_post_warehouse_model.dart';
 import 'package:usainua/pages/main_pages/account_pages/recipient_addresses_page/recipient_addresses_page.dart';
 
 class RecipentAddressModel {
@@ -30,7 +30,7 @@ class RecipentAddressModel {
   final RegionModel regionModel;
   final CityModel cityModel;
 
-  final WarehouseModel? warehouseModel;
+  final NewPostWarehouseModel? warehouseModel;
 
   final StreetModel? streetModel;
   final String? houseNumber;
@@ -44,7 +44,7 @@ class RecipentAddressModel {
     String? phoneNumber,
     RegionModel? regionModel,
     CityModel? cityModel,
-    WarehouseModel? warehouseModel,
+    NewPostWarehouseModel? warehouseModel,
     StreetModel? streetModel,
     String? houseNumber,
     String? apartmentNumber,
@@ -93,7 +93,7 @@ class RecipentAddressModel {
       regionModel: RegionModel.fromJson(json['regionModel']),
       cityModel: CityModel.fromJson(json['cityModel']),
       warehouseModel: json['warehouseModel'] != null
-          ? WarehouseModel.fromJson(json['warehouseModel'])
+          ? NewPostWarehouseModel.fromJson(json['warehouseModel'])
           : null,
       streetModel: json['streetModel'] != null
           ? StreetModel.fromJson(json['streetModel'])

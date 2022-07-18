@@ -27,6 +27,7 @@ void showWarehouseAdressesDialog({
                 const Expanded(
                   child: WarehouseSlider(
                     scrollDirection: Axis.vertical,
+                    copyIconColor: AppColors.lightGreen,
                   ),
                 ),
                 const SizedBox(

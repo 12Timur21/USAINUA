@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/blocs/navigation_bloc/navigation_bloc.dart';
-import 'package:usainua/models/product_model.dart';
+import 'package:usainua/blocs/orders_bloc/orders_bloc.dart';
+import 'package:usainua/models/order_model.dart';
 import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/bloc/product_filling_form_cubit/product_filling_form_cubit.dart';
 import 'package:usainua/pages/main_pages/order_pages/purchase_and_delivery_page/widgets/product_filling_form.dart';
 import 'package:usainua/repositories/firestore_repository.dart';
@@ -92,27 +93,39 @@ class _PurchaseAndDeliveryPageState extends State<PurchaseAndDeliveryPage> {
   void _save() {
     final bool isFormValid = _formKey.currentState?.validate() ?? false;
     if (isFormValid) {
-      final List<ProductModel> productModelList = [];
+      final List<OrderModel> orderModels = [];
+
       _productFillingFormList.values.forEach(
         ((element) {
-          productModelList.add(
-            ProductModel(
+          final List<String> additionalServices =
+              element.additionalServicesController.text.split(', ');
+
+          print(additionalServices);
+          orderModels.add(
+            OrderModel(
               id: const Uuid().v4(),
               deliveryStatus: DeliveryStatus.operatorWaiting,
               deliveryMethod: _deliveryMethod,
+              deliveryDate: DateTime.now(),
               link: element.linkController.text,
               count: element.countController.text,
               price: double.tryParse(element.costController.text),
               weight: double.tryParse(element.weightController.text),
-              additionalServices: [element.additionalServicesController.text],
+              additionalServices: additionalServices.isNotEmpty &&
+                      additionalServices[0].isNotEmpty
+                  ? additionalServices
+                  : null,
               description: element.descriptionController.text,
+              dispatchType: DispatchType.purchaseAndDelivery,
             ),
           );
         }),
       );
-      productModelList.forEach((element) {
-        print(element.additionalServices);
-      });
+
+      context.read<OrdersBloc>().add(
+            AddOrdersEvent(orderModels: orderModels),
+          );
+
       // FirestoreRepository.instance.createProduct(
       //   productModelList: productModelList,
       // );

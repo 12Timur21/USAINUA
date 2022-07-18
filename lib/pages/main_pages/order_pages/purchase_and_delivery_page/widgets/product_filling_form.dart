@@ -133,7 +133,7 @@ class ProductFillingForm extends StatelessWidget {
                   items: [
                     AdditionalServices.additionalPackaging.displayTitle,
                     AdditionalServices.inclusionCheck.displayTitle,
-                    AdditionalServices.productPhoto.displayTitle,
+                    AdditionalServices.orderPhoto.displayTitle,
                   ],
                 ),
               ],

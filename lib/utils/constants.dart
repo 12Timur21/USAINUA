@@ -29,33 +29,6 @@ enum DeliveryMethod {
   sea,
 }
 
-extension DeliveryMethodExtension on DeliveryMethod {
-  String get name => describeEnum(this);
-  String get displayTitle {
-    switch (this) {
-      case DeliveryMethod.air:
-        return 'Авиадоставка';
-      case DeliveryMethod.sea:
-        return 'Бысторое море';
-
-      default:
-        throw Exception('Enum does not has this name');
-    }
-  }
-
-  DeliveryMethod enumFromString(String value) {
-    switch (value) {
-      case 'Авиадоставка':
-        return DeliveryMethod.air;
-      case 'Бысторое море':
-        return DeliveryMethod.sea;
-
-      default:
-        throw Exception('Enum does not has this string');
-    }
-  }
-}
-
 enum DeliveryStatus {
   operatorWaiting,
   notPaid,
@@ -95,38 +68,10 @@ extension DeliveryStatusExtension on DeliveryStatus {
         throw Exception('Enum does not has this name');
     }
   }
-
-  DeliveryStatus enumFromString(String value) {
-    switch (value) {
-      case 'Ожидание оператора':
-        return DeliveryStatus.operatorWaiting;
-
-      case 'Не оплачено':
-        return DeliveryStatus.notPaid;
-
-      case 'Ожидает отправки':
-        return DeliveryStatus.awaitingToSend;
-
-      case 'Отправлено вам':
-        return DeliveryStatus.sentToYou;
-
-      case 'Ожидает на почте':
-        return DeliveryStatus.waitingInTheMail;
-
-      case 'Успешно получено':
-        return DeliveryStatus.successfullyRecived;
-
-      case 'Ожидает отзыва':
-        return DeliveryStatus.leaveFeedback;
-
-      default:
-        throw Exception('Enum does not has this string');
-    }
-  }
 }
 
 enum AdditionalServices {
-  productPhoto,
+  orderPhoto,
   additionalPackaging,
   inclusionCheck,
 }
@@ -135,7 +80,7 @@ extension AdditionalServiceExtension on AdditionalServices {
   String get name => describeEnum(this);
   String get displayTitle {
     switch (this) {
-      case AdditionalServices.productPhoto:
+      case AdditionalServices.orderPhoto:
         return 'Фото товара';
       case AdditionalServices.additionalPackaging:
         return 'Дополнительная упаковка';
@@ -144,20 +89,6 @@ extension AdditionalServiceExtension on AdditionalServices {
 
       default:
         throw Exception('Enum does not has this name');
-    }
-  }
-
-  AdditionalServices enumFromString(String value) {
-    switch (value) {
-      case 'Фото товара':
-        return AdditionalServices.productPhoto;
-      case 'Дополнительная упаковка':
-        return AdditionalServices.additionalPackaging;
-      case 'Проверить устройство':
-        return AdditionalServices.inclusionCheck;
-
-      default:
-        throw Exception('Enum does not has this string');
     }
   }
 }

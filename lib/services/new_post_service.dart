@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:usainua/models/new_post_models/city_model.dart';
 import 'package:usainua/models/new_post_models/region_model.dart';
 import 'package:usainua/models/new_post_models/street_model.dart';
-import 'package:usainua/models/new_post_models/warehouse_model.dart';
+import 'package:usainua/models/new_post_models/new_post_warehouse_model.dart';
 
 class NewPostService {
   NewPostService._();
@@ -119,10 +119,10 @@ class NewPostService {
     return (streetModels);
   }
 
-  Future<List<WarehouseModel>> getWarehouses({
+  Future<List<NewPostWarehouseModel>> getWarehouses({
     required String cityRef,
   }) async {
-    List<WarehouseModel> warehouseModels = [];
+    List<NewPostWarehouseModel> warehouseModels = [];
 
     Response response = await _dio.post(
       'https://api.novaposhta.ua/v2.0/json/',
@@ -144,7 +144,7 @@ class NewPostService {
       dataList?.forEach(
         (element) {
           warehouseModels.add(
-            WarehouseModel(
+            NewPostWarehouseModel(
               warehouseName: element['Description']!,
               warehousesRef: element['Ref']!,
             ),

@@ -7,7 +7,7 @@ import 'package:usainua/blocs/recipient_address_bloc/recipient_address_bloc.dart
 import 'package:usainua/models/new_post_models/city_model.dart';
 import 'package:usainua/models/new_post_models/region_model.dart';
 import 'package:usainua/models/new_post_models/street_model.dart';
-import 'package:usainua/models/new_post_models/warehouse_model.dart';
+import 'package:usainua/models/new_post_models/new_post_warehouse_model.dart';
 import 'package:usainua/models/recipient_address_model.dart';
 import 'package:usainua/pages/main_pages/account_pages/recipient_addresses_page/recipient_addresses_page.dart';
 import 'package:usainua/repositories/firestore_repository.dart';
@@ -59,7 +59,7 @@ class _AddRecipientAddressPageState extends State<AddRecipientAddressPage> {
   RegionModel? _regionModel;
   CityModel? _cityModel;
   StreetModel? _streetModel;
-  WarehouseModel? _warehouseModel;
+  NewPostWarehouseModel? _warehouseModel;
 
   @override
   void initState() {
@@ -278,7 +278,7 @@ class _AddRecipientAddressPageState extends State<AddRecipientAddressPage> {
                       _WarehouseDropDown(
                         controller: _warehouseController,
                         cityRef: _cityModel?.cityRef,
-                        onSelect: (WarehouseModel value) {
+                        onSelect: (NewPostWarehouseModel value) {
                           setState(() {
                             _warehouseModel = value;
                           });
@@ -679,7 +679,7 @@ class _WarehouseDropDown extends StatefulWidget {
 
   final TextEditingController controller;
   final String? cityRef;
-  final void Function(WarehouseModel) onSelect;
+  final void Function(NewPostWarehouseModel) onSelect;
 
   @override
   State<_WarehouseDropDown> createState() => __WarehouseDropDownState();
@@ -688,7 +688,7 @@ class _WarehouseDropDown extends StatefulWidget {
 class __WarehouseDropDownState extends State<_WarehouseDropDown> {
   late final CustomBottomSheet _customBottomSheet;
 
-  List<WarehouseModel> _warehouseModels = [];
+  List<NewPostWarehouseModel> _warehouseModels = [];
 
   Future<List<SelectedListItem>> _getData() async {
     List<SelectedListItem> selectedItemModels = [];
@@ -697,7 +697,7 @@ class __WarehouseDropDownState extends State<_WarehouseDropDown> {
       cityRef: widget.cityRef!,
     );
 
-    for (WarehouseModel element in _warehouseModels) {
+    for (NewPostWarehouseModel element in _warehouseModels) {
       selectedItemModels.add(
         SelectedListItem(name: element.warehouseName),
       );
@@ -716,7 +716,7 @@ class __WarehouseDropDownState extends State<_WarehouseDropDown> {
         searchController: widget.controller,
         dataList: _getData,
         onSelectItem: (String value) {
-          WarehouseModel warehouseModel = _warehouseModels.firstWhere(
+          NewPostWarehouseModel warehouseModel = _warehouseModels.firstWhere(
             (element) => element.warehouseName == value,
           );
           widget.controller.text = warehouseModel.warehouseName;

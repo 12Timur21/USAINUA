@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:usainua/models/payment_card_model.dart';
-import 'package:usainua/models/product_model.dart';
+import 'package:usainua/models/order_model.dart';
 import 'package:usainua/models/recipient_address_model.dart';
 import 'package:usainua/models/user_model.dart';
 import 'package:usainua/repositories/auth_repository.dart';
@@ -206,14 +206,13 @@ class FirestoreRepository {
 
   //? [End] Payment cards
 
-  //? [START] Product
-  Future<void> createProduct({
-    required List<ProductModel> productModelList,
+  //? [START] Orders
+  Future<void> createOrder({
+    required List<OrderModel> orderModels,
   }) async {
-    String? uid = AuthRepository.instance.uid;
-    for (ProductModel element in productModelList) {
-      _ordersCollection
-          .doc(uid)
+    for (OrderModel element in orderModels) {
+      await _ordersCollection
+          .doc(AuthRepository.instance.uid)
           .collection('allOrders')
           .doc(
             element.id,
@@ -223,6 +222,44 @@ class FirestoreRepository {
           );
     }
   }
-  //? [End] Product
+
+  Future<List<OrderModel>> getAllOrders() async {
+    List<OrderModel> orderModels = [];
+    QuerySnapshot querySnapshot = await _ordersCollection
+        .doc(
+          AuthRepository.instance.uid,
+        )
+        .collection('allOrders')
+        .get();
+
+    List<QueryDocumentSnapshot> listQuerySnapshots = querySnapshot.docs;
+
+    for (QueryDocumentSnapshot querySnapshot in listQuerySnapshots) {
+      final json = querySnapshot.data() as Map<String, dynamic>?;
+      if (json != null) {
+        orderModels.add(
+          OrderModel.fromJson(
+            json,
+          ),
+        );
+      }
+    }
+
+    return orderModels;
+  }
+
+  Future<void> deleteOrder({
+    required String orderID,
+  }) async {
+    await _ordersCollection
+        .doc(AuthRepository.instance.uid)
+        .collection('allOrders')
+        .doc(
+          orderID,
+        )
+        .delete();
+  }
+
+  //? [End] Orders
 
 }

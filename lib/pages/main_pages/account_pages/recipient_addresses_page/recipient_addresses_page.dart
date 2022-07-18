@@ -146,8 +146,6 @@ class _RecipientAdressList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RecipientAddressBloc, RecipientAddressState>(
       builder: (context, state) {
-        print('123');
-        print(state.selectedRecipentAddressID);
         List<RecipentAddressModel> recipientAddressModels =
             state.recipientAddressModels;
         return ListView.builder(

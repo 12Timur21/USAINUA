@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/models/delivery_status.dart';
-import 'package:usainua/models/product_model.dart';
+import 'package:usainua/models/order_model.dart';
 import 'package:usainua/pages/main_pages/my_order_pages/order_view_page/order_view_page.dart';
 import 'package:usainua/resources/app_colors.dart';
 import 'package:usainua/resources/app_fonts.dart';
@@ -99,7 +99,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
                           OrderViewPage.routeName,
                         );
                       },
-                      productModel: ProductModel(
+                      OrderModel: OrderModel(
                         id: '123213123',
                         deliveryDate: DateTime.now(),
                         deliveryMethod: DeliveryMethod.air,
@@ -107,6 +107,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
                         weight: 123.1,
                         deliveryStatus: DeliveryStatus.awaitingToSend,
                         link: '',
+                        dispatchType: DispatchType.deliveryOnly,
                       ),
                     ),
                   );
@@ -121,7 +122,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
 }
 
 Widget _orderedProductCard({
-  required ProductModel productModel,
+  required OrderModel OrderModel,
   required VoidCallback onTap,
 }) {
   return GestureDetector(
@@ -196,7 +197,7 @@ Widget _orderedProductCard({
                             ),
                           ),
                           TextSpan(
-                            text: productModel.id,
+                            text: OrderModel.id,
                             style: const TextStyle(
                               color: AppColors.lightGreen,
                             ),

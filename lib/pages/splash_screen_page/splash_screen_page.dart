@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:usainua/blocs/authorization_bloc/authorization_bloc.dart';
+import 'package:usainua/blocs/orders_bloc/orders_bloc.dart';
 import 'package:usainua/blocs/recipient_address_bloc/recipient_address_bloc.dart';
 import 'package:usainua/pages/auth_pages/introduction_pages/welcome_page/welcome_page.dart';
 import 'package:usainua/pages/auth_pages/sign_in_page/sign_in_page.dart';
@@ -28,6 +29,10 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   void initState() {
     context.read<RecipientAddressBloc>().add(
           const SyncRecipientAddressWithFirebaseEvent(),
+        );
+
+    context.read<OrdersBloc>().add(
+          const SyncOrdersWithFirebaseEvent(),
         );
     // Timer(splashScreenDuration, () {
     context.read<AuthorizationBloc>().add(

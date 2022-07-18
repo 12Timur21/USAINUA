@@ -1,5 +1,5 @@
-class WarehouseModel {
-  const WarehouseModel({
+class NewPostWarehouseModel {
+  const NewPostWarehouseModel({
     required this.warehouseName,
     required this.warehousesRef,
   });
@@ -13,8 +13,8 @@ class WarehouseModel {
     };
   }
 
-  factory WarehouseModel.fromJson(Map<String, dynamic> json) {
-    return WarehouseModel(
+  factory NewPostWarehouseModel.fromJson(Map<String, dynamic> json) {
+    return NewPostWarehouseModel(
       warehouseName: json['warehouseName'],
       warehousesRef: json['warehousesRef'],
     );
